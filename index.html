@@ -21,7 +21,7 @@
     <link href="./css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="preload">
     <!-- Header Navigation -->
     <header class="header" id="home">
         <nav class="navbar">
@@ -29,7 +29,11 @@
                 <div class="navbar-content">
                     <div class="logo">
                         <a href="#home">
-                            <img src="./img/logo-head-desktop-x1.png" alt="Stas Ganiev Logo" class="logo-img">
+                            <picture>
+                                <source media="(max-width: 480px)" srcset="./img/logo-head-mobile-x1.png">
+                                <source media="(max-width: 1024px)" srcset="./img/logo-head-tablet-x1.png">
+                                <img src="./img/logo-head-desktop-x1.png" alt="Stas Ganiev Logo" class="logo-img">
+                            </picture>
                         </a>
                     </div>
                     
@@ -97,12 +101,18 @@
                     </p>
                     <div class="hero-buttons fade-in-delay-2">
                         <a href="#projects" class="btn btn-primary">View Projects</a>
-                        <a href="#contact" class="btn btn-secondary">Contact Me</a>
+                        <button class="btn btn-secondary contact-trigger">Contact Me</button>
                     </div>
                 </div>
                 <div class="hero-image">
                     <div class="hero-img-wrapper fade-in-delay">
-                        <div class="hero-img" style="background-image: url('./img/cover.jpg')"></div>
+                        <picture>
+                            <source type="image/webp" data-srcset="./img/temp.webp">
+                            <img data-src="./img/temp.jpg" 
+                                 src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect fill='%233b82f6' width='800' height='600'/%3E%3C/svg%3E"
+                                 alt="Stas Ganiev - Frontend Developer" 
+                                 class="hero-img">
+                        </picture>
                         <div class="hero-shape"></div>
                     </div>
                 </div>
@@ -130,6 +140,18 @@
             </div>
             
             <div class="about-content">
+                <div class="about-image">
+                    <div class="about-img-wrapper">
+                        <picture>
+                            <source type="image/webp" data-srcset="./img/temp.webp">
+                            <img data-src="./img/temp.jpg" 
+                                 src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%2360a5fa' width='400' height='400'/%3E%3C/svg%3E"
+                                 alt="Stas Ganiev" 
+                                 class="about-img">
+                        </picture>
+                    </div>
+                </div>
+                
                 <div class="about-text">
                     <div class="about-story">
                         <h3>My Journey</h3>
@@ -318,7 +340,13 @@
                 <!-- Project 1: Calculator -->
                 <article class="project-card">
                     <div class="project-image">
-                        <img src="./img/project-calculator.jpg" alt="Calculator with Liquid Glass UI">
+                        <picture>
+                            <source type="image/webp" data-srcset="./img/temp.webp">
+                            <img data-src="./img/temp.jpg" 
+                                 src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%238b5cf6' width='400' height='300'/%3E%3C/svg%3E"
+                                 alt="Calculator with Liquid Glass UI"
+                                 class="project-img">
+                        </picture>
                         <div class="project-overlay">
                             <div class="project-links">
                                 <a href="https://stasganiev.github.io/calculator/" target="_blank" class="project-link" aria-label="Live Demo">
@@ -356,7 +384,13 @@
                 <!-- Project 2: Authorization Form -->
                 <article class="project-card">
                     <div class="project-image">
-                        <img src="./img/project-form.jpg" alt="Responsive Registration Form">
+                        <picture>
+                            <source type="image/webp" data-srcset="./img/temp.webp">
+                            <img data-src="./img/temp.jpg" 
+                                 src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%2310b981' width='400' height='300'/%3E%3C/svg%3E"
+                                 alt="Responsive Registration Form"
+                                 class="project-img">
+                        </picture>
                         <div class="project-overlay">
                             <div class="project-links">
                                 <a href="https://stasganiev.github.io/authorization-form/" target="_blank" class="project-link" aria-label="Live Demo">
@@ -394,7 +428,13 @@
                 <!-- Project 3: Personal Website -->
                 <article class="project-card">
                     <div class="project-image">
-                        <img src="./img/project-website.jpg" alt="Personal Website">
+                        <picture>
+                            <source type="image/webp" data-srcset="./img/temp.webp">
+                            <img data-src="./img/temp.jpg" 
+                                 src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23f59e0b' width='400' height='300'/%3E%3C/svg%3E"
+                                 alt="Personal Website"
+                                 class="project-img">
+                        </picture>
                         <div class="project-overlay">
                             <div class="project-links">
                                 <a href="https://stasganiev.github.io/benonypro/" target="_blank" class="project-link" aria-label="Live Demo">
@@ -572,7 +612,132 @@
         </svg>
     </button>
 
+    <!-- Contact Modal -->
+    <div class="modal-overlay" id="contactModal">
+        <div class="modal-container">
+            <button class="modal-close" id="closeModal" aria-label="Close modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Get In Touch</h2>
+                    <p class="modal-subtitle">Let's discuss your project or opportunity</p>
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name" class="form-label">
+                                Name <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                class="form-input" 
+                                placeholder="John Doe"
+                                required
+                            >
+                            <span class="form-error"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                Email <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                class="form-input" 
+                                placeholder="john@example.com"
+                                required
+                            >
+                            <span class="form-error"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="company" class="form-label">
+                                Company <span class="optional">(optional)</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="company" 
+                                name="company" 
+                                class="form-input" 
+                                placeholder="Your Company"
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">
+                                Subject <span class="required">*</span>
+                            </label>
+                            <select id="subject" name="subject" class="form-select" required>
+                                <option value="">Select a topic...</option>
+                                <option value="collaboration">Collaboration</option>
+                                <option value="job-offer">Job Offer</option>
+                                <option value="question">Question</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <span class="form-error"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">
+                            Message <span class="required">*</span>
+                        </label>
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            class="form-textarea" 
+                            rows="6"
+                            placeholder="Tell me about your project or opportunity..."
+                            required
+                        ></textarea>
+                        <span class="form-error"></span>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-loader"></span>
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Success State -->
+                <div class="success-message" id="successMessage">
+                    <div class="success-icon">
+                        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                            <circle cx="40" cy="40" r="36" stroke="currentColor" stroke-width="4"/>
+                            <path d="M25 40L35 50L55 30" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="success-title">Message Sent Successfully!</h3>
+                    <p class="success-text">Thank you for reaching out. I'll get back to you as soon as possible.</p>
+                    <button class="btn btn-secondary" id="closeSuccess">Close</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Confetti Canvas -->
+        <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+    </div>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <!-- JavaScript -->
-    <script src="./js/script.js"></script>
+    <script src="./js/contact.js"></script>
+    <script src="./js/confetti.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>

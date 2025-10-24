@@ -1,29 +1,32 @@
 // ==========================================================================
+// Remove Preload Class to Enable Animations
+// ==========================================================================
+
+window.addEventListener('load', () => {
+  document.body.classList.remove('preload');
+});
+
+// ==========================================================================
 // Theme Switcher
 // ==========================================================================
 
-const themeToggle = document.getElementById('theme-toggle');
+const themeToggle = document.getElementById('themeToggle');
 const htmlElement = document.documentElement;
 
 // Check for saved theme preference or default to 'light'
 const currentTheme = localStorage.getItem('theme') || 'light';
 htmlElement.setAttribute('data-theme', currentTheme);
 
-// Update checkbox state
-if (currentTheme === 'dark') {
-  themeToggle.checked = true;
-}
-
 // Theme toggle function
-themeToggle.addEventListener('change', function() {
-  if (this.checked) {
-    htmlElement.setAttribute('data-theme', 'dark');
-    localStorage.setItem('theme', 'dark');
-  } else {
-    htmlElement.setAttribute('data-theme', 'light');
-    localStorage.setItem('theme', 'light');
-  }
-});
+if (themeToggle) {
+  themeToggle.addEventListener('click', function() {
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    htmlElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
+}
 
 // ==========================================================================
 // Mobile Menu Toggle
@@ -32,27 +35,29 @@ themeToggle.addEventListener('change', function() {
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const navMenu = document.querySelector('.nav-menu');
 
-mobileMenuToggle.addEventListener('click', () => {
-  navMenu.classList.toggle('active');
-  
-  // Toggle icon
-  const icon = mobileMenuToggle.querySelector('span');
-  if (navMenu.classList.contains('active')) {
-    icon.textContent = '✕';
-  } else {
-    icon.textContent = '☰';
-  }
-});
-
-// Close mobile menu when clicking on a link
-const navLinks = document.querySelectorAll('.nav-link');
-navLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    navMenu.classList.remove('active');
-    const icon = mobileMenuToggle.querySelector('span');
-    icon.textContent = '☰';
+if (mobileMenuToggle && navMenu) {
+  mobileMenuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    mobileMenuToggle.classList.toggle('active');
   });
-});
+
+  // Close mobile menu when clicking on a link
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('active');
+      mobileMenuToggle.classList.remove('active');
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+      navMenu.classList.remove('active');
+      mobileMenuToggle.classList.remove('active');
+    }
+  });
+}
 
 // ==========================================================================
 // Smooth Scroll
@@ -156,4 +161,187 @@ window.addEventListener('load', () => {
     const text = heroSubtitle.textContent;
     typeWriter(heroSubtitle, text, 80);
   }
+});
+
+// ==========================================================================
+// Skill Progress Bars Animation
+// ==========================================================================
+
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const skillCard = entry.target;
+      const progressBar = skillCard.querySelector('.skill-progress');
+      
+      if (progressBar) {
+        const progress = progressBar.getAttribute('data-progress');
+        // Small delay for smoother effect
+        setTimeout(() => {
+          progressBar.style.width = progress + '%';
+        }, 100);
+      }
+      
+      skillObserver.unobserve(skillCard);
+    }
+  });
+}, {
+  threshold: 0.3
+});
+
+// Observe all skill cards
+const skillCards = document.querySelectorAll('.skill-card');
+skillCards.forEach(card => {
+  skillObserver.observe(card);
+});
+
+// ==========================================================================
+// Back to Top Button
+// ==========================================================================
+
+const backToTopButton = document.getElementById('backToTop');
+
+if (backToTopButton) {
+  // Show/hide button based on scroll position
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 400) {
+      backToTopButton.classList.add('visible');
+    } else {
+      backToTopButton.classList.remove('visible');
+    }
+  });
+
+  // Scroll to top on click
+  backToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+
+// ==========================================================================
+// Lazy Loading Images
+// ==========================================================================
+
+// Function to load image with WebP support
+function loadImage(img) {
+  const picture = img.parentElement;
+  
+  // Check if parent is a picture element with sources
+  if (picture && picture.tagName === 'PICTURE') {
+    const sources = picture.querySelectorAll('source[data-srcset]');
+    
+    // Load all source srcsets
+    sources.forEach(source => {
+      const srcset = source.getAttribute('data-srcset');
+      if (srcset) {
+        source.setAttribute('srcset', srcset);
+        source.removeAttribute('data-srcset');
+      }
+    });
+  }
+  
+  // Load the main image
+  const src = img.getAttribute('data-src');
+  if (src) {
+    // Create a temporary image to preload
+    const tempImg = new Image();
+    tempImg.src = src;
+    
+    tempImg.onload = () => {
+      img.src = src;
+      img.classList.add('loaded');
+      img.removeAttribute('data-src');
+    };
+    
+    tempImg.onerror = () => {
+      // Fallback: still load the image even if preload fails
+      img.src = src;
+      img.classList.add('loaded');
+      img.removeAttribute('data-src');
+    };
+  }
+}
+
+const lazyImages = document.querySelectorAll('img[data-src]');
+
+const imageObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      loadImage(img);
+      imageObserver.unobserve(img);
+    }
+  });
+}, {
+  rootMargin: '50px'
+});
+
+lazyImages.forEach(img => {
+  imageObserver.observe(img);
+});
+
+// ==========================================================================
+// Enhanced Scroll Animations
+// ==========================================================================
+
+// Add fade-in-up animation to elements as they appear
+const fadeElements = document.querySelectorAll('.fade-in, .fade-in-delay, .fade-in-delay-2, .slide-up');
+
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+      fadeObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+});
+
+fadeElements.forEach(element => {
+  // Set initial state
+  element.style.opacity = '0';
+  element.style.transform = 'translateY(30px)';
+  element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+  
+  fadeObserver.observe(element);
+});
+
+// ==========================================================================
+// Active Navigation Link on Scroll
+// ==========================================================================
+
+const sections = document.querySelectorAll('section[id]');
+const navLinksAll = document.querySelectorAll('.nav-link');
+
+function updateActiveNav() {
+  const scrollPosition = window.pageYOffset + 100;
+  
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+    const sectionId = section.getAttribute('id');
+    
+    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+      navLinksAll.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${sectionId}`) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav);
+
+// ==========================================================================
+// Prevent Scroll Animations from Running on Page Load
+// ==========================================================================
+
+window.addEventListener('load', () => {
+  document.body.classList.add('loaded');
 });
