@@ -7,9 +7,9 @@
 
   // Initialize EmailJS
   // IMPORTANT: Replace with your actual EmailJS credentials
-  const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY'; // Get from https://dashboard.emailjs.com/admin/account
-  const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID'; // Get from https://dashboard.emailjs.com/admin
-  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // Get from https://dashboard.emailjs.com/admin/templates
+  const EMAILJS_PUBLIC_KEY = '4Hbv9ioIUHnaYyAyr'; // Get from https://dashboard.emailjs.com/admin/account
+  const EMAILJS_SERVICE_ID = 'service_riekj1p'; // Get from https://dashboard.emailjs.com/admin
+  const EMAILJS_TEMPLATE_ID = 'template_h9wbzar'; // Get from https://dashboard.emailjs.com/admin/templates
 
   // Initialize EmailJS when script loads
   emailjs.init(EMAILJS_PUBLIC_KEY);
@@ -160,8 +160,7 @@
       from_email: formData.get('email'),
       company: formData.get('company') || 'Not specified',
       subject: formData.get('subject'),
-      message: formData.get('message'),
-      to_email: 'stas@ganiev.pro'
+      message: formData.get('message')
     };
     
     try {
