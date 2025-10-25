@@ -1,18 +1,21 @@
 # 🚀 Portfolio Website - Stas Ganiev
 
-Modern, responsive portfolio website showcasing frontend development skills with dark/light theme support, smooth animations, and working contact form.
+Modern, responsive portfolio website showcasing frontend development skills with advanced animations, dark/light theme support, and working contact form.
 
 ## ✨ Features
 
 - 🌓 **Dark/Light Theme** - Toggle between themes with smooth transitions
 - 📱 **Fully Responsive** - Works seamlessly on all devices
-- ✨ **Smooth Animations** - Scroll-triggered animations and hover effects
+- ✨ **Advanced Animations** - Parallax, particles, hover effects, and scroll animations
 - 📧 **Working Contact Form** - EmailJS integration with validation and success animations
 - 🎊 **Confetti Animation** - Celebratory animation on successful form submission
 - 🎨 **Modern Design** - Clean, professional UI with gradient accents
-- ⚡ **Fast Performance** - Vanilla JavaScript, no frameworks needed
+- ⚡ **Fast Performance** - Optimized animations with 60 FPS
 - 🎯 **SEO Optimized** - Semantic HTML and meta tags
 - ♿ **Accessible** - ARIA labels and keyboard navigation support
+- 📊 **Scroll Progress** - Visual indicator of reading progress
+- ✨ **Interactive Particles** - Mouse-reactive background particles
+- 💫 **Ripple Effects** - Material Design-style button interactions
 
 ## 📂 Project Structure
 
@@ -20,17 +23,18 @@ Modern, responsive portfolio website showcasing frontend development skills with
 ailanding/
 ├── css/
 │   ├── normalize.css    # CSS reset for browser consistency
-│   └── style.css        # Main styles with theme support + modal styles
+│   └── style.css        # Main styles with theme support + animations
 ├── js/
 │   ├── main.js          # Core interactive features
+│   ├── animations.js    # Advanced animations (parallax, particles, ripple)
 │   ├── contact.js       # Contact form handler with EmailJS
 │   └── confetti.js      # Confetti animation
 ├── img/                 # Images directory
 ├── index.html          # Main HTML file
 ├── BLOCK_3_CHANGES.md  # Changelog for contact form
+├── BLOCK_4_CHANGES.md  # Changelog for animations
 ├── EMAILJS_SETUP_GUIDE.md  # Detailed EmailJS setup instructions
-├── QUICK_START_BLOCK_3.md  # Quick start guide
-└── TESTING_BLOCK_3.md  # Testing checklist
+└── TESTING_BLOCK_*.md  # Testing checklists
 ```
 
 ## 🛠️ Technologies Used
@@ -39,9 +43,12 @@ ailanding/
 - **CSS3** - Modern styling with CSS Variables
 - **JavaScript ES6+** - Interactive features
 - **EmailJS** - Email delivery service for contact form
+- **Particles.js** - Interactive particle background
 - **CSS Grid & Flexbox** - Responsive layouts
-- **CSS Animations** - Smooth transitions
+- **CSS Animations** - Smooth transitions and effects
 - **Canvas API** - Confetti animation
+- **Intersection Observer** - Scroll-triggered animations
+- **RequestAnimationFrame** - Performance-optimized animations
 
 ## 🎨 Sections
 

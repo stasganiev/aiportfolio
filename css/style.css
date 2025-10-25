@@ -811,14 +811,17 @@ section {
 }
 
 .project-card {
+  position: relative;
   background-color: var(--bg-primary);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  transition: all var(--transition-speed);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-radius 0.4s ease;
 }
 
 .project-card:hover {
+  border-radius: 24px;
   transform: translateY(-10px);
   box-shadow: var(--shadow-xl);
 }
@@ -1576,5 +1579,247 @@ picture img {
   
   .modal-subtitle {
     font-size: 0.875rem;
+  }
+}
+
+/* ==========================================
+   FADE IN ANIMATIONS
+   ========================================== */
+
+.fade-in-up {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Animation for elements that should fade in */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* ==========================================
+   PARALLAX EFFECT - Hero Section
+   ========================================== */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-text {
+  transition: transform 0.5s ease-out;
+  will-change: transform;
+}
+
+.hero-image {
+  transition: transform 0.5s ease-out;
+  will-change: transform;
+}
+
+/* Smooth parallax movement */
+@media (min-width: 768px) {
+  .hero[data-parallax="true"] .hero-text {
+    transform: translateY(var(--parallax-text, 0));
+  }
+  
+  .hero[data-parallax="true"] .hero-image {
+    transform: translateY(var(--parallax-image, 0));
+  }
+}
+
+/* Disable parallax on mobile for performance */
+@media (max-width: 767px) {
+  .hero[data-parallax="true"] .hero-text,
+  .hero[data-parallax="true"] .hero-image {
+    transform: none !important;
+  }
+}
+
+/* ==========================================
+   ENHANCED HOVER EFFECTS - Project Cards
+   ========================================== */
+
+/* Shine effect */
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.6s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.project-card:hover::before {
+  left: 100%;
+}
+
+/* Gradient border glow on hover */
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary),
+    var(--accent-secondary),
+    var(--accent-primary)
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.project-card:hover::after {
+  opacity: 0.3;
+  animation: borderGlow 2s linear infinite;
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Ensure content stays above effects */
+.project-content,
+.project-image {
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================
+   SCROLL PROGRESS BAR
+   ========================================== */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  z-index: 9998;
+  transition: width 0.1s ease-out;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* Pulse animation */
+@keyframes progressPulse {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 2px 12px rgba(59, 130, 246, 0.5);
+  }
+}
+
+.scroll-progress {
+  animation: progressPulse 2s ease-in-out infinite;
+}
+
+/* ==========================================
+   RIPPLE EFFECT - Buttons
+   ========================================== */
+
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(0);
+  animation: rippleEffect 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes rippleEffect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Ensure ripple works in dark theme */
+[data-theme="dark"] .btn .ripple {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Special ripple for secondary buttons */
+.btn-secondary .ripple {
+  background: rgba(59, 130, 246, 0.4);
+}
+
+/* ==========================================
+   PARTICLES BACKGROUND - Hero Section
+   ========================================== */
+
+#particles-js {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: auto !important; /* Enable mouse interaction */
+}
+
+#particles-js canvas {
+  pointer-events: auto !important; /* Enable mouse interaction on canvas */
+}
+
+/* Ensure hero content is above particles */
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Disable particles on mobile for performance */
+@media (max-width: 767px) {
+  #particles-js {
+    display: none;
+  }
+}
+
+/* Fade in particles */
+#particles-js {
+  opacity: 0;
+  animation: fadeInParticles 1s ease-in forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInParticles {
+  to {
+    opacity: 1;
   }
 }
