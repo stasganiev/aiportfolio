@@ -1,0 +1,246 @@
+/* ==========================================
+   ARTICLES SECTION - Latest Articles/Blog
+   ========================================== */
+
+.articles-section {
+  padding: 100px 0;
+  background: var(--bg-primary);
+}
+
+.articles-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.articles-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #6366f1, var(--accent-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.articles-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Articles grid */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* Article card */
+.article-card {
+  background: var(--bg-primary);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(30px);
+  position: relative;
+}
+
+.article-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.article-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Article image */
+.article-image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #6366f1, var(--accent-primary));
+  overflow: hidden;
+}
+
+.article-card:nth-child(2) .article-image {
+  background: linear-gradient(135deg, #e94d1f, #ff6b3d);
+}
+
+.article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.article-card:hover .article-image img {
+  transform: scale(1.1);
+}
+
+/* Placeholder icon if no image */
+.article-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 4rem;
+  color: white;
+  opacity: 0.8;
+}
+
+/* Article date badge */
+.article-date {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+/* Article content */
+.article-content {
+  padding: 2rem;
+}
+
+.article-title-link {
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+.article-title-link:hover {
+  color: var(--accent-primary);
+}
+
+.article-card:nth-child(2) .article-title-link:hover {
+  color: #e94d1f;
+}
+
+.article-title-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.article-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Article meta */
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.article-badge {
+  padding: 0.25rem 0.75rem;
+  background: var(--bg-secondary);
+  color: var(--accent-primary);
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.article-card:nth-child(2) .article-badge {
+  color: #e94d1f;
+}
+
+/* View all articles link */
+.articles-cta {
+  text-align: center;
+}
+
+.articles-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #6366f1, var(--accent-primary));
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.articles-link:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-xl);
+}
+
+.articles-link::after {
+  content: '→';
+  font-size: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.articles-link:hover::after {
+  transform: translateX(5px);
+}
+
+/* Award badge */
+.article-award {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.article-award::before {
+  content: '🏆';
+  font-size: 1.25rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .articles-section {
+    padding: 60px 0;
+  }
+
+  .articles-header {
+    margin-bottom: 40px;
+  }
+
+  .articles-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .article-image {
+    height: 180px;
+  }
+
+  .article-content {
+    padding: 1.5rem;
+  }
+
+  .article-title-text {
+    font-size: 1.25rem;
+  }
+}

@@ -1,6 +1,6 @@
 # 🚀 Portfolio Website - Stas Ganiev
 
-Modern, responsive portfolio website showcasing frontend development skills with advanced animations, dark/light theme support, and working contact form.
+Modern, responsive portfolio website showcasing frontend development skills with advanced animations, dark/light theme support, working contact form, and comprehensive career information.
 
 ## ✨ Features
 
@@ -16,25 +16,38 @@ Modern, responsive portfolio website showcasing frontend development skills with
 - 📊 **Scroll Progress** - Visual indicator of reading progress
 - ✨ **Interactive Particles** - Mouse-reactive background particles
 - 💫 **Ripple Effects** - Material Design-style button interactions
+- 📜 **Career Timeline** - Visual representation of professional journey
+- 📝 **Articles Showcase** - Latest published articles and talks
+- 🏆 **Achievements** - Professional recognition and contributions
+- 🎯 **Fun Facts** - Interactive flip cards with personal interests
 
 ## 📂 Project Structure
 
 ```
 ailanding/
 ├── css/
-│   ├── normalize.css    # CSS reset for browser consistency
-│   └── style.css        # Main styles with theme support + animations
+│   ├── normalize.css       # CSS reset for browser consistency
+│   ├── style.css           # Main styles with theme support + animations
+│   ├── timeline.css        # Career timeline styles
+│   ├── articles.css        # Articles section styles
+│   ├── achievements.css    # Achievements section styles
+│   └── funfacts.css        # Fun facts flip cards styles
 ├── js/
-│   ├── main.js          # Core interactive features
-│   ├── animations.js    # Advanced animations (parallax, particles, ripple)
-│   ├── contact.js       # Contact form handler with EmailJS
-│   └── confetti.js      # Confetti animation
-├── img/                 # Images directory
-├── index.html          # Main HTML file
-├── BLOCK_3_CHANGES.md  # Changelog for contact form
-├── BLOCK_4_CHANGES.md  # Changelog for animations
+│   ├── main.js             # Core interactive features
+│   ├── animations.js       # Advanced animations (particles, ripple, scroll progress)
+│   ├── timeline.js         # Timeline section animations
+│   ├── articles.js         # Articles section animations
+│   ├── achievements.js     # Achievements section animations
+│   ├── funfacts.js         # Fun facts flip interactions
+│   ├── contact.js          # Contact form handler with EmailJS
+│   └── confetti.js         # Confetti animation
+├── img/                    # Images directory
+├── index.html              # Main HTML file
+├── BLOCK_3_CHANGES.md      # Changelog for contact form
+├── BLOCK_4_CHANGES.md      # Changelog for animations
+├── BLOCK_5_COMPLETE.md     # Changelog for new sections
 ├── EMAILJS_SETUP_GUIDE.md  # Detailed EmailJS setup instructions
-└── TESTING_BLOCK_*.md  # Testing checklists
+└── TESTING_BLOCK_*.md      # Testing checklists
 ```
 
 ## 🛠️ Technologies Used
