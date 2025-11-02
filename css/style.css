@@ -230,19 +230,33 @@ ul {
   align-items: center;
   width: 30px;
   height: 24px;
-  padding: 0;
-  margin: 0;
-  background: transparent !important;
-  border: none;
-  outline: none;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   cursor: pointer;
   position: relative;
   z-index: 1002;
   overflow: visible;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-menu-toggle:hover,
+.mobile-menu-toggle:focus,
+.mobile-menu-toggle:active {
+  background: none !important;
+  background-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 .mobile-menu-toggle::before,
 .mobile-menu-toggle::after {
+  content: none !important;
   display: none !important;
 }
 
@@ -717,9 +731,14 @@ section {
   }
   
   .about-img-wrapper {
-    max-width: 400px;
+    max-width: 350px;
     margin: 0 auto;
     padding-bottom: 100%; /* Square aspect ratio for tablet */
+  }
+  
+  .about-img {
+    object-fit: contain; /* Show full image without cropping */
+    background-color: var(--bg-primary); /* Background for empty space */
   }
   
   .about-highlights {
@@ -729,8 +748,12 @@ section {
 
 @media (max-width: 640px) {
   .about-img-wrapper {
-    max-width: 300px;
+    max-width: 280px;
     padding-bottom: 100%; /* Square aspect ratio for mobile */
+  }
+  
+  .about-img {
+    object-fit: contain; /* Show full image without cropping */
   }
   
   .about-highlights {
