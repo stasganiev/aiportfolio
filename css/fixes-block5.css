@@ -16,7 +16,7 @@
 
 /* Fix 2: About image - square format on non-desktop */
 @media (max-width: 1023px) {
-  .about-image-wrapper {
+  .about-img-wrapper {
     width: 300px !important;
     height: 300px !important; /* Квадратный формат */
     margin: 0 auto 2rem;
