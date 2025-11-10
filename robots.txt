@@ -1,0 +1,28 @@
+# robots.txt for ganiev.pro
+# Allow all crawlers
+
+User-agent: *
+Allow: /
+
+# Disallow private directories (if any)
+# Disallow: /private/
+
+# Sitemap location
+Sitemap: https://ganiev.pro/sitemap.xml
+
+# Crawl-delay (optional, uncomment if needed)
+# Crawl-delay: 1
+
+# Specific bot rules
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /img/
+
+User-agent: Bingbot
+Allow: /
+
+# Block bad bots (optional)
+# User-agent: BadBot
+# Disallow: /
