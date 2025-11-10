@@ -9,7 +9,11 @@ window.addEventListener('load', () => {
 // ==========================================================================
 // Theme Switcher
 // ==========================================================================
+// NOTE: Theme switching is now handled by block8-advanced.js
+// which includes auto-detection of system theme preference
+// This code is kept commented for reference
 
+/*
 const themeToggle = document.getElementById('themeToggle');
 const htmlElement = document.documentElement;
 
@@ -27,6 +31,7 @@ if (themeToggle) {
     localStorage.setItem('theme', newTheme);
   });
 }
+*/
 
 // ==========================================================================
 // Mobile Menu Toggle
