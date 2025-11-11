@@ -73,6 +73,7 @@
     <link href="./css/fixes-block5.css" rel="stylesheet">
     <link href="./css/block7-ux.css" rel="stylesheet">
     <link href="./css/block8-advanced.css" rel="stylesheet">
+    <link href="./css/block9-accessibility.css" rel="stylesheet">
     
     <!-- Structured Data (Schema.org) -->
     <script type="application/ld+json">
@@ -116,12 +117,15 @@
 </head>
 
 <body class="preload">
+    <!-- Skip to Content Link (A11y) -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    
     <!-- Scroll Progress Bar -->
-    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="scroll-progress" id="scrollProgress" role="progressbar" aria-label="Page scroll progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
     
     <!-- Header Navigation -->
-    <header class="header" id="home">
-        <nav class="navbar">
+    <header class="header" id="home" role="banner">
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
             <div class="container">
                 <div class="navbar-content">
                     <div class="logo">
@@ -225,9 +229,9 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="hero">
+    <section class="hero" id="main-content" role="main" aria-label="Introduction">
         <!-- Particles Background -->
-        <div id="particles-js"></div>
+        <div id="particles-js" aria-hidden="true"></div>
         
         <div class="container">
             <div class="hero-content">
@@ -1409,6 +1413,7 @@
     
     <!-- JavaScript -->
     <script src="./js/block8-advanced.js"></script>
+    <script src="./js/block9-accessibility.js"></script>
     <script src="./js/animations.js"></script>
     <script src="./js/timeline.js"></script>
     <script src="./js/articles.js"></script>
