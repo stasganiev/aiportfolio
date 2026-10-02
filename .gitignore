@@ -1,2 +1,16 @@
 # Working notes and audits: private, never publish
 work/
+
+# Dependencies and build output
+node_modules/
+dist/
+.astro/
+
+# Local environment and editor files
+.env
+.env.*
+.DS_Store
+Thumbs.db
+
+# Claude Code local settings
+.claude/settings.local.json

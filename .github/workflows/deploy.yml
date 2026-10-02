@@ -1,9 +1,8 @@
 name: Deploy to GitHub Pages
 
+# Manual start only: the rebuild goes on in main, and a push must not
+# publish a half-built site. Automatic deploy returns at release.
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
