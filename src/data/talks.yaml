@@ -1,0 +1,163 @@
+# Доклады в хронологическом порядке. Источник: work/speakers_list.md (Стас, 03.10.2026).
+# featured: показывается в избранном на главной.
+# Названия даны на языке доклада. Перевод названий добавляется на этапе 7.
+
+- id: group-dev-nevada
+  date: 2015-11
+  title: "Организация групповой разработки в компании «Невада»"
+  venue: DevDV
+  place: Хабаровск
+  format: offline
+
+- id: extensions-1c
+  date: 2016-04
+  title: "Механизм расширений 1С"
+  venue: TeamIT
+  place: Хабаровск
+  format: offline
+  slides: https://docs.google.com/presentation/d/1ErYhYvg6mRtPDQI3CAtsWhLOCFIc5OXx/
+
+- id: xunitfor1c-inside
+  date: 2016-06
+  title: "xUnitFor1C изнутри"
+  venue: QA-конфа
+  place: Хабаровск
+  format: offline
+  slides: https://docs.google.com/presentation/d/123IEN2X8U3PBCJ0ddjt3EXMcxF7o3Bxn/
+
+- id: infostart-2016-group-dev
+  date: 2016-10
+  title: "Групповая разработка конфигураций 1С в крупном холдинге"
+  venue: Infostart Event
+  place: Санкт-Петербург
+  format: offline
+  featured: true
+  video: https://youtu.be/AUYPhLoNG4w
+  slides: https://docs.google.com/presentation/d/1n0KyWiApwdwIzCqb-qh5sEfb8kMYUHWS/
+  article: https://infostart.ru/1c/articles/646867/
+
+- id: ie-2016-results
+  date: 2016-11
+  title: "Итоги IE 2016 dev"
+  venue: Невада
+  place: Хабаровск
+  format: offline
+  slides: https://docs.google.com/presentation/d/1EDxaeicvFY8GfAL81fKAdyVMeYzQut0l/
+
+- id: git-flow-ha1s
+  date: 2017-05
+  title: "Git-flow в 1С"
+  venue: ha1s
+  place: Хабаровск
+  format: offline
+  video: https://youtu.be/KQzzbFKQWZ0
+  slides: https://docs.google.com/presentation/d/19c7RqLMgqSU4NOZ9fL7kctidweRBZDDW/
+
+- id: git-flow-teamit
+  date: 2017-07
+  title: "Git-flow в 1С"
+  venue: TeamIT
+  place: Хабаровск
+  format: offline
+  slides: https://docs.google.com/presentation/d/1s_04aQo4OEIGYuhok8RWg-eGoNWVDYn1/
+
+- id: edt-overview
+  date: 2017-11
+  title: "1С:EDT. Обзор инструментария"
+  venue: ha1s
+  place: Хабаровск
+  format: offline
+  video: https://youtu.be/3TZ8Wo4Vmos
+  slides: https://docs.google.com/presentation/d/1_BzqVBvXH1UzfgqXIf8RUD_XwSULcJ8a/
+
+- id: bdd-vanessa
+  date: 2018-05
+  title: "BDD в 1С. Обзор возможностей Vanessa Behavior"
+  venue: ha1s
+  place: Хабаровск
+  format: offline
+  slides: https://docs.google.com/presentation/d/1OnFiIf_OrYPHbv2VycvpjWEBsMatjlm-/
+
+- id: infostart-2018-git
+  date: 2018-10
+  title: "Git для 1С-ника и другие технологии групповой разработки"
+  venue: Infostart Event
+  place: Санкт-Петербург
+  format: offline
+  featured: true
+  video: https://youtu.be/dWAQn4dy-8o
+  slides: https://docs.google.com/presentation/d/1uD7dMqhvzZP4mTdqObJm7qPswYq97qE_/
+  article: https://infostart.ru/1c/articles/1146242/
+
+- id: ux-cost
+  date: 2019-05
+  title: "UX/UI в 1С. Сколько стоит юзабилити-дизайн?"
+  venue: ha1s
+  place: Хабаровск
+  format: offline
+  video: https://youtu.be/KjUXcwBKk2M
+  slides: https://docs.google.com/presentation/d/1zh97RCLqfos6phvoX4-YRf9shJUG1cGW/
+
+- id: interaction-design
+  date: 2019-10
+  title: "Дизайн взаимодействия как часть процесса разработки"
+  venue: ha1s
+  place: Хабаровск
+  format: offline
+  video: https://youtu.be/0dZhrJENrN4
+  slides: https://docs.google.com/presentation/d/14Mi6ViKvVyMB_eXGGK-gpPCLdTALZJCI/
+
+- id: why-design-interfaces
+  date: 2020-07
+  title: "Зачем дизайнить интерфейсы в 1С?"
+  venue: Жёлтый клуб
+  place: онлайн
+  format: online
+  featured: true
+  video: https://youtu.be/UoQfiqoBdfE
+  slides: https://docs.google.com/presentation/d/1r8eCMRyypMFokEhwboNej3tDHAyeUEUh/
+
+- id: infostart-cicd
+  date: 2021-02
+  title: "ИТ-лаборатория Инфостарта изнутри. Как мы внедряем CI/CD"
+  venue: Infostart
+  place: онлайн
+  format: online
+  featured: true
+  video: https://youtu.be/lwHtGzwAvG0
+  slides: https://docs.google.com/presentation/d/1c9Mh3agDfqoxi-Y3mYi9luugVxsxjLoi/
+
+- id: ux-hacks
+  date: 2021-05
+  title: "UX-хаки, вернисаж"
+  venue: Infostart
+  place: Санкт-Петербург
+  format: offline
+  slides: https://drive.google.com/drive/folders/1-q_p9phHIGhA8dwtxSowrAz69ulF8z7e
+
+- id: goal-setting
+  date: 2022-03
+  title: "Мои 7 слагаемых успешного целеполагания"
+  venue: Автомакон
+  place: онлайн
+  format: online
+  video: https://youtu.be/N4KlBoJnXsY
+  slides: https://docs.google.com/presentation/d/1LVhJN5pVR9QPel7Bmkx6eppzkMcAwO7U/
+
+- id: ai-codegen-1c
+  date: 2025-10-18
+  title: "ИИ-инструменты в 1С. Кодогенерация 1С-кода с помощью ИИ"
+  venue: "ИИ-конференция Олега Филиппова"
+  place: онлайн
+  format: online
+  featured: true
+  slides: https://docs.google.com/presentation/d/1eWcD4sP1Y3QwDn0EEa5yYfpRrRy5yHhD/
+
+- id: kontur
+  date: 2026-09-19
+  title: "От кода до коммерческого предложения: как построить AI-конвейер для любого бизнес-процесса"
+  venue: "Европейский митап «Новые возможности AI и Open Source»"
+  place: Белград
+  format: offline
+  featured: true
+  slides: https://docs.google.com/presentation/d/1s9gRATgsEFiM3hnMjlpM1LIZ-19Zf2dQ/

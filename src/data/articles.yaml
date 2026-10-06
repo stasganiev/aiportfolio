@@ -1,0 +1,87 @@
+# Статьи в хронологическом порядке. Источник: work/speakers_list.md (Стас, 03.10.2026).
+# featured: показывается в избранном на главной.
+# Названия даны на языке статьи. Перевод названий добавляется на этапе 7.
+
+- id: devops-tale
+  date: 2018-06
+  title: "Сказ про то, как я DevOps-ом занимался"
+  publisher: Инфостарт
+  url: https://infostart.ru/1c/articles/795197/
+
+- id: git-1c-part-1
+  date: 2019-01
+  title: "Git + 1С. Часть 1. Как подключиться к команде разработки и начать использовать Git"
+  publisher: Инфостарт
+  url: https://infostart.ru/1c/articles/864097/
+  award: "Номинация «Статья года 2019»"
+  featured: true
+
+- id: git-1c-part-2
+  date: 2019-01
+  title: "Git + 1С. Часть 2. Реализация Git workflow в 1С-разработке по шагам"
+  publisher: Инфостарт
+  url: https://infostart.ru/1c/articles/901547/
+
+- id: dev-wants-from-spec
+  date: 2020-10
+  title: "Чего хочет разработчик от ТЗ? Примеры из практики"
+  publisher: Инфостарт
+  url: https://infostart.ru/pm/1311065/
+
+- id: configurator-to-edt
+  date: 2021-09
+  title: "С конфигуратора на EDT. Привычки, которые придётся поменять"
+  publisher: Инфостарт
+  url: https://infostart.ru/1c/articles/1516894/
+
+- id: 1c-in-60-minutes
+  date: 2021-10
+  title: "Освойте программирование в 1С за 60 минут: самоучитель для начинающих"
+  publisher: Proglib
+  url: https://proglib.io/p/osvoyte-programmirovanie-v-1s-za-60-minut-samouchitel-dlya-nachinayushchih-2021-10-11
+
+- id: data-conversion-basics
+  date: 2023-10
+  title: "Конвертация на пальцах"
+  publisher: Lad IT
+  url: https://lad-corp.ru/media/konvertaciya-na-palcah-chast-pervaya
+  url_part_2: https://lad-corp.ru/media/konvertaciya-na-palcah-chast-vtoraya
+
+- id: seven-rules-of-code
+  date: 2023-11
+  title: "7 правил написания кода, за который не будет стыдно"
+  publisher: Lad IT
+  url: https://lad-corp.ru/media/sem-pravil-napisaniya-koda-za-kotoryj-ne-budet-stydno
+  featured: true
+
+- id: html-field
+  date: 2023-12
+  title: "Возможности поля HTML-документа"
+  publisher: Lad IT
+  url: https://lad-corp.ru/media/vozmozhnosti-polya-html-dokumenta
+
+- id: group-dev-technologies
+  date: 2024-01
+  title: "Технологии групповой разработки в современной 1С-индустрии"
+  publisher: Lad IT
+  url: https://lad-corp.ru/media/tehnologii-gruppovoj-razrabotki-v-sovremennoj-1s-industrii
+
+- id: info-registers-dc31
+  date: 2024-08
+  title: "Работа с регистрами сведений в КД 3.1"
+  publisher: Хабр
+  url: https://habr.com/ru/companies/lad_/articles/839606/
+
+- id: html-field-part-2
+  date: 2024-11
+  title: "Возможности поля HTML-документа, часть 2. Внедряем CSS и JS"
+  publisher: Хабр
+  url: https://habr.com/ru/companies/lad_/articles/860106/
+  featured: true
+
+- id: refactor-legacy
+  date: 2025-06-25
+  title: "Переписывать нельзя рефакторить: перестань бояться легаси-кода в 1С"
+  publisher: Lad IT
+  url: https://lad-corp.ru/media/perepisyvat-nelzya-refaktorit-perestan-boyatsya-legasi-koda-v-1s
+  featured: true

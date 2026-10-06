@@ -1,0 +1,82 @@
+# Единый источник цифр и дат сайта.
+# Тексты секций берут значения отсюда, руками в тексты цифры не пишутся.
+# source: откуда взято значение. checked: когда сверено.
+
+career:
+  since_year:
+    value: 2001
+    source: about_me/career.md
+    checked: 2026-10-03
+  first_report_date:
+    value: 2001-12-21
+    note: первый отчёт в 1С, реестр счетов-фактур для 1С:Бухгалтерии 7.7
+    source: about_me/stories.md
+    checked: 2026-10-03
+  moved_to_serbia_year:
+    value: 2022
+    source: about_me/biography.md
+    checked: 2026-10-03
+
+teaching:
+  graduates:
+    value: 55
+    note: выпускники двух курсов
+    source: Стас, 01.10.2026
+    checked: 2026-10-01
+  mentored_developers:
+    value: 10
+    note: около десяти разработчиков и архитекторов
+    source: about_me/achievements.md
+    checked: 2026-10-03
+
+public:
+  talks:
+    value: 18
+    source: work/speakers_list.md (совпадает с числом записей в talks.yaml)
+    checked: 2026-10-03
+  articles:
+    value: 13
+    source: work/speakers_list.md (совпадает с числом записей в articles.yaml)
+    checked: 2026-10-03
+  conferences_organized_corporate:
+    value: 2
+    source: about_me/achievements.md
+    checked: 2026-10-03
+  conferences_organized_open:
+    value: 6
+    source: about_me/achievements.md
+    checked: 2026-10-03
+
+open_source:
+  onestemplates_stars:
+    value: 196
+    note: запасное значение, при сборке подтягивается с GitHub
+    source: GitHub API
+    checked: 2026-10-03
+  onestemplates_forks:
+    value: 35
+    note: запасное значение, при сборке подтягивается с GitHub
+    source: GitHub API
+    checked: 2026-10-03
+
+projects:
+  payroll_employees:
+    value: 10000
+    source: about_me/career.md, резюме
+    checked: 2026-10-03
+  payroll_branches:
+    value: 15
+    source: about_me/career.md, резюме
+    checked: 2026-10-03
+  report_minutes_before:
+    value: 30
+    source: about_me/career.md, резюме
+    checked: 2026-10-03
+  report_minutes_after:
+    value: 1
+    source: about_me/career.md, резюме
+    checked: 2026-10-03
+  paydesk_stores:
+    value: 4
+    source: about_me/achievements.md, резюме
+    checked: 2026-10-03

@@ -1,0 +1,58 @@
+# Контакты, соцсети и репозитории. Источник: work/speakers_list.md (Стас, 06.10.2026).
+# show: false означает, что ссылка хранится, но в списке контактов не показывается.
+
+contacts:
+  - id: telegram
+    label: Telegram
+    handle: "@stas_ganiev"
+    url: https://t.me/stas_ganiev
+  - id: telegram-channel
+    label: "Telegram-канал OneSCast"
+    handle: "@OneSCast"
+    url: https://t.me/OneSCast
+  - id: email
+    label: Email
+    handle: stas@ganiev.pro
+    url: mailto:stas@ganiev.pro
+  - id: linkedin
+    label: LinkedIn
+    handle: "Stanislav Ganiev"
+    url: https://www.linkedin.com/in/stanislav-ganiev-73839516b/
+  - id: github
+    label: GitHub
+    handle: "@stasganiev"
+    url: https://github.com/stasganiev
+  - id: youtube
+    label: YouTube
+    handle: "Стас Ганиев про 1С"
+    url: https://www.youtube.com/channel/UCiwGR9bwfIc0RM6ft_ZjH9Q
+  - id: instagram
+    label: Instagram
+    handle: "@stas_ganiev"
+    url: https://www.instagram.com/stas_ganiev
+  - id: infostart
+    label: Инфостарт
+    handle: "профиль автора"
+    url: https://infostart.ru/profile/61102/
+  - id: taplink
+    label: Taplink
+    url: https://stasganiev.taplink.ws/
+    show: false
+
+speaker_kit:
+  intro_video: https://youtu.be/9wf2ZRfQ8o0
+  photos: https://drive.google.com/drive/folders/11de2cKX5JM8YK8WRc07dk3iOkODgIMmR
+
+repositories:
+  - id: onestemplates
+    name: OnesTemplates
+    url: https://github.com/stasganiev/OnesTemplates
+    summary: "Шаблоны фрагментов кода для конфигуратора 1С:Предприятия 8.3"
+  - id: vibecoding-agents
+    name: 1c_vibecoding_agents
+    url: https://github.com/stasganiev/1c_vibecoding_agents
+    summary: "Система полного цикла анализа задач и разработки на 1С с помощью AI-агентов"
+  - id: ut11-aiarsenal
+    name: ut11_aiarsenal_course
+    url: https://github.com/stasganiev/ut11_aiarsenal_course
+    summary: "Демо-конфигурация на базе 1С:УТ 11.5 для курса «AI-арсенал»"
