@@ -20,7 +20,7 @@ JOBS = {
     "portrait.jpg": ("portrait-studio.jpg", (12, 0, 1079, 1334), (880, 1100)),
     "portrait-face.jpg": ("portrait-studio.jpg", (370, 60, 830, 520), (360, 360)),
     "stage.jpg": ("stage-belgrade-2026.jpg", (17, 0, 721, 880), (704, 880)),
-    "avacha.jpg": ("avacha-1.jpg", (0, 70, 1280, 923), (1200, 800)),
+    "avacha.jpg": ("avacha-3.jpg", (0, 0, 1280, 853), (1200, 800)),
     "bachata.jpg": ("bachata-2014.jpg", (0, 40, 1280, 893), (1200, 800)),
     "photo-contest.jpg": ("photo-contest.jpg", (0, 0, 1280, 853), (1200, 800)),
 }
