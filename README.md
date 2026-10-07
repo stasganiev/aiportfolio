@@ -42,18 +42,19 @@ public/               favicons and the web manifest, copied to the site as is
 scripts/              helper scripts (photo processing)
 src/
   assets/             brand mark and photos
-  components/         Header, Footer
+  components/         Header, Footer, home page sections in home/
   data/               site content in YAML, index.ts loads and checks it
   i18n/               interface dictionaries and language helpers
   layouts/            Base.astro: <head>, header, footer
-  lib/                shared code (list of home page sections)
+  lib/                shared code: section list, YAML loader, text helpers
   pages/[...lang]/    pages, one file serves all three languages
   styles/             fonts.css, tokens.css, base.css, components.css
+  texts/              section texts by language, index.ts loads and checks them
 ```
 
 ## Content rules
 
-- Every number on the site comes from `src/data/facts.yaml`. Numbers are not typed into texts by hand.
+- Every number on the site comes from `src/data/facts.yaml`. Numbers are not typed into texts by hand: a text refers to a number by name, for example `{graduates}`, and the build stops on an unknown name.
 - The build stops if a data file breaks its schema, or if the talk and article counters in `facts.yaml` differ from the number of entries in `talks.yaml` and `articles.yaml`.
 - A text change goes into all three languages in one commit.
 

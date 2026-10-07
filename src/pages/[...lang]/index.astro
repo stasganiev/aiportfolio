@@ -1,10 +1,15 @@
 ---
 // Главная на трёх языках: / (EN), /ru/, /sr/.
-// Этап 4: каркас. Секции стоят пустыми заготовками с заголовком и якорем,
-// содержимое приходит на этапе 5.
-import { defaultLocale, locales, useTranslations, type Locale } from '../../i18n';
+// Этап 5: секции собираются по очереди. Несобранные стоят заготовками
+// с заголовком и якорем.
+import Courses from '../../components/home/Courses.astro';
+import Hero from '../../components/home/Hero.astro';
+import Now from '../../components/home/Now.astro';
+import Section from '../../components/home/Section.astro';
+import { defaultLocale, locales, type Locale } from '../../i18n';
 import Base from '../../layouts/Base.astro';
 import { sections } from '../../lib/sections';
+import { homeTexts } from '../../texts';
 
 export function getStaticPaths() {
   return locales.map((lang) => ({
@@ -18,35 +23,23 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const t = useTranslations(lang);
+const { texts, locale: textsLocale, translated } = homeTexts(lang);
+
+const ready = ['now', 'courses'];
+const stubs = sections.filter((section) => !ready.includes(section.id));
 ---
 
-<Base lang={lang} title={t('brand.name')}>
-  <section class="hero">
-    <div class="wrap">
-      <h1><span class="hero-title">{t('brand.name')}</span></h1>
-    </div>
-  </section>
+<Base lang={lang} title={texts.meta.title} description={texts.meta.description} translated={translated}>
+  <Hero lang={lang} texts={texts.hero} textsLocale={textsLocale} />
+  <Now lang={lang} texts={texts.now} />
+  <Courses lang={lang} texts={texts.courses} textsLocale={textsLocale} />
 
-  {
-    sections.map((section, index) => (
-      <section class="section section-stub" id={section.id}>
-        <div class="wrap">
-          <header class="section-head">
-            <span class="section-index" aria-hidden="true">
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <h2>{t(section.title)}</h2>
-          </header>
-        </div>
-      </section>
-    ))
-  }
+  {stubs.map((section) => <Section lang={lang} id={section.id} class="section-stub" />)}
 </Base>
 
-<style>
+<style is:global>
   /* Временная высота пустых секций: чтобы меню и переключатель языков было на чём проверить.
-     Убирается на этапе 5 вместе с заготовками. */
+     Убирается вместе с последней заготовкой. */
   .section-stub {
     min-height: 60vh;
   }

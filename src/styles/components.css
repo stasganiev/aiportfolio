@@ -203,6 +203,15 @@
 .card .label { margin-bottom: var(--space-4); text-transform: none; letter-spacing: 0.04em; }
 .card-for { margin-top: var(--space-3); color: var(--color-text-muted); }
 .card .button { margin-top: auto; align-self: flex-start; }
+/* Строка под списком: формат курса. Вместе с кнопкой прижата к низу карточки. */
+.card-note {
+  margin: auto 0 var(--space-5); padding-top: var(--space-4);
+  border-top: var(--border-thin) solid var(--card-border);
+  font-size: var(--text-sm); color: var(--color-text-muted);
+}
+.card-note span { color: var(--color-text); font-weight: 600; }
+.card-note + .button { margin-top: 0; }
+.card .dash-list:has(+ .card-note) { margin-bottom: var(--space-5); }
 
 .dash-list { display: grid; gap: var(--space-2); margin: var(--space-5) 0 var(--space-6); }
 .dash-list li { position: relative; padding-left: 26px; }
@@ -210,8 +219,13 @@
 
 /* ---------- Цитата ---------- */
 .quote { max-width: 46em; margin-top: var(--space-7); padding: var(--space-1) 0 var(--space-1) var(--space-5); border-left: 3px solid var(--color-accent); }
-.quote blockquote { font: italic 500 1.2rem / 1.45 var(--font-display); }
+.quote blockquote { font: italic 500 1.2rem / 1.45 var(--font-display); font-variant-numeric: lining-nums; }
 .quote figcaption { margin-top: var(--space-3); font: 500 var(--text-xs) / 1.4 var(--font-mono); color: var(--color-text-muted); }
+
+/* Несколько цитат рядом: отзывы выпускников. */
+.subhead { margin-top: var(--space-8); }
+.quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-7) var(--space-8); margin-top: var(--space-6); }
+.quotes .quote { max-width: none; margin-top: 0; }
 
 /* ---------- Фото ---------- */
 .frame { margin: 0 var(--space-3) var(--space-3) 0; }
@@ -248,6 +262,14 @@
 .field-error { font-size: var(--text-sm); color: var(--color-danger); }
 .form-note { padding: var(--space-4); border-left: 3px solid var(--color-success); background: var(--color-surface); }
 .form-note-error { border-left-color: var(--color-danger); }
+
+/* ---------- Служебная плашка ----------
+   Стоит на страницах без перевода на этапах 5–6. На этапе 7 убирается. */
+.draft-note {
+  padding: var(--space-2) var(--gutter); text-align: center;
+  background: var(--color-accent); color: var(--color-on-accent);
+  font: 500 var(--text-xs) / 1.4 var(--font-mono);
+}
 
 /* ---------- Подвал ---------- */
 .site-footer { margin-top: var(--space-10); border-top: var(--border-thin) solid var(--color-line); }
@@ -293,6 +315,7 @@
   .stats > div:nth-child(3) { padding-left: 0; border-left: 0; }
   .stats > div:nth-child(n+3) { border-top: var(--border-thin) solid var(--color-line); }
   .section { padding-top: var(--space-9); }
-  .duo { grid-template-columns: 1fr; }
+  .duo, .quotes { grid-template-columns: 1fr; }
+  .subhead { margin-top: var(--space-7); }
   .facts { grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
 }

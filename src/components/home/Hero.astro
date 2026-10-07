@@ -1,0 +1,73 @@
+---
+// Первый экран: имя с портретом, позиционирование, две кнопки,
+// блок «снаружи и изнутри» и полоса цифр.
+import { Picture } from 'astro:assets';
+
+import face from '../../assets/photos/portrait-face.jpg';
+import { facts } from '../../data';
+import { localePath, type Locale } from '../../i18n';
+import { emphasis, plural } from '../../lib/format';
+import type { HomeTexts } from '../../texts';
+import Xray from './Xray.astro';
+
+interface Props {
+  lang: Locale;
+  texts: HomeTexts['hero'];
+  /** Язык самих текстов: от него зависят формы слов после чисел. */
+  textsLocale: Locale;
+}
+
+const { lang, texts, textsLocale } = Astro.props;
+const home = localePath(lang);
+
+const stats = [
+  { value: facts.experienceYears, forms: texts.stats.years },
+  { value: facts.graduates, forms: texts.stats.graduates },
+  { value: facts.talks, forms: texts.stats.talks },
+  { value: facts.articles, forms: texts.stats.articles },
+];
+---
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>
+        <span class="byline">
+          <Picture
+            class="byline-photo"
+            src={face}
+            formats={['avif', 'webp']}
+            widths={[84, 168]}
+            sizes="84px"
+            width={84}
+            height={84}
+            alt={texts.photo_alt}
+            loading="eager"
+          />
+          <span class="label">{texts.name}</span>
+        </span>
+        <span class="hero-title" set:html={emphasis(texts.title)} />
+      </h1>
+      <p class="hero-lead">{texts.lead}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href={`${home}#contact`}>{texts.primary}</a>
+        <a class="button button-ghost" href={`${home}#now`}>{texts.secondary}</a>
+      </div>
+    </div>
+
+    <Xray texts={texts.xray} />
+  </div>
+
+  <div class="wrap">
+    <dl class="stats">
+      {
+        stats.map((item) => (
+          <div>
+            <dt>{item.value}</dt>
+            <dd>{plural(textsLocale, item.value, item.forms)}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

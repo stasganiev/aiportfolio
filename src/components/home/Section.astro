@@ -1,0 +1,29 @@
+---
+// Обёртка секции главной: якорь, порядковый номер и заголовок.
+// Номер берётся из порядка секций в src/lib/sections.ts, заголовок из словаря.
+import { useTranslations, type Locale } from '../../i18n';
+import { sections } from '../../lib/sections';
+
+interface Props {
+  lang: Locale;
+  id: string;
+  class?: string;
+}
+
+const { lang, id, class: extraClass } = Astro.props;
+const t = useTranslations(lang);
+
+const position = sections.findIndex((section) => section.id === id);
+if (position === -1) throw new Error(`Секции «${id}» нет в src/lib/sections.ts`);
+const section = sections[position]!;
+---
+
+<section class:list={['section', extraClass]} id={id}>
+  <div class="wrap">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">{String(position + 1).padStart(2, '0')}</span>
+      <h2>{t(section.title)}</h2>
+    </header>
+    <slot />
+  </div>
+</section>

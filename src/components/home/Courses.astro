@@ -1,0 +1,62 @@
+---
+// «Курсы»: две карточки из courses.yaml и отзывы выпускников из testimonials.yaml.
+// Дат потоков и статусов набора здесь нет: расписание живёт на лендингах школы.
+import { courses, testimonials } from '../../data';
+import type { Locale } from '../../i18n';
+import { fill, plural } from '../../lib/format';
+import type { HomeTexts } from '../../texts';
+import Section from './Section.astro';
+
+interface Props {
+  lang: Locale;
+  texts: HomeTexts['courses'];
+  /** Язык самих текстов: от него зависят формы слов после чисел. */
+  textsLocale: Locale;
+}
+
+const { lang, texts, textsLocale } = Astro.props;
+
+const count = (n: number, forms: HomeTexts['courses']['modules']) =>
+  `${n} ${plural(textsLocale, n, forms)}`;
+---
+
+<Section lang={lang} id="courses">
+  <p class="section-lead">{texts.lead}</p>
+
+  <div class="duo">
+    {
+      courses.map((course) => (
+        <article class="card">
+          <p class="label">
+            {count(course.modules, texts.modules)} · {count(course.lessons, texts.lessons)}
+          </p>
+          <h3>{course.title}</h3>
+          <p class="card-for">{course.audience}</p>
+          <ul class="dash-list">
+            {course.outcomes.map((outcome) => <li>{outcome}</li>)}
+          </ul>
+          <p class="card-note">
+            <span>{texts.format}</span> {course.format}
+          </p>
+          <a class="button button-ghost" href={course.landing}>
+            {texts.button}<span class="visually-hidden">: {course.title}</span>
+          </a>
+        </article>
+      ))
+    }
+  </div>
+
+  <h3 class="subhead">{texts.testimonials_title}</h3>
+  <div class="quotes">
+    {
+      testimonials.map((item) => (
+        <figure class="quote">
+          <blockquote>{item.quote}</blockquote>
+          <figcaption>
+            {item.author}, {item.course_label}, {fill(texts.cohort, { n: item.cohort })}
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+</Section>

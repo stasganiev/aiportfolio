@@ -1,0 +1,36 @@
+---
+// «Чем занимаюсь»: три направления, у каждого ссылка на свою секцию ниже.
+import { localePath, type Locale } from '../../i18n';
+import type { HomeTexts } from '../../texts';
+import Section from './Section.astro';
+
+interface Props {
+  lang: Locale;
+  texts: HomeTexts['now'];
+}
+
+const { lang, texts } = Astro.props;
+const home = localePath(lang);
+
+const items = [
+  { ...texts.work, target: 'experience' },
+  { ...texts.teaching, target: 'courses' },
+  { ...texts.ai, target: 'talks' },
+];
+---
+
+<Section lang={lang} id="now">
+  <div class="trio">
+    {
+      items.map((item) => (
+        <article>
+          <h3 class="trio-title">{item.title}</h3>
+          <p>{item.text}</p>
+          <a class="link-more" href={`${home}#${item.target}`}>
+            {item.link} <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </article>
+      ))
+    }
+  </div>
+</Section>

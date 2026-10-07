@@ -2,8 +2,9 @@
 // Каждый файл проверяется по схеме. Ошибка в структуре останавливает сборку
 // и называет файл и поле.
 
-import { parse } from 'yaml';
 import { z } from 'astro/zod';
+
+import { fail, loadYaml } from '../lib/yaml';
 
 import articlesRaw from './articles.yaml?raw';
 import coursesRaw from './courses.yaml?raw';
@@ -133,75 +134,43 @@ const linksSchema = z.strictObject({
   repositories: z.array(z.strictObject({ id: text, name: text, url, summary: text })),
 });
 
-function fail(file: string, problems: string[]): never {
-  throw new Error(`Ошибка в данных src/data/${file}:\n  ${problems.join('\n  ')}`);
-}
-
-function load<T extends z.ZodType>(file: string, raw: string, schema: T): z.infer<T> {
-  let data: unknown;
-  try {
-    data = parse(raw);
-  } catch (error) {
-    fail(file, [`файл не читается как YAML: ${(error as Error).message}`]);
-  }
-  const result = schema.safeParse(data);
-  if (!result.success) {
-    fail(
-      file,
-      result.error.issues.map((issue) => `${describePath(data, issue.path)}: ${issue.message}`),
-    );
-  }
-  return result.data;
-}
-
-/** Место ошибки словами: «запись 3 (extensions-1c).format» вместо «2.format». */
-function describePath(data: unknown, path: PropertyKey[]): string {
-  const [first, ...rest] = path;
-  if (typeof first === 'number' && Array.isArray(data)) {
-    const id = (data[first] as { id?: unknown } | undefined)?.id;
-    const item = `запись ${first + 1}${typeof id === 'string' ? ` (${id})` : ''}`;
-    return [item, ...rest].map(String).join('.');
-  }
-  return path.map(String).join('.') || '(корень)';
-}
-
 function checkUniqueIds(file: string, items: { id: string }[]): void {
   const seen = new Set<string>();
   const repeated = items.filter((item) => seen.size === seen.add(item.id).size).map((item) => item.id);
   if (repeated.length > 0) fail(file, [`id повторяется: ${repeated.join(', ')}`]);
 }
 
-const factsFile = load('facts.yaml', factsRaw, factsSchema);
+const factsFile = loadYaml('src/data/facts.yaml', factsRaw, factsSchema);
 
-export const talks = load('talks.yaml', talksRaw, talksSchema);
-export const articles = load('articles.yaml', articlesRaw, articlesSchema);
-export const courses = load('courses.yaml', coursesRaw, coursesSchema);
-export const testimonials = load('testimonials.yaml', testimonialsRaw, testimonialsSchema);
-export const experience = load('experience.yaml', experienceRaw, experienceSchema);
-export const links = load('links.yaml', linksRaw, linksSchema);
+export const talks = loadYaml('src/data/talks.yaml', talksRaw, talksSchema);
+export const articles = loadYaml('src/data/articles.yaml', articlesRaw, articlesSchema);
+export const courses = loadYaml('src/data/courses.yaml', coursesRaw, coursesSchema);
+export const testimonials = loadYaml('src/data/testimonials.yaml', testimonialsRaw, testimonialsSchema);
+export const experience = loadYaml('src/data/experience.yaml', experienceRaw, experienceSchema);
+export const links = loadYaml('src/data/links.yaml', linksRaw, linksSchema);
 
-checkUniqueIds('talks.yaml', talks);
-checkUniqueIds('articles.yaml', articles);
-checkUniqueIds('courses.yaml', courses);
-checkUniqueIds('testimonials.yaml', testimonials);
-checkUniqueIds('experience.yaml', experience);
-checkUniqueIds('links.yaml', links.contacts);
-checkUniqueIds('links.yaml', links.repositories);
+checkUniqueIds('src/data/talks.yaml', talks);
+checkUniqueIds('src/data/articles.yaml', articles);
+checkUniqueIds('src/data/courses.yaml', courses);
+checkUniqueIds('src/data/testimonials.yaml', testimonials);
+checkUniqueIds('src/data/experience.yaml', experience);
+checkUniqueIds('src/data/links.yaml', links.contacts);
+checkUniqueIds('src/data/links.yaml', links.repositories);
 
 // Счётчики в facts.yaml обязаны совпадать с числом записей в списках.
 if (talks.length !== factsFile.public.talks.value) {
-  fail('facts.yaml', [
+  fail('src/data/facts.yaml', [
     `public.talks: указано ${factsFile.public.talks.value}, а в talks.yaml записей ${talks.length}`,
   ]);
 }
 if (articles.length !== factsFile.public.articles.value) {
-  fail('facts.yaml', [
+  fail('src/data/facts.yaml', [
     `public.articles: указано ${factsFile.public.articles.value}, а в articles.yaml записей ${articles.length}`,
   ]);
 }
 for (const item of testimonials) {
   if (!courses.some((course) => course.id === item.course)) {
-    fail('testimonials.yaml', [`${item.id}: курса «${item.course}» нет в courses.yaml`]);
+    fail('src/data/testimonials.yaml', [`${item.id}: курса «${item.course}» нет в courses.yaml`]);
   }
 }
 
@@ -238,6 +207,6 @@ export const facts = {
 /** Контакт по id из links.yaml. Отсутствие контакта останавливает сборку. */
 export function contact(id: string) {
   const found = links.contacts.find((item) => item.id === id);
-  if (!found) fail('links.yaml', [`нет контакта с id «${id}»`]);
+  if (!found) fail('src/data/links.yaml', [`нет контакта с id «${id}»`]);
   return found;
 }

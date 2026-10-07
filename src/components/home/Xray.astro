@@ -1,0 +1,83 @@
+---
+// Блок «снаружи и изнутри»: форма 1С сдвигается и открывает свой код.
+// Код и форма остаются на русском на всех языках: кириллица 1С работает как знак.
+// Переводятся подписи сторон, подсказка и подписи для экранных читалок.
+import type { HomeTexts } from '../../texts';
+
+interface Props {
+  texts: HomeTexts['hero']['xray'];
+}
+
+const { texts } = Astro.props;
+---
+
+<div class="xray-block">
+  <div class="xray" role="group" aria-label={texts.label}>
+    <div class="xray-code" aria-hidden="true" lang="ru">
+<pre><span class="code-directive">&amp;НаСервере</span>
+<span class="code-keyword">Функция</span> <span class="code-name">РассчитатьСумму</span>(<span class="code-name">Строка</span>, <span class="code-name">Соглашение</span>)
+
+    <span class="code-comment">// Скидка зависит от объёма</span>
+    <span class="code-comment">// и не выше предела по соглашению</span>
+    <span class="code-name">Цена</span> = <span class="code-name">ЦенаПоСоглашению</span>(
+        <span class="code-name">Строка</span>.<span class="code-name">Номенклатура</span>, <span class="code-name">Соглашение</span>);
+    <span class="code-name">Скидка</span> = <span class="code-name">Мин</span>(
+        <span class="code-name">СкидкаЗаОбъем</span>(<span class="code-name">Строка</span>.<span class="code-name">Количество</span>),
+        <span class="code-name">МаксимальнаяСкидка</span>(<span class="code-name">Соглашение</span>));
+
+    <span class="code-keyword">Возврат</span> <span class="code-name">Окр</span>(<span class="code-name">Строка</span>.<span class="code-name">Количество</span> * <span class="code-name">Цена</span>
+        * (1 - <span class="code-name">Скидка</span> / 100), 2);
+
+<span class="code-keyword">КонецФункции</span></pre>
+    </div>
+
+    <div class="xray-form" aria-hidden="true" lang="ru">
+      <div class="form1c">
+        <div class="form1c-title">Заказ клиента 0000-000042 от 06.10.2026</div>
+        <div class="form1c-bar">
+          <span class="form1c-button form1c-button-main">Провести и закрыть</span>
+          <span class="form1c-button">Записать</span>
+          <span class="form1c-button">Провести</span>
+          <span class="form1c-more">Ещё</span>
+        </div>
+        <div class="form1c-fields">
+          <span class="form1c-label">Клиент:</span><span class="form1c-input">Кофейня «Зерно»</span>
+          <span class="form1c-label">Соглашение:</span><span class="form1c-input">Оптовое, скидка за объём</span>
+          <span class="form1c-label">Склад:</span><span class="form1c-input">Основной</span>
+        </div>
+        <table class="form1c-table">
+          <thead><tr><th>N</th><th>Номенклатура</th><th>Кол-во</th><th>Цена</th><th>% ск.</th><th>Сумма</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Кофе в зёрнах, 1 кг</td><td>24</td><td>1 450,00</td><td>10</td><td>31 320,00</td></tr>
+            <tr><td>2</td><td>Чай чёрный, 100 г</td><td>60</td><td>320,00</td><td>15</td><td>16 320,00</td></tr>
+            <tr><td>3</td><td>Сироп карамельный</td><td>12</td><td>540,00</td><td>5</td><td>6 156,00</td></tr>
+          </tbody>
+        </table>
+        <div class="form1c-total">Всего: <b>53 796,00</b></div>
+      </div>
+    </div>
+
+    <span class="xray-chip xray-chip-inside" aria-hidden="true">{texts.inside}</span>
+    <span class="xray-chip xray-chip-outside" aria-hidden="true">{texts.outside}</span>
+
+    <input class="xray-range" type="range" min="0" max="100" value="46" aria-label={texts.range} />
+    <div class="xray-handle" aria-hidden="true">
+      <span class="xray-knob">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"></path></svg>
+      </span>
+    </div>
+  </div>
+  <p class="xray-hint">{texts.hint}</p>
+</div>
+
+<script>
+  // Ползунок двигает форму вправо и открывает код под ней.
+  // Плавное появление и остальная анимация придут на этапе 9.
+  const range = document.querySelector<HTMLInputElement>('.xray-range');
+  const box = range?.closest<HTMLElement>('.xray');
+  if (range && box) {
+    const setPosition = () => box.style.setProperty('--pos', `${Number(range.value) * 0.84}%`);
+    range.addEventListener('input', setPosition);
+    setPosition();
+  }
+</script>

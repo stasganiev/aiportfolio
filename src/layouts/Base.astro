@@ -22,9 +22,11 @@ interface Props {
   lang: Locale;
   title: string;
   description?: string;
+  /** false: перевода страницы нет, показан русский текст со служебной плашкой. */
+  translated?: boolean;
 }
 
-const { lang, title, description } = Astro.props;
+const { lang, title, description, translated = true } = Astro.props;
 const t = useTranslations(lang);
 
 // Та же страница на других языках: для переключателя и для hreflang.
@@ -65,6 +67,14 @@ const absolute = (locale: Locale) => new URL(localePath(locale, pagePath), Astro
   <body>
     <a class="skip-link" href="#main">{t('skip')}</a>
     <Header lang={lang} pagePath={pagePath} />
+    {
+      /* Служебная плашка этапов 5–6. На этапе 7 убирается вместе с запасным русским текстом. */
+      !translated && (
+        <p class="draft-note" lang="ru">
+          Служебная пометка: перевод не готов, тексты секций показаны на русском
+        </p>
+      )
+    }
     <main id="main">
       <slot />
     </main>
