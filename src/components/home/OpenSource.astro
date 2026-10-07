@@ -1,0 +1,42 @@
+---
+// «Open source»: репозитории из links.yaml с описаниями из текстов.
+// Звёзды и форки OnesTemplates приходят с GitHub при сборке.
+import { contact, links } from '../../data';
+import type { Locale } from '../../i18n';
+import type { HomeTexts } from '../../texts';
+import Section from './Section.astro';
+
+interface Props {
+  lang: Locale;
+  texts: HomeTexts['open_source'];
+}
+
+const { lang, texts } = Astro.props;
+
+const repos = links.repositories.map((repo) => {
+  const text = texts.repos[repo.id];
+  if (!text) throw new Error(`В текстах секции open_source нет описания репозитория «${repo.id}»`);
+  return { ...repo, text };
+});
+---
+
+<Section lang={lang} id="open-source">
+  <div class="trio">
+    {
+      repos.map((repo) => (
+        <article>
+          <h3 class="repo-name">
+            <a href={repo.url}>{repo.name}</a>
+          </h3>
+          <p>{repo.text}</p>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="section-actions">
+    <a class="link-more" href={contact('github').url}>
+      {texts.all} <span class="arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</Section>

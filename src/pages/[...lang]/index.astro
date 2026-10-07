@@ -2,10 +2,13 @@
 // Главная на трёх языках: / (EN), /ru/, /sr/.
 // Этап 5: секции собираются по очереди. Несобранные стоят заготовками
 // с заголовком и якорем.
+import Companies from '../../components/home/Companies.astro';
 import Courses from '../../components/home/Courses.astro';
 import Hero from '../../components/home/Hero.astro';
 import Now from '../../components/home/Now.astro';
+import OpenSource from '../../components/home/OpenSource.astro';
 import Section from '../../components/home/Section.astro';
+import Talks from '../../components/home/Talks.astro';
 import { defaultLocale, locales, type Locale } from '../../i18n';
 import Base from '../../layouts/Base.astro';
 import { sections } from '../../lib/sections';
@@ -25,7 +28,7 @@ interface Props {
 const { lang } = Astro.props;
 const { texts, locale: textsLocale, translated } = homeTexts(lang);
 
-const ready = ['now', 'courses'];
+const ready = ['now', 'courses', 'companies', 'open-source', 'talks'];
 const stubs = sections.filter((section) => !ready.includes(section.id));
 ---
 
@@ -33,6 +36,9 @@ const stubs = sections.filter((section) => !ready.includes(section.id));
   <Hero lang={lang} texts={texts.hero} textsLocale={textsLocale} />
   <Now lang={lang} texts={texts.now} />
   <Courses lang={lang} texts={texts.courses} textsLocale={textsLocale} />
+  <Companies lang={lang} texts={texts.companies} />
+  <OpenSource lang={lang} texts={texts.open_source} />
+  <Talks lang={lang} texts={texts.talks} />
 
   {stubs.map((section) => <Section lang={lang} id={section.id} class="section-stub" />)}
 </Base>

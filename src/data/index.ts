@@ -4,6 +4,7 @@
 
 import { z } from 'astro/zod';
 
+import { fetchRepoStats } from '../lib/github';
 import { fail, loadYaml } from '../lib/yaml';
 
 import articlesRaw from './articles.yaml?raw';
@@ -182,6 +183,10 @@ export function fullYearsSince(date: string, now = new Date()): number {
   return now.getFullYear() - year - (beforeAnniversary ? 1 : 0);
 }
 
+// Звёзды и форки OnesTemplates берутся с GitHub при сборке.
+// В facts.yaml лежат запасные значения на случай сбоя.
+const onestemplates = await fetchRepoStats('stasganiev/OnesTemplates');
+
 /** Цифры сайта. Компоненты берут их только отсюда. */
 export const facts = {
   sinceYear: factsFile.career.since_year.value,
@@ -195,8 +200,8 @@ export const facts = {
   articles: factsFile.public.articles.value,
   conferencesCorporate: factsFile.public.conferences_organized_corporate.value,
   conferencesOpen: factsFile.public.conferences_organized_open.value,
-  onestemplatesStars: factsFile.open_source.onestemplates_stars.value,
-  onestemplatesForks: factsFile.open_source.onestemplates_forks.value,
+  onestemplatesStars: onestemplates?.stars ?? factsFile.open_source.onestemplates_stars.value,
+  onestemplatesForks: onestemplates?.forks ?? factsFile.open_source.onestemplates_forks.value,
   payrollEmployees: factsFile.projects.payroll_employees.value,
   payrollBranches: factsFile.projects.payroll_branches.value,
   reportMinutesBefore: factsFile.projects.report_minutes_before.value,

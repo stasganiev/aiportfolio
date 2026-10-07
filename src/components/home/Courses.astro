@@ -53,7 +53,7 @@ const count = (n: number, forms: HomeTexts['courses']['modules']) =>
         <figure class="quote">
           <blockquote>{item.quote}</blockquote>
           <figcaption>
-            {item.author}, {item.course_label}, {fill(texts.cohort, { n: item.cohort })}
+            {item.author}, {item.course_label}, {fill(texts.cohort, { n: item.cohort }, textsLocale)}
           </figcaption>
         </figure>
       ))

@@ -194,6 +194,66 @@
 .trio p { color: var(--color-text-muted); }
 .trio .link-more { margin-top: var(--space-2); }
 
+/* Действия под содержимым секции: кнопка или ссылка. */
+.section-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); margin-top: var(--space-6); }
+
+/* ---------- Строки: название слева, пояснение справа ---------- */
+.rows { border-bottom: var(--border-thin) solid var(--color-line); }
+.row {
+  display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr); gap: var(--space-3) var(--space-8);
+  padding: var(--space-5) 0; border-top: var(--border-thin) solid var(--color-line);
+}
+.row p { max-width: 40em; color: var(--color-text-muted); }
+
+/* ---------- Репозитории ---------- */
+.repo-name { margin-bottom: var(--space-1); font: 500 1.0625rem / 1.3 var(--font-mono); letter-spacing: 0; }
+.repo-name a {
+  display: inline-flex; align-items: center; min-height: var(--touch-min); overflow-wrap: anywhere;
+  text-decoration: underline; text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px; text-underline-offset: 6px;
+}
+.repo-name a:hover { text-decoration-color: var(--color-text); }
+
+/* ---------- Список докладов и статей ---------- */
+.talks-about { max-width: 46em; margin-bottom: var(--space-7); }
+.talks-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: var(--space-8); align-items: start; }
+.talks-col > .subhead:first-child { margin-top: 0; }
+.talks-col .subhead { margin-top: var(--space-7); }
+.talks-grid .frame { max-width: 380px; }
+.talks-aside .button { margin-top: var(--space-5); }
+/* На широком экране фото с кнопкой остаётся на виду, пока человек читает списки. */
+@media (min-width: 1041px) and (min-height: 760px) {
+  .talks-aside { position: sticky; top: calc(var(--header-height) + var(--space-5)); }
+}
+.entries { margin-top: var(--space-3); border-bottom: var(--border-thin) solid var(--color-line); }
+.entry { padding: var(--space-3) 0; border-top: var(--border-thin) solid var(--color-line); }
+.entry-title { font-weight: 600; line-height: 1.4; }
+a.entry-title {
+  display: block; width: fit-content;
+  text-decoration: underline; text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px; text-underline-offset: 4px;
+}
+a.entry-title:hover { text-decoration-color: var(--color-text); }
+/* Площадка с годом и ссылки стоят одной строкой, пока хватает ширины. */
+.entry-info { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--space-5); margin-top: var(--space-1); }
+.entry-meta { font: 500 var(--text-xs) / 1.5 var(--font-mono); color: var(--color-text-muted); }
+.entry-links { display: flex; flex-wrap: wrap; gap: 0 var(--space-4); font-size: var(--text-sm); }
+.entry-links a { display: inline-flex; align-items: center; }
+/* Под палец ссылкам нужна высота 44 px. С мышью список остаётся плотным. */
+@media (max-width: 1040px), (pointer: coarse) {
+  a.entry-title { display: flex; align-items: center; min-height: var(--touch-min); }
+  .entry-links a { min-height: var(--touch-min); }
+  .entry:has(.entry-links) { padding-bottom: 0; }
+}
+
+/* Раскрывающийся остаток списка. Работает без скриптов. */
+.more { margin-top: var(--space-4); }
+.more summary { width: fit-content; gap: var(--space-2); list-style: none; }
+.more summary::-webkit-details-marker { display: none; }
+.more summary svg { transition: transform var(--dur-fast) var(--ease-out); }
+.more[open] summary svg { transform: rotate(180deg); }
+.more .entries { margin-top: var(--space-4); }
+
 /* ---------- Карточки ---------- */
 .duo { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
 .card {
@@ -297,7 +357,7 @@
   /* Зоны нажатия для пальца: не меньше 44×44. */
   .brand { min-width: var(--touch-min); min-height: var(--touch-min); }
   .langs a { min-width: var(--touch-min); justify-content: center; }
-  .hero-grid, .about-grid { grid-template-columns: 1fr; gap: var(--space-7); }
+  .hero-grid, .about-grid, .talks-grid { grid-template-columns: 1fr; gap: var(--space-7); }
   .about-grid .frame { max-width: 420px; }
   .trio { grid-template-columns: 1fr; gap: 0; }
   .trio > * + * { margin-top: var(--space-5); padding-top: var(--space-5); border-top: var(--border-thin) solid var(--color-line); }
@@ -315,7 +375,7 @@
   .stats > div:nth-child(3) { padding-left: 0; border-left: 0; }
   .stats > div:nth-child(n+3) { border-top: var(--border-thin) solid var(--color-line); }
   .section { padding-top: var(--space-9); }
-  .duo, .quotes { grid-template-columns: 1fr; }
+  .duo, .quotes, .row { grid-template-columns: 1fr; }
   .subhead { margin-top: var(--space-7); }
   .facts { grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
 }

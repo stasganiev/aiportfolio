@@ -3,18 +3,39 @@
 import { htmlLang, type Locale } from '../i18n';
 import type { PluralForms } from '../texts';
 
+type Values = Record<string, string | number>;
+
+/** Порядок форм в записи {talks|доклад|доклада|докладов}: от единственного числа к множественному. */
+const categoryOrder = ['zero', 'one', 'two', 'few', 'many', 'other'] as const;
+
+/** Форма слова по позиции: для русского one|few|many, для английского one|other, для сербского one|few|other. */
+function pickForm(locale: Locale, n: number, forms: string[]): string {
+  const rules = new Intl.PluralRules(htmlLang[locale]);
+  const categories = categoryOrder.filter((category) =>
+    rules.resolvedOptions().pluralCategories.includes(category),
+  );
+  const index = categories.indexOf(rules.select(n));
+  return forms[Math.min(index, forms.length - 1)]!;
+}
+
 /**
  * Заменяет {имя} значением. Неизвестное имя останавливает сборку.
- * {n} не трогается: это число, которое компонент подставит сам.
+ * {имя|форма|форма|форма} ставит число и слово в нужной форме: «18 докладов», «21 доклад».
+ * {n} не трогается, если значения n нет: это число, которое компонент подставит сам.
  */
-export function fill(text: string, values: Record<string, string | number>, where = ''): string {
-  return text.replace(/\{(\w+)\}/g, (match, key: string) => {
+export function fill(text: string, values: Values, locale: Locale, where = ''): string {
+  return text.replace(/\{(\w+)((?:\|[^|{}]+)*)\}/g, (match, key: string, tail: string) => {
     if (key === 'n' && !('n' in values)) return match;
     if (!(key in values)) {
       const place = where ? ` (${where})` : '';
       throw new Error(`В тексте стоит {${key}}, а такого значения нет${place}: «${text}»`);
     }
-    return String(values[key]);
+    const value = values[key]!;
+    if (!tail) return String(value);
+    if (typeof value !== 'number') {
+      throw new Error(`Формы слова заданы для {${key}}, а это не число: «${text}»`);
+    }
+    return `${value} ${pickForm(locale, value, tail.slice(1).split('|'))}`;
   });
 }
 

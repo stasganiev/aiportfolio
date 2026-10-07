@@ -1,0 +1,33 @@
+---
+// «Компаниям»: три формата работы с командой и одна кнопка в Telegram. Цен нет.
+import { contact } from '../../data';
+import type { Locale } from '../../i18n';
+import type { HomeTexts } from '../../texts';
+import Section from './Section.astro';
+
+interface Props {
+  lang: Locale;
+  texts: HomeTexts['companies'];
+}
+
+const { lang, texts } = Astro.props;
+---
+
+<Section lang={lang} id="companies">
+  <p class="section-lead">{texts.lead}</p>
+
+  <div class="rows">
+    {
+      texts.formats.map((item) => (
+        <article class="row">
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="section-actions">
+    <a class="button button-primary" href={contact('telegram').url}>{texts.button}</a>
+  </div>
+</Section>

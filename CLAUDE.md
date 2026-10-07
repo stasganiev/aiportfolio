@@ -12,7 +12,7 @@
 
 ## Состояние на 07.10.2026
 
-Приняты этапы 0–4. Идёт этап 5 «Секции главной», он согласован. Hero, «Чем занимаюсь» и «Курсы и отзывы» приняты. Остаются пункты 5.5–5.10, по 2–3 секции за партию.
+Приняты этапы 0–4. Идёт этап 5 «Секции главной», он согласован. Приняты Hero, «Чем занимаюсь», «Курсы и отзывы», «Компаниям», «Open source», «Выступления и статьи». Остаются «Опыт», «Обо мне», «Контакты и подвал».
 
 Команды:
 
@@ -20,18 +20,18 @@
 - `npm run build`: сборка в `dist/`. Падает, если не сходятся словари или данные.
 - `npm run preview`: показать собранный `dist/`.
 - `npm run check`: проверка типов.
-- `node work/site_check.mjs`: снимки и проверки поведения в headless Chrome. Перед запуском нужны `npm run build` и `npm run preview`.
+- `node work/site_check.mjs`: снимки и проверки поведения в headless Chrome. Перед запуском нужны `npm run build` и `npm run preview`. Если порт 4321 занят сервером `npm run dev`: `npx astro preview --port 4322` и `SITE_ORIGIN=http://localhost:4322 node work/site_check.mjs`.
 
 Что есть в репозитории:
 
 - **Проект Astro** в корне: `astro.config.mjs`, `package.json`, `tsconfig.json`. Версия Astro 7.
 - **Страницы**: `src/pages/[...lang]/index.astro`. Один файл собирает главную на трёх языках. Несобранные секции стоят заготовками с заголовком и якорем: список собранных задаёт массив `ready`.
 - **Секции главной**: компоненты в `src/components/home/`. Обёртка `Section.astro` ставит якорь, номер и заголовок.
-- **Тексты секций**: `src/texts/home.ru.yaml`, загрузка и схема в `src/texts/index.ts`. Цифры пишутся именами из `facts` в фигурных скобках (`{graduates}`), слова после чисел задаются формами `one`, `few`, `many`. Новый текст сначала добавляется в схему. Помощники `fill`, `plural`, `emphasis` лежат в `src/lib/format.ts`.
+- **Тексты секций**: `src/texts/home.ru.yaml`, загрузка и схема в `src/texts/index.ts`. Цифры пишутся именами из `facts` в фигурных скобках (`{graduates}`), слова после чисел задаются формами `one`, `few`, `many`. Новый текст сначала добавляется в схему. Запись `{talks|доклад|доклада|докладов}` ставит число и слово в нужной форме. Помощники `fill`, `plural`, `emphasis` лежат в `src/lib/format.ts`.
 - **Макет страницы**: `src/layouts/Base.astro` (`<head>`, `hreflang`, canonical, фавиконки, скрипт темы). Шапка и подвал: `src/components/Header.astro`, `Footer.astro`. Скрипт шапки (тема, мобильное меню, якорь для переключателя языков) лежит внутри `Header.astro`.
 - **Языки**: `src/i18n/index.ts` и словари `en.json`, `ru.json`, `sr.json`. Русский словарь мастер, ключи плоские (`nav.courses`). Пути страниц строит `localePath()`.
 - **Порядок секций**: список с якорями в `src/lib/sections.ts`. Якоря одинаковые на всех языках.
-- **Данные**: `src/data/*.yaml`, загрузка и проверка по схемам в `src/data/index.ts` (общий загрузчик YAML: `src/lib/yaml.ts`). Компоненты берут цифры из объекта `facts`, списки из `talks`, `articles`, `courses`, `testimonials`, `experience`, `links`. Новое поле в YAML сначала добавляется в схему.
+- **Данные**: `src/data/*.yaml`, загрузка и проверка по схемам в `src/data/index.ts` (общий загрузчик YAML: `src/lib/yaml.ts`). Звёзды и форки OnesTemplates берутся с GitHub при сборке (`src/lib/github.ts`), в `facts.yaml` лежат запасные значения. Компоненты берут цифры из объекта `facts`, списки из `talks`, `articles`, `courses`, `testimonials`, `experience`, `links`. Новое поле в YAML сначала добавляется в схему.
 - **Стили**: `src/styles/fonts.css`, `tokens.css`, `base.css`, `components.css`. Цвета в компонентах берутся из токенов. Исключение: рисунок формы 1С в блоке «снаружи и изнутри», его цвета от темы не зависят.
 - **Шрифты**: пакеты `@fontsource-variable`, подключены в `fonts.css` под именами из токенов. Наборы знаков: кириллица, латиница, расширенная латиница.
 - **Фирменный знак**: `src/assets/brand/logo-mark.svg`. Фавиконки и `site.webmanifest` лежат в `public/`.

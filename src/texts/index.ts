@@ -46,28 +46,54 @@ const homeSchema = z.strictObject({
     testimonials_title: text,
     cohort: text,
   }),
+  companies: z.strictObject({
+    lead: text,
+    formats: z.array(z.strictObject({ title: text, text })).min(1),
+    button: text,
+  }),
+  open_source: z.strictObject({
+    /** Описание репозитория по его id из links.yaml. */
+    repos: z.record(z.string(), text),
+    all: text,
+  }),
+  talks: z.strictObject({
+    lead: text,
+    about: text,
+    featured_talks: text,
+    featured_articles: text,
+    all_talks: text,
+    all_articles: text,
+    invite: text,
+    photo_alt: text,
+    photo_caption: text,
+    video: text,
+    slides: text,
+    article: text,
+    part_2: text,
+  }),
 });
 export type HomeTexts = z.infer<typeof homeSchema>;
 
 /** Подставляет цифры из facts.yaml во все строки файла. */
-function fillAll<T>(value: T, file: string): T {
-  if (typeof value === 'string') return fill(value, facts, file) as T;
-  if (Array.isArray(value)) return value.map((item) => fillAll(item, file)) as T;
+function fillAll<T>(value: T, locale: Locale, file: string): T {
+  if (typeof value === 'string') return fill(value, facts, locale, file) as T;
+  if (Array.isArray(value)) return value.map((item) => fillAll(item, locale, file)) as T;
   if (value && typeof value === 'object') {
     return Object.fromEntries(
-      Object.entries(value).map(([key, item]) => [key, fillAll(item, file)]),
+      Object.entries(value).map(([key, item]) => [key, fillAll(item, locale, file)]),
     ) as T;
   }
   return value;
 }
 
-function loadHome(file: string, raw: string): HomeTexts {
-  return fillAll(loadYaml(file, raw, homeSchema), file);
+function loadHome(locale: Locale, raw: string): HomeTexts {
+  const file = `src/texts/home.${locale}.yaml`;
+  return fillAll(loadYaml(file, raw, homeSchema), locale, file);
 }
 
 const masterLocale = 'ru' satisfies Locale;
 const home: Partial<Record<Locale, HomeTexts>> & { ru: HomeTexts } = {
-  ru: loadHome('src/texts/home.ru.yaml', homeRuRaw),
+  ru: loadHome('ru', homeRuRaw),
 };
 
 interface PageTexts<T> {
