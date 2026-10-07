@@ -2,6 +2,9 @@ name: Deploy to GitHub Pages
 
 # Manual start only: the rebuild goes on in main, and a push must not
 # publish a half-built site. Automatic deploy returns at release.
+#
+# Until release this workflow republishes the old site. Its files are gone
+# from main, so the checkout takes the commit kept under the tag v2-legacy.
 on:
   workflow_dispatch:
 
@@ -23,7 +26,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+        with:
+          ref: e71c5886a75faae85eabfc66e06e26ac1a543fff
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
         

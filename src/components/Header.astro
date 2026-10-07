@@ -1,0 +1,168 @@
+---
+// Шапка: знак, имя, меню, переключатели языка и темы, кнопка мобильного меню.
+import logo from '../assets/brand/logo-mark.svg';
+import { htmlLang, localeLabel, locales, localePath, useTranslations, type Locale } from '../i18n';
+import { sections } from '../lib/sections';
+
+interface Props {
+  lang: Locale;
+  /** Путь текущей страницы без приставки языка. */
+  pagePath: string;
+}
+
+const { lang, pagePath } = Astro.props;
+const t = useTranslations(lang);
+const home = localePath(lang);
+---
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href={home} aria-label={t('brand.home')}>
+      <img class="brand-mark" src={logo.src} width="26" height="38" alt="" />
+      <span class="brand-name">{t('brand.name')}</span>
+    </a>
+    <nav class="nav" id="site-nav" aria-label={t('nav.label')}>
+      {sections.map((section) => section.nav && <a href={`${home}#${section.id}`}>{t(section.nav)}</a>)}
+    </nav>
+    <div class="header-tools">
+      <div class="langs" role="group" aria-label={t('lang.label')}>
+        {
+          locales.map((locale) => (
+            <a
+              href={localePath(locale, pagePath)}
+              lang={htmlLang[locale]}
+              hreflang={htmlLang[locale]}
+              aria-current={locale === lang ? 'true' : undefined}
+            >
+              {localeLabel[locale]}
+            </a>
+          ))
+        }
+      </div>
+      <button
+        class="icon-button"
+        type="button"
+        data-theme-toggle
+        data-label-light={t('theme.light')}
+        data-label-dark={t('theme.dark')}
+        aria-label={t('theme.dark')}
+      >
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z"></path></svg>
+      </button>
+      <button
+        class="icon-button menu-button"
+        type="button"
+        data-menu-toggle
+        data-label-open={t('menu.open')}
+        data-label-close={t('menu.close')}
+        aria-label={t('menu.open')}
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+        <svg class="icon-burger" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const root = document.documentElement;
+  const header = document.querySelector<HTMLElement>('.site-header')!;
+
+  // ---------- Тема ----------
+  // Начальное значение уже поставил скрипт в <head>. Здесь переключение и запоминание.
+  const themeButton = header.querySelector<HTMLButtonElement>('[data-theme-toggle]')!;
+  const systemDark = matchMedia('(prefers-color-scheme: dark)');
+
+  function savedTheme(): string | null {
+    try {
+      return localStorage.getItem('theme');
+    } catch {
+      return null;
+    }
+  }
+
+  function applyTheme(theme: string): void {
+    root.dataset.theme = theme;
+    // Подпись называет тему, которую включит нажатие.
+    const next = theme === 'dark' ? themeButton.dataset.labelLight : themeButton.dataset.labelDark;
+    themeButton.setAttribute('aria-label', next ?? '');
+  }
+
+  applyTheme(root.dataset.theme ?? 'light');
+
+  themeButton.addEventListener('click', () => {
+    const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      // Хранилище недоступно: тема действует до закрытия страницы.
+    }
+  });
+
+  // Пока человек не выбрал тему сам, сайт следует за системой.
+  systemDark.addEventListener('change', (event) => {
+    if (!savedTheme()) applyTheme(event.matches ? 'dark' : 'light');
+  });
+
+  // ---------- Мобильное меню ----------
+  const menuButton = header.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
+  const nav = header.querySelector<HTMLElement>('.nav')!;
+  const isMenuOpen = () => header.hasAttribute('data-menu-open');
+
+  function setMenu(open: boolean): void {
+    header.toggleAttribute('data-menu-open', open);
+    menuButton.setAttribute('aria-expanded', String(open));
+    const label = open ? menuButton.dataset.labelClose : menuButton.dataset.labelOpen;
+    menuButton.setAttribute('aria-label', label ?? '');
+  }
+
+  menuButton.addEventListener('click', () => setMenu(!isMenuOpen()));
+  nav.addEventListener('click', (event) => {
+    if ((event.target as Element).closest('a')) setMenu(false);
+  });
+  document.addEventListener('click', (event) => {
+    if (isMenuOpen() && !header.contains(event.target as Node)) setMenu(false);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && isMenuOpen()) {
+      setMenu(false);
+      menuButton.focus();
+    }
+  });
+  // Ширина совпадает с точкой, где меню в components.css становится строкой.
+  matchMedia('(min-width: 1041px)').addEventListener('change', (event) => {
+    if (event.matches) setMenu(false);
+  });
+
+  // ---------- Переключатель языков ----------
+  // Ссылки ведут на ту же страницу. Перед переходом к адресу добавляется якорь
+  // секции, которую человек сейчас читает: на другом языке он попадает в неё же.
+  const langLinks = header.querySelectorAll<HTMLAnchorElement>('.langs a');
+  const langs = header.querySelector<HTMLElement>('.langs')!;
+
+  function currentSectionId(): string {
+    const pageSections = [...document.querySelectorAll<HTMLElement>('main section[id]')];
+    const atBottom = window.innerHeight + window.scrollY >= root.scrollHeight - 2;
+    if (atBottom && window.scrollY > 0) return pageSections.at(-1)?.id ?? '';
+
+    const line = header.offsetHeight + 32;
+    let id = '';
+    for (const section of pageSections) {
+      if (section.getBoundingClientRect().top <= line) id = section.id;
+    }
+    return id;
+  }
+
+  function syncLangLinks(): void {
+    const id = currentSectionId();
+    for (const link of langLinks) link.hash = id;
+  }
+
+  for (const type of ['pointerenter', 'pointerdown', 'focusin']) {
+    langs.addEventListener(type, syncLangLinks);
+  }
+</script>

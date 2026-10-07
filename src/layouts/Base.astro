@@ -1,0 +1,73 @@
+---
+// Базовый макет страницы: <head>, шапка, подвал.
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/components.css';
+
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import {
+  defaultLocale,
+  htmlLang,
+  locales,
+  localePath,
+  pathWithoutLocale,
+  publicPath,
+  useTranslations,
+  type Locale,
+} from '../i18n';
+
+interface Props {
+  lang: Locale;
+  title: string;
+  description?: string;
+}
+
+const { lang, title, description } = Astro.props;
+const t = useTranslations(lang);
+
+// Та же страница на других языках: для переключателя и для hreflang.
+const pagePath = pathWithoutLocale(Astro.url.pathname);
+const absolute = (locale: Locale) => new URL(localePath(locale, pagePath), Astro.site).href;
+---
+
+<!doctype html>
+<html lang={htmlLang[lang]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+
+    <link rel="canonical" href={absolute(lang)} />
+    {locales.map((locale) => <link rel="alternate" hreflang={htmlLang[locale]} href={absolute(locale)} />)}
+    <link rel="alternate" hreflang="x-default" href={absolute(defaultLocale)} />
+
+    <link rel="icon" href={publicPath('favicon.ico')} sizes="48x48" />
+    <link rel="icon" href={publicPath('favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={publicPath('apple-touch-icon.png')} />
+    <link rel="manifest" href={publicPath('site.webmanifest')} />
+
+    {/* Тема ставится до отрисовки страницы, чтобы она не мигала светлой.
+        Порядок: выбор человека, затем настройка системы. */}
+    <script is:inline>
+      (function () {
+        var saved = null;
+        try {
+          saved = localStorage.getItem('theme');
+        } catch (e) {}
+        var system = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved === 'dark' || saved === 'light' ? saved : system;
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t('skip')}</a>
+    <Header lang={lang} pagePath={pagePath} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

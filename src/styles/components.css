@@ -43,6 +43,9 @@
 :root[data-theme="dark"] .icon-sun { display: none; }
 :root[data-theme="dark"] .icon-moon { display: block; }
 .menu-button { display: none; }
+.icon-close { display: none; }
+.site-header[data-menu-open] .icon-burger { display: none; }
+.site-header[data-menu-open] .icon-close { display: block; }
 
 /* ---------- Кнопки и ссылки ---------- */
 .button {
@@ -254,8 +257,24 @@
 
 /* ---------- Адаптив ---------- */
 @media (max-width: 1040px) {
-  .nav { display: none; }
+  /* Меню сворачивается в панель под шапкой, её открывает кнопка. */
+  .nav {
+    display: none;
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; gap: 0;
+    max-height: calc(100dvh - var(--header-height)); overflow-y: auto;
+    padding: var(--space-2) var(--gutter) var(--space-4);
+    background: var(--color-bg);
+    border-top: var(--border-thin) solid var(--color-line);
+    border-bottom: var(--border-thin) solid var(--color-line-strong);
+  }
+  .site-header[data-menu-open] .nav { display: flex; }
+  .nav a { min-height: 52px; padding: 0; font-size: var(--text-md); color: var(--color-text); }
+  .nav a + a { border-top: var(--border-thin) solid var(--color-line); }
   .menu-button { display: grid; }
+  /* Зоны нажатия для пальца: не меньше 44×44. */
+  .brand { min-width: var(--touch-min); min-height: var(--touch-min); }
+  .langs a { min-width: var(--touch-min); justify-content: center; }
   .hero-grid, .about-grid { grid-template-columns: 1fr; gap: var(--space-7); }
   .about-grid .frame { max-width: 420px; }
   .trio { grid-template-columns: 1fr; gap: 0; }

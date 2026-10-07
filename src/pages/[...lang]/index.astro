@@ -1,0 +1,53 @@
+---
+// Главная на трёх языках: / (EN), /ru/, /sr/.
+// Этап 4: каркас. Секции стоят пустыми заготовками с заголовком и якорем,
+// содержимое приходит на этапе 5.
+import { defaultLocale, locales, useTranslations, type Locale } from '../../i18n';
+import Base from '../../layouts/Base.astro';
+import { sections } from '../../lib/sections';
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({
+    params: { lang: lang === defaultLocale ? undefined : lang },
+    props: { lang },
+  }));
+}
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Base lang={lang} title={t('brand.name')}>
+  <section class="hero">
+    <div class="wrap">
+      <h1><span class="hero-title">{t('brand.name')}</span></h1>
+    </div>
+  </section>
+
+  {
+    sections.map((section, index) => (
+      <section class="section section-stub" id={section.id}>
+        <div class="wrap">
+          <header class="section-head">
+            <span class="section-index" aria-hidden="true">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <h2>{t(section.title)}</h2>
+          </header>
+        </div>
+      </section>
+    ))
+  }
+</Base>
+
+<style>
+  /* Временная высота пустых секций: чтобы меню и переключатель языков было на чём проверить.
+     Убирается на этапе 5 вместе с заготовками. */
+  .section-stub {
+    min-height: 60vh;
+  }
+</style>
