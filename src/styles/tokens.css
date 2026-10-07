@@ -1,0 +1,190 @@
+/* Токены дизайна. Направление «Бумага».
+   Три слоя: примитивы (сырые значения) → смысловые (роль) → компонентные.
+   В компонентах используются только смысловые и компонентные токены. */
+
+/* ---------- 1. Примитивы ---------- */
+:root {
+  /* бумага и чернила */
+  --paper-50: #fbf8f1;
+  --paper-100: #f5f1e8;
+  --paper-300: #d8d0be;
+  --ink-900: #1e1b16;
+  --ink-600: #625b4e;
+
+  /* ночная палитра */
+  --night-950: #16130e;
+  --night-900: #1f1b15;
+  --night-700: #3a3328;
+  --sand-100: #f1ecdf;
+  --sand-400: #aaa291;
+
+  /* янтарь: единственный акцент */
+  --amber-300: #ffc543;
+  --amber-400: #ffc633;
+  --amber-500: #ffb800;
+  --amber-800: #8a5300;
+
+  /* служебные состояния */
+  --red-700: #a3231b;
+  --red-300: #ff9a8f;
+  --green-700: #2c6a2c;
+  --green-300: #8ec78e;
+
+  /* шрифты */
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-text: "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+
+  /* кегли */
+  --text-xs: 0.8125rem;   /* 13 */
+  --text-sm: 0.875rem;    /* 14 */
+  --text-base: 1.0625rem; /* 17 */
+  --text-md: 1.1875rem;   /* 19 */
+  --text-lg: 1.4rem;
+  --text-xl: clamp(1.6rem, 2.6vw, 2.25rem);
+  --text-2xl: clamp(1.9rem, 3.3vw, 3.1rem);
+  --text-stat: 2.6rem;
+
+  --leading-tight: 1.12;
+  --leading-snug: 1.3;
+  --leading-body: 1.6;
+
+  /* отступы: шаг 4 px */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 56px;
+  --space-9: 72px;
+  --space-10: 96px;
+
+  /* форма */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-full: 999px;
+  --border-thin: 1px;
+  --border-strong: 1.5px;
+
+  /* движение */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 160ms;
+  --dur-base: 220ms;
+
+  /* сетка */
+  --wrap: 1200px;
+  --gutter: 24px;
+  --header-height: 68px;
+}
+
+/* ---------- 2. Смысловые токены: светлая тема ---------- */
+:root {
+  color-scheme: light;
+  --color-bg: var(--paper-100);
+  --color-surface: var(--paper-50);
+  --color-text: var(--ink-900);
+  --color-text-muted: var(--ink-600);
+  --color-line: var(--paper-300);
+  --color-line-strong: var(--ink-900);
+  --color-accent: var(--amber-500);
+  --color-accent-hover: var(--amber-400);
+  --color-on-accent: #1b1810;
+  --color-accent-text: var(--amber-800);
+  --color-danger: var(--red-700);
+  --color-success: var(--green-700);
+  --color-hover-veil: color-mix(in srgb, var(--color-text) 8%, transparent);
+
+  --shadow-offset: 14px 14px 0 var(--color-line);
+  --shadow-float: 0 6px 18px rgba(0, 0, 0, 0.28);
+
+  /* код 1С: цвета конфигуратора */
+  --code-bg: #fffef9;
+  --code-text: var(--ink-900);
+  --code-keyword: #b4141e;
+  --code-name: #1a2b8f;
+  --code-comment: #2c7a2c;
+  --code-directive: #8f4a00;
+}
+
+/* ---------- 2. Смысловые токены: тёмная тема ----------
+   Блок повторён дважды: для системной настройки и для ручного переключателя. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-bg: var(--night-950);
+    --color-surface: var(--night-900);
+    --color-text: var(--sand-100);
+    --color-text-muted: var(--sand-400);
+    --color-line: var(--night-700);
+    --color-line-strong: var(--sand-100);
+    --color-accent-text: var(--amber-300);
+    --color-danger: var(--red-300);
+    --color-success: var(--green-300);
+    --code-bg: #1b1812;
+    --code-text: #e9e3d4;
+    --code-keyword: #ff8f86;
+    --code-name: #a9b8ff;
+    --code-comment: #8ec78e;
+    --code-directive: #ffc543;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: var(--night-950);
+  --color-surface: var(--night-900);
+  --color-text: var(--sand-100);
+  --color-text-muted: var(--sand-400);
+  --color-line: var(--night-700);
+  --color-line-strong: var(--sand-100);
+  --color-accent-text: var(--amber-300);
+  --color-danger: var(--red-300);
+  --color-success: var(--green-300);
+  --code-bg: #1b1812;
+  --code-text: #e9e3d4;
+  --code-keyword: #ff8f86;
+  --code-name: #a9b8ff;
+  --code-comment: #8ec78e;
+  --code-directive: #ffc543;
+}
+
+/* ---------- 3. Компонентные токены ---------- */
+:root {
+  --button-height: 50px;
+  --button-padding: 0 var(--space-5);
+  --button-radius: var(--radius-md);
+  --button-primary-bg: var(--color-accent);
+  --button-primary-bg-hover: var(--color-accent-hover);
+  --button-primary-text: var(--color-on-accent);
+  --button-ghost-border: var(--color-line-strong);
+
+  --card-bg: var(--color-surface);
+  --card-border: var(--color-line);
+  --card-padding: var(--space-6);
+  --card-radius: var(--radius-md);
+
+  --field-height: 50px;
+  --field-bg: var(--color-surface);
+  --field-border: var(--color-text-muted);
+  --field-border-focus: var(--color-line-strong);
+  --field-radius: var(--radius-md);
+
+  --frame-border: var(--color-line);
+  --frame-shadow: var(--shadow-offset);
+
+  --focus-ring: 3px solid var(--color-accent);
+  --focus-offset: 3px;
+  --touch-min: 44px;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --gutter: 16px;
+    --text-base: 1rem;
+    --text-md: 1.0625rem;
+    --text-stat: 2.2rem;
+    --card-padding: var(--space-5);
+    --shadow-offset: 10px 10px 0 var(--color-line);
+  }
+}

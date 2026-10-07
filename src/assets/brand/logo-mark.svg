@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 351 516" role="img" aria-label="Stas Ganiev">
+  <defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="516" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f8623f"/><stop offset="0.5" stop-color="#b84b2a"/><stop offset="1" stop-color="#7a3616"/></linearGradient></defs>
+  <path fill="url(#s)" d="M120 0H311V95H125C80 95 30 112 0 151C0 85 55 0 120 0ZM0 151C25 180 75 204 125 204H225C275 204 351 290 351 358C325 330 280 305 240 305H150C65 305 0 230 0 151ZM351 358C320 390 275 414 225 414H15V516H208C265 516 351 440 351 358Z"/>
+</svg>
