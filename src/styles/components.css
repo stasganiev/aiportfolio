@@ -256,6 +256,9 @@
 .entries { margin-top: var(--space-3); border-bottom: var(--border-thin) solid var(--color-line); }
 .entry { padding: var(--space-3) 0; border-top: var(--border-thin) solid var(--color-line); }
 .entry-title { font-weight: 600; line-height: 1.4; }
+/* Русский оригинал названия под его переводом. Виден только на EN и SR. */
+.original { font-size: var(--text-sm); line-height: 1.45; color: var(--color-text-muted); }
+.card .original { margin-top: var(--space-1); }
 a.entry-title {
   display: block; width: fit-content;
   text-decoration: underline; text-decoration-color: var(--color-accent);
@@ -371,14 +374,6 @@ a.entry-title:hover { text-decoration-color: var(--color-text); }
 .field-error { font-size: var(--text-sm); color: var(--color-danger); }
 .form-note { padding: var(--space-4); border-left: 3px solid var(--color-success); background: var(--color-surface); }
 .form-note-error { border-left-color: var(--color-danger); }
-
-/* ---------- Служебная плашка ----------
-   Стоит на страницах без перевода на этапах 5–6. На этапе 7 убирается. */
-.draft-note {
-  padding: var(--space-2) var(--gutter); text-align: center;
-  background: var(--color-accent); color: var(--color-on-accent);
-  font: 500 var(--text-xs) / 1.4 var(--font-mono);
-}
 
 /* ---------- Подвал ---------- */
 .site-footer { margin-top: var(--space-10); border-top: var(--border-thin) solid var(--color-line); }

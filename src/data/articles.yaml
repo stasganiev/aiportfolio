@@ -1,87 +1,130 @@
 # Статьи в хронологическом порядке. Источник: work/speakers_list.md (Стас, 03.10.2026).
 # featured: показывается в избранном на главной.
-# Названия даны на языке статьи. Перевод названий добавляется на этапе 7.
+# title: название на языке статьи (все статьи на русском). title_translation: перевод для EN и SR.
+# publisher: ключ из names.yaml.
 
 - id: devops-tale
   date: 2018-06
   title: "Сказ про то, как я DevOps-ом занимался"
-  publisher: Инфостарт
+  title_translation:
+    en: A tale of how I did DevOps
+    sr: Priča o tome kako sam se bavio DevOps-om
+  publisher: infostart
   url: https://infostart.ru/1c/articles/795197/
 
 - id: git-1c-part-1
   date: 2019-01
   title: "Git + 1С. Часть 1. Как подключиться к команде разработки и начать использовать Git"
-  publisher: Инфостарт
+  title_translation:
+    en: "Git + 1C. Part 1: how to join a development team and start using Git"
+    sr: Git + 1C. Deo 1. Kako se priključiti razvojnom timu i početi sa korišćenjem Git-a
+  publisher: infostart
   url: https://infostart.ru/1c/articles/864097/
-  award: "Номинация «Статья года 2019»"
+  award:
+    ru: Номинация «Статья года 2019»
+    en: Nominated for Article of the Year 2019
+    sr: Nominacija za „Članak godine 2019“
   featured: true
 
 - id: git-1c-part-2
   date: 2019-01
   title: "Git + 1С. Часть 2. Реализация Git workflow в 1С-разработке по шагам"
-  publisher: Инфостарт
+  title_translation:
+    en: "Git + 1C. Part 2: a Git workflow for 1C development, step by step"
+    sr: Git + 1C. Deo 2. Git workflow u 1C razvoju korak po korak
+  publisher: infostart
   url: https://infostart.ru/1c/articles/901547/
 
 - id: dev-wants-from-spec
   date: 2020-10
   title: "Чего хочет разработчик от ТЗ? Примеры из практики"
-  publisher: Инфостарт
+  title_translation:
+    en: What does a developer want from a spec? Examples from practice
+    sr: Šta programer očekuje od specifikacije? Primeri iz prakse
+  publisher: infostart
   url: https://infostart.ru/pm/1311065/
 
 - id: configurator-to-edt
   date: 2021-09
   title: "С конфигуратора на EDT. Привычки, которые придётся поменять"
-  publisher: Инфостарт
+  title_translation:
+    en: "From 1C Designer to EDT: habits you will have to change"
+    sr: Sa 1C Konfiguratora na EDT. Navike koje ćete morati da promenite
+  publisher: infostart
   url: https://infostart.ru/1c/articles/1516894/
 
 - id: 1c-in-60-minutes
   date: 2021-10
   title: "Освойте программирование в 1С за 60 минут: самоучитель для начинающих"
-  publisher: Proglib
+  title_translation:
+    en: "Learn 1C programming in 60 minutes: a beginner's tutorial"
+    sr: "Savladajte programiranje u 1C-u za 60 minuta: priručnik za početnike"
+  publisher: proglib
   url: https://proglib.io/p/osvoyte-programmirovanie-v-1s-za-60-minut-samouchitel-dlya-nachinayushchih-2021-10-11
 
 - id: data-conversion-basics
   date: 2023-10
   title: "Конвертация на пальцах"
-  publisher: Lad IT
+  title_translation:
+    en: Data Conversion in plain words
+    sr: Data Conversion jednostavnim rečima
+  publisher: lad-it
   url: https://lad-corp.ru/media/konvertaciya-na-palcah-chast-pervaya
   url_part_2: https://lad-corp.ru/media/konvertaciya-na-palcah-chast-vtoraya
 
 - id: seven-rules-of-code
   date: 2023-11
   title: "7 правил написания кода, за который не будет стыдно"
-  publisher: Lad IT
+  title_translation:
+    en: 7 rules for writing code you won't be ashamed of
+    sr: 7 pravila za pisanje koda kojeg se nećete stideti
+  publisher: lad-it
   url: https://lad-corp.ru/media/sem-pravil-napisaniya-koda-za-kotoryj-ne-budet-stydno
   featured: true
 
 - id: html-field
   date: 2023-12
   title: "Возможности поля HTML-документа"
-  publisher: Lad IT
+  title_translation:
+    en: What the HTML document field can do
+    sr: Mogućnosti polja HTML dokumenta
+  publisher: lad-it
   url: https://lad-corp.ru/media/vozmozhnosti-polya-html-dokumenta
 
 - id: group-dev-technologies
   date: 2024-01
   title: "Технологии групповой разработки в современной 1С-индустрии"
-  publisher: Lad IT
+  title_translation:
+    en: Team development technologies in today's 1C industry
+    sr: Tehnologije timskog razvoja u savremenoj 1C industriji
+  publisher: lad-it
   url: https://lad-corp.ru/media/tehnologii-gruppovoj-razrabotki-v-sovremennoj-1s-industrii
 
 - id: info-registers-dc31
   date: 2024-08
   title: "Работа с регистрами сведений в КД 3.1"
-  publisher: Хабр
+  title_translation:
+    en: Working with information registers in Data Conversion 3.1
+    sr: Rad sa registrima informacija u Data Conversion 3.1
+  publisher: habr
   url: https://habr.com/ru/companies/lad_/articles/839606/
 
 - id: html-field-part-2
   date: 2024-11
   title: "Возможности поля HTML-документа, часть 2. Внедряем CSS и JS"
-  publisher: Хабр
+  title_translation:
+    en: "What the HTML document field can do, part 2: adding CSS and JS"
+    sr: Mogućnosti polja HTML dokumenta, deo 2. Uvodimo CSS i JS
+  publisher: habr
   url: https://habr.com/ru/companies/lad_/articles/860106/
   featured: true
 
 - id: refactor-legacy
   date: 2025-06-25
   title: "Переписывать нельзя рефакторить: перестань бояться легаси-кода в 1С"
-  publisher: Lad IT
+  title_translation:
+    en: "Rewrite or refactor: stop being afraid of legacy code in 1C"
+    sr: "Prepisati ili refaktorisati: prestanite da se plašite legacy koda u 1C-u"
+  publisher: lad-it
   url: https://lad-corp.ru/media/perepisyvat-nelzya-refaktorit-perestan-boyatsya-legasi-koda-v-1s
   featured: true

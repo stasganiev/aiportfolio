@@ -1,0 +1,57 @@
+# Тексты страницы спикера на сербском (латиница, экавица). Перевод с мастер-версии speaker.ru.yaml, термины по work/glossary.md.
+# Правила записи цифр те же, что в home.sr.yaml.
+
+meta:
+  title: "Stas Ganiev, predavač: teme predavanja, biografija, fotografije" # M3
+  description: "Teme predavanja o 1C-u i AI, biografija u tri dužine i fotografije za najavu. Spisak od {talks|predavanja|predavanja|predavanja} sa snimcima i prezentacijama." # M4
+
+head:
+  title: "Stas Ganiev, predavač" # S0
+  lead: "Govorim o 1C razvoju i primeni AI. Na ovoj stranici je sve što je organizatoru potrebno: teme, biografija i fotografije." # S1
+  invite: "Pozovite me da govorim" # S10
+  video: "Video predstavljanje (YouTube)" # S8a
+
+bio:
+  title: "Biografija" # S2
+  copy: "Kopiraj"
+  copied: "Kopirano"
+  variants:
+    - label: "Jedan red" # S3
+      text:
+        - "Stas Ganiev, Senior 1C Developer u kompaniji SOFTSWISS, autor kurseva „AI arsenal za 1C programera“ i „Git i GitHub u 1C razvoju“."
+    - label: "Pasus" # S4
+      text:
+        - "Stas Ganiev radi sa 1C-om od {sinceYear}. godine. Prošao je put od programera kod 1C franšiznog partnera do arhitekte i rukovodioca razvojnog tima u najvećem maloprodajnom holdingu ruskog Dalekog istoka. Sada je Senior 1C Developer u međunarodnoj produktnoj kompaniji SOFTSWISS i živi u Srbiji. Autor je dva kursa za 1C programere, koje je završilo {graduates|polaznik|polaznika|polaznika}. Održao je {talks|predavanje|predavanja|predavanja}, od toga dva na Infostart Event-u, i napisao {articles|članak|članka|članaka}."
+    - label: "Pola strane" # S5
+      text:
+        - "Stas Ganiev radi sa 1C-om od {sinceYear}. godine. Počeo je kod 1C franšiznih partnera: uvodio je standardne konfiguracije i postao prvi predavač obrazovnog centra. Devet godina je radio u Nevadi, najvećem maloprodajnom holdingu ruskog Dalekog istoka: vodio je razvojni tim, uveo obračun zarada za {payrollEmployees} zaposlenih u {payrollBranches} filijala, uveo timski razvoj sa Git-om i napisao korporativne standarde koda."
+        - "Od {movedToSerbiaYear}. godine Stas živi u Srbiji i radi u međunarodnim produktnim timovima: prvo u 1C Romania, sada u SOFTSWISS-u na poziciji Senior 1C Developer."
+        - "Stas vodi dva autorska kursa za 1C programere: „AI arsenal za 1C programera“ i „Git i GitHub u 1C razvoju“. Završilo ih je {graduates|polaznik|polaznika|polaznika}. Održao je {talks|predavanje|predavanja|predavanja}, od toga dva na Infostart Event-u, i napisao {articles|članak|članka|članaka}. Članak o Git-u i 1C-u nominovan je za „Članak godine 2019“ na Infostartu. Suosnivač je IT zajednice DevDV na ruskom Dalekom istoku, organizovao je {conferencesTotal|konferenciju|konferencije|konferencija}: {conferencesCorporate} korporativne i {conferencesOpen} otvorenih."
+
+topics:
+  title: "Teme predavanja" # S6
+  items:
+    - title: "Od koda do komercijalne ponude: kako izgraditi AI pipeline za bilo koji poslovni proces"
+      text: "Šest pitanja pomoću kojih možete da razložite sopstveni proces i shvatite gde je u njemu mesto za AI. Na tri primera iz prakse: 1C razvoj, izrada kursa, porodične finansije. Za rukovodioce i timove."
+    - title: "Ekonomija AI u 1C projektu"
+      text: "AI je ubrzao razvoj. Zašto projekat nije pojeftinio isto toliko puta? Puna cena AI razvoja: tokeni, sati i prepravke. Za rukovodioce projekata i vlasnike firmi."
+  format: "Format: 30–40 minuta, uživo ili onlajn. Predavanja držim na ruskom jeziku." # S7
+
+photos:
+  title: "Fotografije za najavu" # S8
+  download: "Preuzmi"
+  # Ключи совпадают с файлами в src/assets/speaker/.
+  items:
+    portrait:
+      caption: "Portret"
+      alt: "Stas Ganiev, portret"
+    cafe:
+      caption: "Portret u kafiću"
+      alt: "Stas Ganiev u kafiću, neformalni portret"
+    stage:
+      caption: "Na sceni, Beograd, 2026."
+      alt: "Stas Ganiev drži predavanje, iza njega je slajd prezentacije"
+
+talks:
+  title: "Sva predavanja" # S9
+  # Названия ссылок «Snimak», «Prezentacija», «Članak» берутся из home.sr.yaml (T8).

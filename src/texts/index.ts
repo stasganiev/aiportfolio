@@ -1,6 +1,5 @@
-// Тексты секций по языкам. Русский файл служит мастер-версией.
-// Пока перевода нет, страница получает русский текст и пометку translated: false.
-// На этапе 7 появляются home.en.yaml и home.sr.yaml, и запасной вариант убирается.
+// Тексты страниц по языкам. Русский файл служит мастер-версией, английский и сербский это переводы.
+// У всех трёх одна схема: если в переводе нет файла или ключа, сборка останавливается и называет его.
 
 import { z } from 'astro/zod';
 
@@ -9,8 +8,12 @@ import { htmlLang, type Locale } from '../i18n';
 import { fill } from '../lib/format';
 import { loadYaml } from '../lib/yaml';
 
+import homeEnRaw from './home.en.yaml?raw';
 import homeRuRaw from './home.ru.yaml?raw';
+import homeSrRaw from './home.sr.yaml?raw';
+import speakerEnRaw from './speaker.en.yaml?raw';
 import speakerRuRaw from './speaker.ru.yaml?raw';
+import speakerSrRaw from './speaker.sr.yaml?raw';
 
 const text = z.string().min(1);
 
@@ -49,6 +52,8 @@ const homeSchema = z.strictObject({
   }),
   companies: z.strictObject({
     lead: text,
+    /** Строка о языке работы. Есть только в переводах: по-русски она не нужна. */
+    language_note: text.optional(),
     formats: z.array(z.strictObject({ title: text, text })).min(1),
     button: text,
   }),
@@ -72,7 +77,7 @@ const homeSchema = z.strictObject({
     article: text,
     part_2: text,
   }),
-  experience: z.strictObject({ lead: text, all: text }),
+  experience: z.strictObject({ lead: text, now: text, all: text }),
   about: z.strictObject({
     portrait_alt: text,
     story: z.array(text).min(1),
@@ -169,29 +174,16 @@ function loadTexts<T extends z.ZodType>(page: string, locale: Locale, raw: strin
   return fillAll(loadYaml(file, raw, schema), locale, file);
 }
 
-const masterLocale = 'ru' satisfies Locale;
-const home: Partial<Record<Locale, HomeTexts>> & { ru: HomeTexts } = {
+const home: Record<Locale, HomeTexts> = {
   ru: loadTexts('home', 'ru', homeRuRaw, homeSchema),
+  en: loadTexts('home', 'en', homeEnRaw, homeSchema),
+  sr: loadTexts('home', 'sr', homeSrRaw, homeSchema),
 };
-const speaker: Partial<Record<Locale, SpeakerTexts>> & { ru: SpeakerTexts } = {
+const speaker: Record<Locale, SpeakerTexts> = {
   ru: loadTexts('speaker', 'ru', speakerRuRaw, speakerSchema),
+  en: loadTexts('speaker', 'en', speakerEnRaw, speakerSchema),
+  sr: loadTexts('speaker', 'sr', speakerSrRaw, speakerSchema),
 };
 
-interface PageTexts<T> {
-  texts: T;
-  /** Язык, на котором написан текст. От него зависят формы слов после чисел. */
-  locale: Locale;
-  /** false: перевода нет, показан русский текст. */
-  translated: boolean;
-}
-
-/** Текст на языке страницы. Если перевода нет, возвращается русский с пометкой. */
-function pick<T>(pages: Partial<Record<Locale, T>> & { ru: T }, locale: Locale): PageTexts<T> {
-  const own = pages[locale];
-  return own
-    ? { texts: own, locale, translated: true }
-    : { texts: pages[masterLocale], locale: masterLocale, translated: false };
-}
-
-export const homeTexts = (locale: Locale) => pick(home, locale);
-export const speakerTexts = (locale: Locale) => pick(speaker, locale);
+export const homeTexts = (locale: Locale): HomeTexts => home[locale];
+export const speakerTexts = (locale: Locale): SpeakerTexts => speaker[locale];

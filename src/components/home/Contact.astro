@@ -4,6 +4,7 @@
 import { links } from '../../data';
 import type { Locale } from '../../i18n';
 import { emailjs } from '../../lib/emailjs';
+import { tr } from '../../lib/localized';
 import type { HomeTexts } from '../../texts';
 import Section from './Section.astro';
 
@@ -26,8 +27,8 @@ const contacts = links.contacts.filter((item) => item.show !== false);
         contacts.map((item) => (
           <li>
             <a href={item.url}>
-              <span class="contact-label">{item.label}</span>
-              {item.handle && <span class="contact-handle">{item.handle}</span>}
+              <span class="contact-label">{tr(item.label, lang)}</span>
+              {item.handle && <span class="contact-handle">{tr(item.handle, lang)}</span>}
             </a>
           </li>
         ))

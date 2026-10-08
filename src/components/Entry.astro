@@ -2,24 +2,41 @@
 // Строка списка докладов или статей: название, площадка с годом, ссылки на материалы.
 interface Props {
   title: string;
+  /** Русский оригинал названия. Передаётся на английской и сербской страницах. */
+  original?: string;
   /** Адрес, если само название служит ссылкой (так у статей). */
   href?: string;
   meta: string[];
   links?: { label: string; url: string }[];
 }
 
-const { title, href, meta, links = [] } = Astro.props;
+const { title, original, href, meta, links = [] } = Astro.props;
 ---
 
 <li class="entry">
-  {href ? <a class="entry-title" href={href}>{title}</a> : <p class="entry-title">{title}</p>}
+  {
+    href ? (
+      <a class="entry-title" href={href} hreflang="ru">
+        {title}
+      </a>
+    ) : (
+      <p class="entry-title">{title}</p>
+    )
+  }
+  {
+    original && (
+      <p class="original" lang="ru">
+        {original}
+      </p>
+    )
+  }
   <div class="entry-info">
     <p class="entry-meta">{meta.join(' · ')}</p>
     {
       links.length > 0 && (
         <p class="entry-links">
           {links.map((link) => (
-            <a class="text-link" href={link.url}>
+            <a class="text-link" href={link.url} hreflang="ru">
               {link.label}
               <span class="visually-hidden">: {title}</span>
             </a>

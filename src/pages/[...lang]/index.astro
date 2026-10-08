@@ -26,17 +26,17 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const { texts, locale: textsLocale, translated } = homeTexts(lang);
+const texts = homeTexts(lang);
 ---
 
-<Base lang={lang} title={texts.meta.title} description={texts.meta.description} translated={translated}>
-  <Hero lang={lang} texts={texts.hero} textsLocale={textsLocale} />
+<Base lang={lang} title={texts.meta.title} description={texts.meta.description}>
+  <Hero lang={lang} texts={texts.hero} />
   <Now lang={lang} texts={texts.now} />
-  <Courses lang={lang} texts={texts.courses} textsLocale={textsLocale} />
+  <Courses lang={lang} texts={texts.courses} />
   <Companies lang={lang} texts={texts.companies} />
   <OpenSource lang={lang} texts={texts.open_source} />
   <Talks lang={lang} texts={texts.talks} />
-  <Experience lang={lang} texts={texts.experience} textsLocale={textsLocale} />
+  <Experience lang={lang} texts={texts.experience} />
   <About lang={lang} texts={texts.about} />
   <Contact lang={lang} texts={texts.contact} />
 </Base>

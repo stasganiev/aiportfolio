@@ -3,25 +3,27 @@
 // Цифры в достижениях подставляются из facts.yaml и набираются крупнее текста.
 import { experience } from '../../data';
 import type { Locale } from '../../i18n';
-import { escapeHtml } from '../../lib/format';
+import { escapeHtml, monthYear } from '../../lib/format';
+import { tr } from '../../lib/localized';
 import { fillFacts, type HomeTexts } from '../../texts';
 import Section from './Section.astro';
 
 interface Props {
   lang: Locale;
   texts: HomeTexts['experience'];
-  /** Язык данных об опыте: пока они есть только на русском. */
-  textsLocale: Locale;
 }
 
-const { lang, texts, textsLocale } = Astro.props;
+const { lang, texts } = Astro.props;
 
 // Сколько мест работы видно сразу. Остальные раскрываются кнопкой.
 const shownAtOnce = 3;
 const groups = [experience.slice(0, shownAtOnce), experience.slice(shownAtOnce)] as const;
 
+const period = (job: (typeof experience)[number]) =>
+  `${monthYear(lang, job.from)} – ${job.to ? monthYear(lang, job.to) : texts.now}`;
+
 const withFigures = (text: string) =>
-  fillFacts(escapeHtml(text), textsLocale, {
+  fillFacts(escapeHtml(text), lang, {
     where: 'src/data/experience.yaml',
     // Год в дате остаётся обычным текстом: крупно набираются только показатели.
     markNumber: (number, key) => (key === 'sinceYear' ? number : `<b class="num">${number}</b>`),
@@ -38,16 +40,16 @@ const withFigures = (text: string) =>
           {jobs.map((job) => (
             <li class="xp">
               <div>
-                <p class="xp-period">{job.period}</p>
-                <h3>{job.company}</h3>
-                <p class="xp-about">{job.about}</p>
+                <p class="xp-period">{period(job)}</p>
+                <h3>{tr(job.company, lang)}</h3>
+                <p class="xp-about">{job.about[lang]}</p>
               </div>
               <div>
-                <p class="xp-role">{job.role}</p>
-                <p>{job.summary}</p>
+                <p class="xp-role">{tr(job.role, lang)}</p>
+                <p>{job.summary[lang]}</p>
                 <ul class="dash-list">
                   {job.highlights.map((highlight) => (
-                    <li set:html={withFigures(highlight)} />
+                    <li set:html={withFigures(highlight[lang])} />
                   ))}
                 </ul>
               </div>

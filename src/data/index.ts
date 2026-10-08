@@ -12,14 +12,22 @@ import coursesRaw from './courses.yaml?raw';
 import experienceRaw from './experience.yaml?raw';
 import factsRaw from './facts.yaml?raw';
 import linksRaw from './links.yaml?raw';
+import namesRaw from './names.yaml?raw';
 import talksRaw from './talks.yaml?raw';
 import testimonialsRaw from './testimonials.yaml?raw';
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'дата в виде ГГГГ-ММ-ДД');
+const yearOrMonth = z.string().regex(/^\d{4}(-\d{2})?$/, 'дата в виде ГГГГ или ГГГГ-ММ');
 const monthOrDate = z.string().regex(/^\d{4}-\d{2}(-\d{2})?$/, 'дата в виде ГГГГ-ММ или ГГГГ-ММ-ДД');
 const url = z.url();
 const text = z.string().min(1);
 const count = z.number().int().positive();
+
+/** Текст на трёх языках. Строка без вариантов одинакова на всех языках. */
+const threeLanguages = z.strictObject({ ru: text, en: text, sr: text });
+const localized = z.union([text, threeLanguages]);
+/** Перевод названия, которое само остаётся в оригинале. */
+const translation = z.strictObject({ en: text, sr: text });
 
 /** Запись в facts.yaml: значение и откуда оно взято. */
 function fact<T extends z.ZodType>(value: T) {
@@ -60,7 +68,8 @@ const talksSchema = z.array(
     id: text,
     date: monthOrDate,
     title: text,
-    venue: text,
+    title_translation: translation,
+    venue: localized,
     place: text,
     format: z.enum(['offline', 'online']),
     featured: z.boolean().optional(),
@@ -75,10 +84,11 @@ const articlesSchema = z.array(
     id: text,
     date: monthOrDate,
     title: text,
+    title_translation: translation,
     publisher: text,
     url,
     url_part_2: url.optional(),
-    award: text.optional(),
+    award: threeLanguages.optional(),
     featured: z.boolean().optional(),
   }),
 );
@@ -87,37 +97,39 @@ const coursesSchema = z.array(
   z.strictObject({
     id: text,
     title: text,
+    title_translation: translation,
     language: z.enum(['ru', 'en', 'sr']),
     school: text,
     landing: url,
     modules: count,
     lessons: count,
-    format: text,
-    audience: text,
-    outcomes: z.array(text).min(1),
+    format: threeLanguages,
+    audience: threeLanguages,
+    outcomes: z.array(threeLanguages).min(1),
   }),
 );
 
 const testimonialsSchema = z.array(
   z.strictObject({
     id: text,
-    author: text,
+    author: threeLanguages,
     course: text,
-    course_label: text,
+    course_label: threeLanguages,
     cohort: count,
-    quote: text,
+    quote: threeLanguages,
   }),
 );
 
 const experienceSchema = z.array(
   z.strictObject({
     id: text,
-    company: text,
-    period: text,
-    role: text,
-    about: text,
-    summary: text,
-    highlights: z.array(text).min(1),
+    company: localized,
+    from: yearOrMonth,
+    to: yearOrMonth.optional(),
+    role: localized,
+    about: threeLanguages,
+    summary: threeLanguages,
+    highlights: z.array(threeLanguages).min(1),
   }),
 );
 
@@ -125,14 +137,19 @@ const linksSchema = z.strictObject({
   contacts: z.array(
     z.strictObject({
       id: text,
-      label: text,
-      handle: text.optional(),
+      label: localized,
+      handle: localized.optional(),
       url,
       show: z.boolean().optional(),
     }),
   ),
   speaker_kit: z.strictObject({ intro_video: url }),
-  repositories: z.array(z.strictObject({ id: text, name: text, url, summary: text })),
+  repositories: z.array(z.strictObject({ id: text, name: text, url })),
+});
+
+const namesSchema = z.strictObject({
+  places: z.record(z.string(), localized),
+  publishers: z.record(z.string(), localized),
 });
 
 function checkUniqueIds(file: string, items: { id: string }[]): void {
@@ -149,6 +166,7 @@ export const courses = loadYaml('src/data/courses.yaml', coursesRaw, coursesSche
 export const testimonials = loadYaml('src/data/testimonials.yaml', testimonialsRaw, testimonialsSchema);
 export const experience = loadYaml('src/data/experience.yaml', experienceRaw, experienceSchema);
 export const links = loadYaml('src/data/links.yaml', linksRaw, linksSchema);
+export const names = loadYaml('src/data/names.yaml', namesRaw, namesSchema);
 
 checkUniqueIds('src/data/talks.yaml', talks);
 checkUniqueIds('src/data/articles.yaml', articles);
@@ -168,6 +186,16 @@ if (articles.length !== factsFile.public.articles.value) {
   fail('src/data/facts.yaml', [
     `public.articles: указано ${factsFile.public.articles.value}, а в articles.yaml записей ${articles.length}`,
   ]);
+}
+for (const talk of talks) {
+  if (!(talk.place in names.places)) {
+    fail('src/data/talks.yaml', [`${talk.id}: места «${talk.place}» нет в names.yaml`]);
+  }
+}
+for (const article of articles) {
+  if (!(article.publisher in names.publishers)) {
+    fail('src/data/articles.yaml', [`${article.id}: издания «${article.publisher}» нет в names.yaml`]);
+  }
 }
 for (const item of testimonials) {
   if (!courses.some((course) => course.id === item.course)) {

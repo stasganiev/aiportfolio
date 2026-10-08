@@ -2,6 +2,7 @@
 // Подвал: копирайт с годом сборки, короткое меню и ссылки на соцсети из links.yaml.
 import { contact } from '../data';
 import { localePath, useTranslations, type Locale } from '../i18n';
+import { tr } from '../lib/localized';
 import { sections } from '../lib/sections';
 
 interface Props {
@@ -22,7 +23,7 @@ const social = ['telegram', 'linkedin', 'github'].map(contact);
       {sections.map((section) => section.nav && <a href={`${home}#${section.id}`}>{t(section.nav)}</a>)}
     </nav>
     <span class="footer-links">
-      {social.map((item) => <a href={item.url} rel="me noopener">{item.label}</a>)}
+      {social.map((item) => <a href={item.url} rel="me noopener">{tr(item.label, lang)}</a>)}
     </span>
   </div>
 </footer>

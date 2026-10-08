@@ -13,11 +13,9 @@ import Xray from './Xray.astro';
 interface Props {
   lang: Locale;
   texts: HomeTexts['hero'];
-  /** Язык самих текстов: от него зависят формы слов после чисел. */
-  textsLocale: Locale;
 }
 
-const { lang, texts, textsLocale } = Astro.props;
+const { lang, texts } = Astro.props;
 const home = localePath(lang);
 
 const stats = [
@@ -64,7 +62,7 @@ const stats = [
         stats.map((item) => (
           <div>
             <dt>{item.value}</dt>
-            <dd>{plural(textsLocale, item.value, item.forms)}</dd>
+            <dd>{plural(lang, item.value, item.forms)}</dd>
           </div>
         ))
       }

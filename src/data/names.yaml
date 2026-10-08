@@ -1,0 +1,14 @@
+# Названия мест и изданий на трёх языках.
+# В talks.yaml и articles.yaml стоит ключ отсюда: place: khabarovsk, publisher: infostart.
+
+places:
+  khabarovsk: { ru: "Хабаровск", en: "Khabarovsk", sr: "Habarovsk" }
+  saint-petersburg: { ru: "Санкт-Петербург", en: "Saint Petersburg", sr: "Sankt Peterburg" }
+  belgrade: { ru: "Белград", en: "Belgrade", sr: "Beograd" }
+  online: { ru: "онлайн", en: "online", sr: "onlajn" }
+
+publishers:
+  infostart: { ru: "Инфостарт", en: "Infostart", sr: "Infostart" }
+  habr: { ru: "Хабр", en: "Habr", sr: "Habr" }
+  lad-it: "Lad IT"
+  proglib: "Proglib"

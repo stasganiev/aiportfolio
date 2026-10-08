@@ -1,32 +1,68 @@
-# Отзывы выпускников. Цитаты дословные, сокращения отмечены многоточием в скобках.
+# Отзывы выпускников. Русские цитаты дословные, сокращения отмечены многоточием в скобках.
 # Источник: формы обратной связи курсов. Согласия авторов есть (Стас, 06.10.2026).
 # Подпись по образцу Стаса: «Имя Ф., курс, поток N». Полные фамилии на сайте не показываются.
-# Отзывы на других языках помечаются как перевод (этап 7).
+# Английский и сербский варианты это переводы: на сайте они подписаны как перевод с русского.
 
 - id: dmitry-n
-  author: "Дмитрий Н."
+  author:
+    ru: Дмитрий Н.
+    en: Dmitry N.
+    sr: Dmitrij N.
   course: git-github
-  course_label: "Git для 1С"
+  course_label:
+    ru: Git для 1С
+    en: Git for 1C
+    sr: Git za 1C
   cohort: 1
-  quote: "Могу отметить высокое качество, доступность и одновременную полноту и соответствующую детализацию выданного материала. (…) Было интересно послушать, что казалось бы уже мне известно и при этом все-таки узнать новое."
+  quote:
+    ru: Могу отметить высокое качество, доступность и одновременную полноту и соответствующую детализацию выданного материала. (…) Было интересно послушать, что казалось бы уже мне известно и при этом все-таки узнать новое.
+    en: I can note the high quality and clarity of the material, and at the same time its completeness and level of detail. (…) It was interesting to listen to things I thought I already knew and still learn something new.
+    sr: Mogu da istaknem visok kvalitet i razumljivost materijala, a istovremeno njegovu potpunost i nivo detalja. (…) Bilo je zanimljivo slušati ono što mi je naizgled već poznato, a ipak naučiti nešto novo.
 
 - id: dmitry-f
-  author: "Дмитрий Ф."
+  author:
+    ru: Дмитрий Ф.
+    en: Dmitry F.
+    sr: Dmitrij F.
   course: git-github
-  course_label: "Git для 1С"
+  course_label:
+    ru: Git для 1С
+    en: Git for 1C
+    sr: Git za 1C
   cohort: 2
-  quote: "Модуль отличный! Очень много полезного и, что самое важное, много практики. Темы раскрыты последовательно: от выгрузки конфигурации в файлы до автоматизации процессов."
+  quote:
+    ru: "Модуль отличный! Очень много полезного и, что самое важное, много практики. Темы раскрыты последовательно: от выгрузки конфигурации в файлы до автоматизации процессов."
+    en: "The module is excellent! A lot of useful material and, most importantly, a lot of practice. The topics are covered step by step: from exporting a configuration to files to automating processes."
+    sr: "Modul je odličan! Mnogo korisnog i, što je najvažnije, mnogo prakse. Teme su obrađene redom: od izvoza konfiguracije u fajlove do automatizacije procesa."
 
 - id: sergey-b
-  author: "Сергей Б."
+  author:
+    ru: Сергей Б.
+    en: Sergey B.
+    sr: Sergej B.
   course: ai-arsenal
-  course_label: "AI-арсенал"
+  course_label:
+    ru: AI-арсенал
+    en: AI Arsenal
+    sr: AI arsenal
   cohort: 1
-  quote: "Несмотря на то, что я уже полгода активно использую ИИ для задач 1С, этот этап обучения оказался очень своевременным. (…) Теперь я на практике увидел разницу между простым запросом и полноценным техническим заданием для нейросети."
+  quote:
+    ru: Несмотря на то, что я уже полгода активно использую ИИ для задач 1С, этот этап обучения оказался очень своевременным. (…) Теперь я на практике увидел разницу между простым запросом и полноценным техническим заданием для нейросети.
+    en: Although I have been actively using AI for 1C tasks for six months, this part of the course came at just the right time. (…) Now I have seen in practice the difference between a simple prompt and a full specification for a neural network.
+    sr: Iako već pola godine aktivno koristim AI za 1C zadatke, ovaj deo obuke došao je u pravom trenutku. (…) Sada sam u praksi video razliku između običnog upita i potpune specifikacije za neuronsku mrežu.
 
 - id: boris-ch
-  author: "Борис Ч."
+  author:
+    ru: Борис Ч.
+    en: Boris Ch.
+    sr: Boris Č.
   course: ai-arsenal
-  course_label: "AI-арсенал"
+  course_label:
+    ru: AI-арсенал
+    en: AI Arsenal
+    sr: AI arsenal
   cohort: 1
-  quote: "Первый модуль — хорошая база: токены, контекст, галлюцинации LLM. Самое ценное — промпт-инжиниринг: готовая схема для получения рабочего кода. Чётко, без воды."
+  quote:
+    ru: "Первый модуль — хорошая база: токены, контекст, галлюцинации LLM. Самое ценное — промпт-инжиниринг: готовая схема для получения рабочего кода. Чётко, без воды."
+    en: "The first module is a solid foundation: tokens, context, LLM hallucinations. The most valuable part is prompt engineering: a ready-made scheme for getting working code. Clear, no fluff."
+    sr: "Prvi modul je dobra osnova: tokeni, kontekst, halucinacije LLM-a. Najvrednije je prompt inženjering: gotova šema za dobijanje ispravnog koda. Jasno, bez praznih priča."

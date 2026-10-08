@@ -14,7 +14,10 @@ const { lang, texts } = Astro.props;
 ---
 
 <Section lang={lang} id="companies">
-  <p class="section-lead">{texts.lead}</p>
+  <p class="section-lead">
+    {texts.lead}
+    {texts.language_note && <>{' '}{texts.language_note}</>}
+  </p>
 
   <div class="rows">
     {

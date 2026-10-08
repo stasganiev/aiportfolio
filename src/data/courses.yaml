@@ -1,32 +1,67 @@
-# Курсы. Тексты на русском (мастер-версия), переводы добавляются на этапе 7.
+# Курсы. Название курса остаётся в оригинале, title_translation даёт его перевод для EN и SR.
+# Остальные тексты заданы на трёх языках: ru (мастер-версия), en, sr.
 # Дат потоков здесь нет: расписание живёт на лендинге школы CORS.
 
 - id: ai-arsenal
   title: "AI-арсенал для разработчика 1С"
+  title_translation:
+    en: AI Arsenal for the 1C Developer
+    sr: AI arsenal za 1C programera
   language: ru
   school: CORS
   landing: https://cors.su/ai-arsenal-dlya-razrabotchika-1s/
   modules: 4
   lessons: 19
-  format: "Живой поток с проверкой домашних заданий и воркшопами."
-  audience: "Практикующим 1С-разработчикам, которые хотят встроить AI в ежедневную работу."
+  format:
+    ru: Живой поток с проверкой домашних заданий и воркшопами.
+    en: Live cohort with reviewed homework and workshops.
+    sr: Kurs uživo sa pregledom domaćih zadataka i radionicama.
+  audience:
+    ru: Практикующим 1С-разработчикам, которые хотят встроить AI в ежедневную работу.
+    en: For practising 1C developers who want to bring AI into their daily work.
+    sr: Za 1C programere iz prakse koji žele da uvedu AI u svakodnevni rad.
   outcomes:
-    - "Ставить AI задачу так, чтобы она была решена"
-    - "Генерировать и рефакторить код, запросы и формы"
-    - "Писать с AI документацию и тесты, проводить ревью кода"
-    - "Готовить контекст проекта, на котором AI ошибается реже"
+    - ru: Ставить AI задачу так, чтобы она была решена
+      en: Set a task for AI so that it gets solved
+      sr: Postaviti zadatak za AI tako da bude rešen
+    - ru: Генерировать и рефакторить код, запросы и формы
+      en: Generate and refactor code, queries and forms
+      sr: Generisati i refaktorisati kod, upite i forme
+    - ru: Писать с AI документацию и тесты, проводить ревью кода
+      en: Write documentation and tests with AI, run code reviews
+      sr: Pisati dokumentaciju i testove uz AI, raditi code review
+    - ru: Готовить контекст проекта, на котором AI ошибается реже
+      en: Prepare project context that makes AI err less often
+      sr: Pripremiti kontekst projekta na kojem AI ređe greši
 
 - id: git-github
   title: "Git и GitHub в 1С-разработке"
+  title_translation:
+    en: Git and GitHub in 1C Development
+    sr: Git i GitHub u 1C razvoju
   language: ru
   school: CORS
   landing: https://cors.su/git-i-github-v-1s-razrabotke/
   modules: 3
   lessons: 13
-  format: "Короткие видеоуроки, после каждого практическое задание."
-  audience: "1С-разработчикам, которые переходят к командной разработке."
+  format:
+    ru: Короткие видеоуроки, после каждого практическое задание.
+    en: Short video lessons, each followed by a practical task.
+    sr: Kratke video lekcije, posle svake praktičan zadatak.
+  audience:
+    ru: 1С-разработчикам, которые переходят к командной разработке.
+    en: For 1C developers moving to team development.
+    sr: Za 1C programere koji prelaze na timski razvoj.
   outcomes:
-    - "Вести проект 1С в Git, не покидая конфигуратор"
-    - "Работать с ветками и разбирать конфликты слияния"
-    - "Работать в команде через GitHub, проводить ревью кода"
-    - "Исправлять ошибки в истории и настраивать SSH-ключи"
+    - ru: Вести проект 1С в Git, не покидая конфигуратор
+      en: Keep a 1C project in Git without leaving 1C Designer
+      sr: Voditi 1C projekat u Git-u bez izlaska iz 1C Konfiguratora
+    - ru: Работать с ветками и разбирать конфликты слияния
+      en: Work with branches and resolve merge conflicts
+      sr: Raditi sa granama i rešavati konflikte pri spajanju
+    - ru: Работать в команде через GitHub, проводить ревью кода
+      en: Work in a team through GitHub, run code reviews
+      sr: Raditi u timu preko GitHub-a, raditi code review
+    - ru: Исправлять ошибки в истории и настраивать SSH-ключи
+      en: Fix mistakes in history and set up SSH keys
+      sr: Ispravljati greške u istoriji i podešavati SSH ključeve

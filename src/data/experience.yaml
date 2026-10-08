@@ -1,64 +1,158 @@
 # Опыт работы, от нового к старому. Источник: about_me/career.md и резюме.
-# Тексты на русском (мастер-версия), переводы добавляются на этапе 7.
+# Тексты заданы на трёх языках: ru (мастер-версия), en, sr. Строка без вариантов одинакова на всех языках.
+# Период задаётся датами: from и to в виде ГГГГ-ММ или ГГГГ. Без to место работы считается текущим.
+# Названия месяцев сайт подставляет сам на языке страницы.
 # Цифры в достижениях записаны именами из facts.yaml в фигурных скобках и подставляются при сборке.
 # {paydeskStores|магазин|магазина|магазинов} ставит число и слово в нужной форме.
 
 - id: softswiss
   company: SOFTSWISS
-  period: "ноябрь 2024 – сейчас"
+  from: 2024-11
   role: "Senior 1C Developer"
-  about: "Международная продуктовая компания"
-  summary: "Проектирую и поддерживаю интеграцию 1С с BI-платформой. Собрал все обмены данными в одну подсистему с дашбордом мониторинга."
+  about:
+    ru: Международная продуктовая компания
+    en: International product company
+    sr: Međunarodna produktna kompanija
+  summary:
+    ru: Проектирую и поддерживаю интеграцию 1С с BI-платформой. Собрал все обмены данными в одну подсистему с дашбордом мониторинга.
+    en: I design and maintain the integration between 1C and the BI platform. I brought all data exchanges into one subsystem with a monitoring dashboard.
+    sr: Projektujem i održavam integraciju 1C-a sa BI platformom. Objedinio sam sve razmene podataka u jedan podsistem sa kontrolnom tablom za praćenje.
   highlights:
-    - "Код, документация и общение в команде на английском"
-    - "Внутренние доклады для разработчиков о применении AI в 1С"
+    - ru: Код, документация и общение в команде на английском
+      en: Code, documentation and team communication in English
+      sr: Kod, dokumentacija i komunikacija u timu na engleskom
+    - ru: Внутренние доклады для разработчиков о применении AI в 1С
+      en: Internal talks for developers on applying AI to 1C
+      sr: Interna predavanja za programere o primeni AI u 1C-u
 
 - id: 1c-romania
   company: 1C Romania
-  period: "ноябрь 2022 – ноябрь 2024"
-  role: "Разработчик и архитектор 1С, product owner"
-  about: "Тиражные мультиязычные решения на 1С для рынка Европы"
-  summary: "Перевёл и адаптировал розничный продукт PayDesk для румынского рынка."
+  from: 2022-11
+  to: 2024-11
+  role:
+    ru: Разработчик и архитектор 1С, product owner
+    en: 1C Developer and Architect, Product Owner
+    sr: 1C programer i arhitekta, product owner
+  about:
+    ru: Тиражные мультиязычные решения на 1С для рынка Европы
+    en: Multilingual off-the-shelf 1C solutions for the European market
+    sr: Višejezična gotova 1C rešenja za evropsko tržište
+  summary:
+    ru: Перевёл и адаптировал розничный продукт PayDesk для румынского рынка.
+    en: Translated and adapted the PayDesk retail product for the Romanian market.
+    sr: Preveo sam i prilagodio maloprodajni proizvod PayDesk za rumunsko tržište.
   highlights:
-    - "Запуск PayDesk у первого клиента: {paydeskStores|магазин|магазина|магазинов}"
-    - "Англоязычный адаптер для «Конвертации данных 3.1»"
-    - "Интеграция сервиса лояльности между двумя системами"
+    - ru: "Запуск PayDesk у первого клиента: {paydeskStores|магазин|магазина|магазинов}"
+      en: "PayDesk launch at the first client: {paydeskStores|store|stores}"
+      sr: "Pokretanje PayDesk-a kod prvog klijenta: {paydeskStores|prodavnica|prodavnice|prodavnica}"
+    - ru: Англоязычный адаптер для «Конвертации данных 3.1»
+      en: An English-language adapter for Data Conversion 3.1
+      sr: Adapter na engleskom jeziku za Data Conversion 3.1
+    - ru: Интеграция сервиса лояльности между двумя системами
+      en: Loyalty service integration between two systems
+      sr: Integracija servisa lojalnosti između dva sistema
 
 - id: automacon
-  company: Автомакон
-  period: "ноябрь 2021 – октябрь 2022"
-  role: "Ведущий программист 1С"
-  about: "Проект для сети ВкусВилл"
-  summary: "Отчётность по МСФО и РСБУ, интеграция с системой маркировки «Честный знак» через REST API."
+  company:
+    ru: Автомакон
+    en: Automacon
+    sr: Automacon
+  from: 2021-11
+  to: 2022-10
+  role:
+    ru: Ведущий программист 1С
+    en: Lead 1C Developer
+    sr: Vodeći 1C programer
+  about:
+    ru: Проект для сети ВкусВилл
+    en: A project for the VkusVill retail chain
+    sr: Projekat za maloprodajni lanac VkusVill
+  summary:
+    ru: Отчётность по МСФО и РСБУ, интеграция с системой маркировки «Честный знак» через REST API.
+    en: IFRS and RAS reporting, integration with Chestny ZNAK, the national product labelling system, via REST API.
+    sr: Izveštavanje po MSFI i RSBU (ruski računovodstveni standardi), integracija sa Chestny ZNAK, ruskim nacionalnim sistemom obeležavanja proizvoda, preko REST API-ja.
   highlights:
-    - "Аналитический отчёт формируется за {reportMinutesAfter|минуту|минуты|минут} вместо {reportMinutesBefore}"
+    - ru: Аналитический отчёт формируется за {reportMinutesAfter|минуту|минуты|минут} вместо {reportMinutesBefore}
+      en: An analytical report now takes {reportMinutesAfter|minute|minutes} instead of {reportMinutesBefore}
+      sr: Analitički izveštaj se formira za {reportMinutesAfter|minut|minuta|minuta} umesto {reportMinutesBefore}
 
 - id: infostart
-  company: Инфостарт
-  period: "август 2020 – ноябрь 2021"
-  role: "Ведущий разработчик 1С"
-  about: "Крупнейшее сообщество 1С-разработчиков в России"
-  summary: "Развивал корпоративную ERP и её интеграцию с сайтом. Разработал универсальную подсистему обмена с операторами ЭДО."
+  company:
+    ru: Инфостарт
+    en: Infostart
+    sr: Infostart
+  from: 2020-08
+  to: 2021-11
+  role:
+    ru: Ведущий разработчик 1С
+    en: Lead 1C Developer
+    sr: Vodeći 1C programer
+  about:
+    ru: Крупнейшее сообщество 1С-разработчиков в России
+    en: Russia's largest 1C developer community
+    sr: Najveća zajednica 1C programera u Rusiji
+  summary:
+    ru: Развивал корпоративную ERP и её интеграцию с сайтом. Разработал универсальную подсистему обмена с операторами ЭДО.
+    en: Developed the corporate ERP and its integration with the website. Built a universal subsystem for exchange with EDI providers.
+    sr: Razvijao sam korporativni ERP i njegovu integraciju sa sajtom. Razvio sam univerzalni podsistem za razmenu sa EDI operaterima.
   highlights:
-    - "Командная разработка с Git, GitLab, SonarQube и обязательным ревью кода"
+    - ru: Командная разработка с Git, GitLab, SonarQube и обязательным ревью кода
+      en: Team development with Git, GitLab, SonarQube and mandatory code review
+      sr: Timski razvoj uz Git, GitLab, SonarQube i obavezan code review
 
 - id: nevada
-  company: Невада ДВ
-  period: "февраль 2011 – август 2020"
-  role: "Ведущий разработчик, архитектор, руководитель группы"
-  about: "Крупнейший ритейл-холдинг Дальнего Востока"
-  summary: "Прошёл путь от разработчика до архитектора и руководителя группы."
+  company:
+    ru: Невада ДВ
+    en: Nevada DV
+    sr: Nevada DV
+  from: 2011-02
+  to: 2020-08
+  role:
+    ru: Ведущий разработчик, архитектор, руководитель группы
+    en: Lead Developer, Architect, Head of Development Team
+    sr: Vodeći programer, arhitekta, rukovodilac razvojnog tima
+  about:
+    ru: Крупнейший ритейл-холдинг Дальнего Востока
+    en: The largest retail holding in the Russian Far East
+    sr: Najveći maloprodajni holding ruskog Dalekog istoka
+  summary:
+    ru: Прошёл путь от разработчика до архитектора и руководителя группы.
+    en: Went from developer to architect and head of the development team.
+    sr: Prošao sam put od programera do arhitekte i rukovodioca razvojnog tima.
   highlights:
-    - "Расчёт зарплаты для {payrollEmployees} сотрудников в {payrollBranches} филиалах"
-    - "Групповая разработка для всего ИТ-департамента: хранилище, затем Git"
-    - "Автор корпоративных стандартов разработки"
-    - "Наставник для десяти разработчиков и архитекторов"
+    - ru: Расчёт зарплаты для {payrollEmployees} сотрудников в {payrollBranches} филиалах
+      en: Payroll calculation for {payrollEmployees} employees across {payrollBranches} branches
+      sr: Obračun zarada za {payrollEmployees} zaposlenih u {payrollBranches} filijala
+    - ru: "Групповая разработка для всего ИТ-департамента: хранилище, затем Git"
+      en: "Team development for the whole IT department: first a configuration repository, then Git"
+      sr: "Timski razvoj za ceo IT sektor: prvo repozitorijum konfiguracije, zatim Git"
+    - ru: Автор корпоративных стандартов разработки
+      en: Author of the corporate development standards
+      sr: Autor korporativnih standarda razvoja
+    - ru: Наставник для десяти разработчиков и архитекторов
+      en: Mentor to ten developers and architects
+      sr: Mentor za deset programera i arhitekata
 
 - id: early
-  company: "Франчайзи 1С и штатная разработка"
-  period: "2001 – 2011"
-  role: "Программист, ведущий специалист"
-  about: "Хабаровск"
-  summary: "Внедрял и сопровождал типовые конфигурации 1С. Составил учебный план и стал первым преподавателем курса «1С:Торговля и склад» в учебном центре."
+  company:
+    ru: Франчайзи 1С и штатная разработка
+    en: 1C franchisees and in-house development
+    sr: 1C franšizni partneri i interni razvoj
+  from: "2001"
+  to: "2011"
+  role:
+    ru: Программист, ведущий специалист
+    en: Developer, Lead Specialist
+    sr: Programer, vodeći specijalista
+  about:
+    ru: Хабаровск
+    en: Khabarovsk
+    sr: Habarovsk
+  summary:
+    ru: Внедрял и сопровождал типовые конфигурации 1С. Составил учебный план и стал первым преподавателем курса «1С:Торговля и склад» в учебном центре.
+    en: Implemented and supported standard 1C configurations. Designed the curriculum and became the first instructor of the 1C:Trade and Warehouse course at the training centre.
+    sr: Uvodio sam i održavao standardne 1C konfiguracije. Sastavio sam nastavni plan i postao prvi predavač kursa „1C:Trgovina i skladište“ u obrazovnom centru.
   highlights:
-    - "Первый отчёт в 1С написан {firstReportDayMonth} {sinceYear} года"
+    - ru: Первый отчёт в 1С написан {firstReportDayMonth} {sinceYear} года
+      en: First 1C report written on {firstReportDayMonth}, {sinceYear}
+      sr: Prvi izveštaj u 1C-u napisan je {firstReportDayMonth} {sinceYear}. godine

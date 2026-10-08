@@ -9,7 +9,7 @@ import stage from '../../assets/speaker/stas-ganiev-stage.jpg';
 import Entry from '../../components/Entry.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import { links } from '../../data';
-import { defaultLocale, locales, localePath, type Locale } from '../../i18n';
+import { defaultLocale, locales, localePath, useTranslations, type Locale } from '../../i18n';
 import Base from '../../layouts/Base.astro';
 import { talkEntries } from '../../lib/talks';
 import { homeTexts, speakerTexts } from '../../texts';
@@ -26,7 +26,7 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const { texts, translated } = speakerTexts(lang);
+const texts = speakerTexts(lang);
 const home = localePath(lang);
 
 // Фото отдаются организатору исходным файлом. Имя файла при скачивании задаёт атрибут download.
@@ -36,10 +36,10 @@ const photos = [
   { ...texts.photos.items.stage, image: stage, file: 'stas-ganiev-stage.jpg' },
 ];
 
-const talks = talkEntries(homeTexts(lang).texts.talks);
+const talks = talkEntries(homeTexts(lang).talks, lang, useTranslations(lang)('material.inRussian'));
 ---
 
-<Base lang={lang} title={texts.meta.title} description={texts.meta.description} translated={translated}>
+<Base lang={lang} title={texts.meta.title} description={texts.meta.description}>
   <section class="hero">
     <div class="wrap">
       <h1><span class="hero-title">{texts.head.title}</span></h1>
@@ -123,7 +123,7 @@ const talks = talkEntries(homeTexts(lang).texts.talks);
 
   <SectionBlock id="talks" index={4} title={texts.talks.title}>
     <ul class="entries entries-columns">
-      {talks.map((item) => <Entry title={item.title} meta={item.meta} links={item.links} />)}
+      {talks.map((item) => <Entry title={item.title} original={item.original} meta={item.meta} links={item.links} />)}
     </ul>
     <div class="section-actions">
       <a class="button button-primary" href={`${home}#contact`}>{texts.head.invite}</a>

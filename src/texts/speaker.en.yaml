@@ -1,0 +1,57 @@
+# Тексты страницы спикера на английском. Перевод с мастер-версии speaker.ru.yaml, термины по work/glossary.md.
+# Правила записи цифр те же, что в home.en.yaml.
+
+meta:
+  title: "Stas Ganiev, speaker: talk topics, bio, photos" # M3
+  description: "Talk topics on 1C and AI, a bio in three lengths and photos for the announcement. A list of {talks|talk|talks} with recordings and slides." # M4
+
+head:
+  title: "Stas Ganiev, speaker" # S0
+  lead: "I speak about 1C development and applying AI. This page has everything an organiser needs: topics, bio and photos." # S1
+  invite: "Invite me to speak" # S10
+  video: "Video introduction (YouTube)" # S8a
+
+bio:
+  title: "Bio" # S2
+  copy: "Copy"
+  copied: "Copied"
+  variants:
+    - label: "One line" # S3
+      text:
+        - "Stas Ganiev, Senior 1C Developer at SOFTSWISS, author of the courses “AI Arsenal for the 1C Developer” and “Git and GitHub in 1C Development”."
+    - label: "Paragraph" # S4
+      text:
+        - "Stas Ganiev has worked with 1C since {sinceYear}. He went from a programmer at a 1C franchisee to architect and head of a development team at the largest retail holding in the Russian Far East. He is now a Senior 1C Developer at SOFTSWISS, an international product company, and lives in Serbia. He is the author of two courses for 1C developers, completed by {graduates|person|people}. He has given {talks|talk|talks}, including two at Infostart Event, and written {articles|article|articles}."
+    - label: "Half a page" # S5
+      text:
+        - "Stas Ganiev has worked with 1C since {sinceYear}. He started at 1C franchisees, where he implemented standard configurations and became the training centre's first instructor. He spent nine years at Nevada, the largest retail holding in the Russian Far East: he headed the development team, implemented payroll calculation for {payrollEmployees} employees across {payrollBranches} branches, introduced team development with Git and wrote the corporate coding standards."
+        - "Since {movedToSerbiaYear} Stas has lived in Serbia and worked in international product teams: first at 1C Romania, now at SOFTSWISS as a Senior 1C Developer."
+        - "Stas teaches two courses of his own for 1C developers: “AI Arsenal for the 1C Developer” and “Git and GitHub in 1C Development”. {graduates|person has|people have} completed them. He has given {talks|talk|talks}, including two at Infostart Event, and written {articles|article|articles}. His article on Git and 1C was nominated for Article of the Year 2019 at Infostart. He is a co-founder of DevDV, an IT community in the Russian Far East, and has organised {conferencesTotal|conference|conferences}: {conferencesCorporate} corporate and {conferencesOpen} open."
+
+topics:
+  title: "Talk topics" # S6
+  items:
+    - title: "From Code to Commercial Proposal: How to Build an AI Pipeline for Any Business Process"
+      text: "Six questions that help you take your own process apart and see where AI fits in. Based on three working examples: 1C development, course production and family finances. For managers and teams."
+    - title: "The Economics of AI in a 1C Project"
+      text: "AI has sped up development. Why has the project not become cheaper by the same factor? The full cost of AI development: tokens, hours and rework. For project managers and business owners."
+  format: "Format: 30–40 minutes, in person or online. I speak in Russian." # S7
+
+photos:
+  title: "Photos for the announcement" # S8
+  download: "Download"
+  # Ключи совпадают с файлами в src/assets/speaker/.
+  items:
+    portrait:
+      caption: "Portrait"
+      alt: "Stas Ganiev, portrait"
+    cafe:
+      caption: "Portrait in a café"
+      alt: "Stas Ganiev in a café, an informal portrait"
+    stage:
+      caption: "On stage, Belgrade, 2026"
+      alt: "Stas Ganiev giving a talk, a presentation slide behind him"
+
+talks:
+  title: "All talks" # S9
+  # Названия ссылок «Recording», «Slides», «Article» берутся из home.en.yaml (T8).

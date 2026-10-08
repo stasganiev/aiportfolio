@@ -1,0 +1,146 @@
+# Тексты главной на английском. Перевод с мастер-версии home.ru.yaml, термины по work/glossary.md.
+# Коды в комментариях (H2, N1) совпадают с кодами абзацев в мастер-текстах.
+#
+# {graduates}, {talks} и другие имена в фигурных скобках подставляются из src/data/facts.yaml.
+# {talks|talk|talks} ставит число и слово в нужной форме: «1 talk», «18 talks».
+# {n} подставляет сам компонент.
+# Звёздочки выделяют слова: *AI pipelines* показывается курсивом с акцентом.
+# Формы числа в английском: one для 1, other для остальных.
+
+meta:
+  title: "Stas Ganiev: 1C developer, course author, speaker" # M1
+  description: "Stas Ganiev, Senior 1C Developer at SOFTSWISS. In 1C since {sinceYear}. Author of courses on Git and AI for developers, {talks|talk|talks}, {articles|article|articles}." # M2
+
+hero:
+  name: "Stas Ganiev" # H1
+  photo_alt: "Stas Ganiev"
+  title: "In 1C since {sinceYear}. I build *AI pipelines* for development and teach others how." # H2
+  lead: "Senior 1C Developer at SOFTSWISS, author of two courses for developers." # H3
+  stats: # H4
+    years: { one: "year in 1C", other: "years in 1C" }
+    graduates: { one: "course graduate", other: "course graduates" }
+    talks: { one: "talk", other: "talks" }
+    articles: { one: "article", other: "articles" }
+  primary: "Get in touch" # H5
+  secondary: "What I do"
+  xray: # H6
+    label: "A 1C form and its program code"
+    inside: "Inside"
+    outside: "Outside"
+    range: "Move the form to reveal the code"
+    hint: "Drag the slider: the form's code is underneath"
+
+now:
+  work: # N1
+    title: "Development"
+    text: "I work as a Senior 1C Developer at SOFTSWISS, an international product company. I am responsible for the integration between 1C and the BI platform and for data exchange between systems. I bring AI into everyday work processes."
+    link: "Experience"
+  teaching: # N2
+    title: "Teaching"
+    text: "I teach two courses of my own for 1C developers: one on Git and one on working with AI. {graduates|person has|people have} completed them."
+    link: "Courses"
+  ai: # N3
+    title: "AI practice"
+    text: "I work with AI agents along the whole path of a 1C task and in any business process. That is the subject of my talk “From Code to Commercial Proposal”."
+    link: "Talks"
+
+courses:
+  lead: "Two courses of my own for 1C developers at the CORS school. Every lesson ends with practice. The courses are taught in Russian." # C1
+  modules: { one: "module", other: "modules" }
+  lessons: { one: "lesson", other: "lessons" }
+  format: "Format:"
+  button: "Programme and enrolment"
+  testimonials_title: "What graduates say" # C4
+  cohort: "cohort {n}"
+
+companies:
+  lead: "I teach 1C teams to work with AI and Git. The format depends on what the team needs." # B1
+  language_note: "Workshops, audits and talks are held in Russian."
+  formats:
+    - title: "Team workshop" # B2
+      text: "A hands-on session built on examples close to your own tasks: writing tasks for AI, code review, tests, documentation."
+    - title: "Development process audit" # B3
+      text: "I go through your development process step by step and show which stages are worth handing to AI and where human control is a must."
+    - title: "Talk for the team" # B4
+      text: "30–40 minutes on applying AI to 1C development, with examples from practice. A good fit for an internal conference."
+  button: "Discuss" # B5
+
+open_source:
+  # Ключи совпадают с id репозиториев в src/data/links.yaml.
+  repos:
+    onestemplates: "Code snippet templates for 1C Designer (1C:Enterprise 8.3). The project has {onestemplatesStars|star|stars} and {onestemplatesForks|fork|forks} on GitHub." # O1
+    vibecoding-agents: "A full-cycle system for 1C development with AI agents: task analysis, specification, development, review." # O2
+    ut11-aiarsenal: "A demo configuration based on 1C:Trade Management 11.5 for the AI Arsenal course." # O3
+  all: "All repositories on GitHub" # O4
+
+talks:
+  lead: "{talks|talk|talks} and {articles|article|articles} on 1C development: team work with Git, interface design, code quality, AI." # T1
+  about: "Spoke twice at Infostart Event (2016 and 2018). Co-founder of DevDV, an IT community in the Russian Far East. My article on Git and 1C was nominated for Article of the Year 2019 at Infostart." # T2
+  featured_talks: "Selected talks" # T3
+  featured_articles: "Selected articles" # T4
+  all_talks: "All talks" # T5
+  all_articles: "All articles"
+  invite: "Invite me to speak"
+  photo_alt: "Stas Ganiev giving a talk, a presentation slide behind him" # T6
+  photo_caption: "Meetup in Belgrade, September 2026" # T7
+  video: "Recording" # T8
+  slides: "Slides"
+  article: "Article"
+  part_2: "Part 2"
+
+experience:
+  lead: "In 1C development since {sinceYear}: franchisees, retail, product companies in Russia and Europe." # E1
+  now: "present"
+  all: "Full experience" # E8
+  # Места работы лежат в src/data/experience.yaml.
+
+about:
+  portrait_alt: "Stas Ganiev, portrait"
+  story:
+    - "In tenth grade I wrote algorithms in pencil in a notebook: the school had no computers. At home there was a ZX Spectrum plugged into a tube TV. My first program drew a star that moved along a sine wave." # A1
+    - "On {firstReportDayMonth}, {sinceYear}, I wrote my first report in 1C 7.7. Since then I have worked as a developer, tester, analyst, project manager, architect and team lead." # A2
+    - "In {movedToSerbiaYear} my wife, our children and I moved from Khabarovsk to Serbia. I live in Novi Sad, work in an international team and write code in English." # A3
+    - "I like explaining complex things so that they become clear. That is where the courses, talks and articles come from." # A4
+  # A5. Поле photo: train, bachata, avacha, contest, plane, twins. Без alt фото считается оформлением.
+  facts:
+    - photo: train
+      text: "I earned the money for my first computer as a train attendant on the Khabarovsk–Moscow route."
+    - photo: bachata
+      alt: "Stas and his wife before the mass bachata dance"
+      text: "Took part in a Guinness World Record: the largest bachata couples dance, 2014."
+    - photo: avacha
+      alt: "Stas on Avachinsky volcano, a snow-covered summit behind him"
+      text: "Climbed Avachinsky volcano in Kamchatka."
+    - photo: contest
+      alt: "The photo by Stas that won the Digital Photo magazine contest"
+      text: "Won the readers' photo contest of Digital Photo magazine. This shot was printed in the issue."
+    - photo: plane
+      text: "Flew as co-pilot of an ultralight aircraft."
+    - photo: twins
+      text: "Father of twins."
+
+contact:
+  lead: "Write to me on Telegram, by email or through the form." # F1
+  form: # F3
+    name: "Name"
+    email: "Email"
+    company: "Company"
+    optional: "optional"
+    topic: "Topic"
+    topic_placeholder: "Choose a topic"
+    topics: # F4
+      team-training: "Team training"
+      speaking: "Invitation to speak"
+      collaboration: "Collaboration"
+      question: "Question"
+      other: "Other"
+    message: "Message"
+    submit: "Send"
+    errors: # F5
+      name: "Enter your name"
+      email: "Enter your email"
+      email_format: "Check the address: it has a mistake"
+      topic: "Choose a topic"
+      message: "Write a message"
+    success: "Message sent. I will reply to the address you gave." # F6
+    failure: "Could not send. Write to me on Telegram or by email." # F7

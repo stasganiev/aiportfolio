@@ -1,8 +1,10 @@
 ---
 // «Курсы»: две карточки из courses.yaml и отзывы выпускников из testimonials.yaml.
 // Дат потоков и статусов набора здесь нет: расписание живёт на лендингах школы.
+// Курсы ведутся на русском: на английской и сербской страницах название переведено,
+// под ним стоит русский оригинал с пометкой языка, отзывы подписаны как перевод.
 import { courses, testimonials } from '../../data';
-import type { Locale } from '../../i18n';
+import { useTranslations, type Locale } from '../../i18n';
 import { fill, plural } from '../../lib/format';
 import type { HomeTexts } from '../../texts';
 import Section from './Section.astro';
@@ -10,14 +12,13 @@ import Section from './Section.astro';
 interface Props {
   lang: Locale;
   texts: HomeTexts['courses'];
-  /** Язык самих текстов: от него зависят формы слов после чисел. */
-  textsLocale: Locale;
 }
 
-const { lang, texts, textsLocale } = Astro.props;
+const { lang, texts } = Astro.props;
+const t = useTranslations(lang);
+const translated = lang !== 'ru';
 
-const count = (n: number, forms: HomeTexts['courses']['modules']) =>
-  `${n} ${plural(textsLocale, n, forms)}`;
+const count = (n: number, forms: HomeTexts['courses']['modules']) => `${n} ${plural(lang, n, forms)}`;
 ---
 
 <Section lang={lang} id="courses">
@@ -25,24 +26,35 @@ const count = (n: number, forms: HomeTexts['courses']['modules']) =>
 
   <div class="duo">
     {
-      courses.map((course) => (
-        <article class="card">
-          <p class="label">
-            {count(course.modules, texts.modules)} · {count(course.lessons, texts.lessons)}
-          </p>
-          <h3>{course.title}</h3>
-          <p class="card-for">{course.audience}</p>
-          <ul class="dash-list">
-            {course.outcomes.map((outcome) => <li>{outcome}</li>)}
-          </ul>
-          <p class="card-note">
-            <span>{texts.format}</span> {course.format}
-          </p>
-          <a class="button button-ghost" href={course.landing}>
-            {texts.button}<span class="visually-hidden">: {course.title}</span>
-          </a>
-        </article>
-      ))
+      courses.map((course) => {
+        const title = lang === 'ru' ? course.title : course.title_translation[lang];
+        return (
+          <article class="card">
+            <p class="label">
+              {count(course.modules, texts.modules)} · {count(course.lessons, texts.lessons)}
+            </p>
+            <h3>{title}</h3>
+            {translated && (
+              <p class="original">
+                <span lang="ru">{course.title}</span> · {t('material.inRussian')}
+              </p>
+            )}
+            <p class="card-for">{course.audience[lang]}</p>
+            <ul class="dash-list">
+              {course.outcomes.map((outcome) => (
+                <li>{outcome[lang]}</li>
+              ))}
+            </ul>
+            <p class="card-note">
+              <span>{texts.format}</span> {course.format[lang]}
+            </p>
+            <a class="button button-ghost" href={course.landing} hreflang="ru">
+              {texts.button}
+              <span class="visually-hidden">: {title}</span>
+            </a>
+          </article>
+        );
+      })
     }
   </div>
 
@@ -51,9 +63,10 @@ const count = (n: number, forms: HomeTexts['courses']['modules']) =>
     {
       testimonials.map((item) => (
         <figure class="quote">
-          <blockquote>{item.quote}</blockquote>
+          <blockquote>{item.quote[lang]}</blockquote>
           <figcaption>
-            {item.author}, {item.course_label}, {fill(texts.cohort, { n: item.cohort }, textsLocale)}
+            {item.author[lang]}, {item.course_label[lang]}, {fill(texts.cohort, { n: item.cohort }, lang)}
+            {translated && <> · {t('testimonial.translated')}</>}
           </figcaption>
         </figure>
       ))

@@ -49,14 +49,15 @@ src/
   lib/                shared code: section list, YAML loader, text helpers
   pages/              home and speaker pages (one file serves all three languages), 404
   styles/             fonts.css, tokens.css, base.css, components.css
-  texts/              section texts by language, index.ts loads and checks them
+  texts/              page texts in three languages, index.ts loads and checks them
 ```
 
 ## Content rules
 
 - Every number on the site comes from `src/data/facts.yaml`. Numbers are not typed into texts by hand: a text refers to a number by name, for example `{graduates}`, and the build stops on an unknown name.
 - The build stops if a data file breaks its schema, or if the talk and article counters in `facts.yaml` differ from the number of entries in `talks.yaml` and `articles.yaml`.
-- A text change goes into all three languages in one commit.
+- A text change goes into all three languages in one commit. Russian is the master text; a missing translation stops the build.
+- Talks, articles and courses are in Russian: their titles stay in the original, with a translation shown first on the English and Serbian pages.
 
 ## Deployment
 

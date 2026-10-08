@@ -66,6 +66,16 @@ export function plural(locale: Locale, n: number, forms: PluralForms): string {
   return form;
 }
 
+/** Дата из данных словами: «2024-11» → «ноябрь 2024», «2001» → «2001». Месяц пишется на языке страницы. */
+export function monthYear(locale: Locale, date: string): string {
+  const [year, month] = date.split('-');
+  if (!month) return year!;
+  const name = new Intl.DateTimeFormat(htmlLang[locale], { month: 'long', timeZone: 'UTC' }).format(
+    new Date(Date.UTC(Number(year), Number(month) - 1, 1)),
+  );
+  return `${name} ${year}`;
+}
+
 /** Экранирует текст для вывода как HTML. */
 export function escapeHtml(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

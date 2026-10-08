@@ -1,35 +1,51 @@
 # Доклады в хронологическом порядке. Источник: work/speakers_list.md (Стас, 03.10.2026).
 # featured: показывается в избранном на главной.
-# Названия даны на языке доклада. Перевод названий добавляется на этапе 7.
+# title: название на языке доклада (все доклады на русском). title_translation: перевод для EN и SR.
+# place: ключ из names.yaml. venue: строка, если название одинаково на всех языках, иначе три варианта.
 
 - id: group-dev-nevada
   date: 2015-11
   title: "Организация групповой разработки в компании «Невада»"
+  title_translation:
+    en: Organising team development at Nevada
+    sr: Organizacija timskog razvoja u kompaniji Nevada
   venue: DevDV
-  place: Хабаровск
+  place: khabarovsk
   format: offline
 
 - id: extensions-1c
   date: 2016-04
   title: "Механизм расширений 1С"
+  title_translation:
+    en: The 1C extensions mechanism
+    sr: Mehanizam ekstenzija u 1C-u
   venue: TeamIT
-  place: Хабаровск
+  place: khabarovsk
   format: offline
   slides: https://docs.google.com/presentation/d/1ErYhYvg6mRtPDQI3CAtsWhLOCFIc5OXx/
 
 - id: xunitfor1c-inside
   date: 2016-06
   title: "xUnitFor1C изнутри"
-  venue: QA-конфа
-  place: Хабаровск
+  title_translation:
+    en: xUnitFor1C from the inside
+    sr: xUnitFor1C iznutra
+  venue:
+    ru: QA-конфа
+    en: QA conf
+    sr: QA konferencija
+  place: khabarovsk
   format: offline
   slides: https://docs.google.com/presentation/d/123IEN2X8U3PBCJ0ddjt3EXMcxF7o3Bxn/
 
 - id: infostart-2016-group-dev
   date: 2016-10
   title: "Групповая разработка конфигураций 1С в крупном холдинге"
+  title_translation:
+    en: Team development of 1C configurations in a large holding
+    sr: Timski razvoj 1C konfiguracija u velikom holdingu
   venue: Infostart Event
-  place: Санкт-Петербург
+  place: saint-petersburg
   format: offline
   featured: true
   video: https://youtu.be/AUYPhLoNG4w
@@ -39,16 +55,25 @@
 - id: ie-2016-results
   date: 2016-11
   title: "Итоги IE 2016 dev"
-  venue: Невада
-  place: Хабаровск
+  title_translation:
+    en: A recap of IE 2016 dev
+    sr: Rezime IE 2016 dev
+  venue:
+    ru: Невада
+    en: Nevada
+    sr: Nevada
+  place: khabarovsk
   format: offline
   slides: https://docs.google.com/presentation/d/1EDxaeicvFY8GfAL81fKAdyVMeYzQut0l/
 
 - id: git-flow-ha1s
   date: 2017-05
   title: "Git-flow в 1С"
+  title_translation:
+    en: Git-flow in 1C
+    sr: Git-flow u 1C-u
   venue: ha1s
-  place: Хабаровск
+  place: khabarovsk
   format: offline
   video: https://youtu.be/KQzzbFKQWZ0
   slides: https://docs.google.com/presentation/d/19c7RqLMgqSU4NOZ9fL7kctidweRBZDDW/
@@ -56,16 +81,22 @@
 - id: git-flow-teamit
   date: 2017-07
   title: "Git-flow в 1С"
+  title_translation:
+    en: Git-flow in 1C
+    sr: Git-flow u 1C-u
   venue: TeamIT
-  place: Хабаровск
+  place: khabarovsk
   format: offline
   slides: https://docs.google.com/presentation/d/1s_04aQo4OEIGYuhok8RWg-eGoNWVDYn1/
 
 - id: edt-overview
   date: 2017-11
   title: "1С:EDT. Обзор инструментария"
+  title_translation:
+    en: "1C:EDT: an overview of the tooling"
+    sr: 1C:EDT. Pregled alata
   venue: ha1s
-  place: Хабаровск
+  place: khabarovsk
   format: offline
   video: https://youtu.be/3TZ8Wo4Vmos
   slides: https://docs.google.com/presentation/d/1_BzqVBvXH1UzfgqXIf8RUD_XwSULcJ8a/
@@ -73,16 +104,22 @@
 - id: bdd-vanessa
   date: 2018-05
   title: "BDD в 1С. Обзор возможностей Vanessa Behavior"
+  title_translation:
+    en: "BDD in 1C: what Vanessa Behavior can do"
+    sr: BDD u 1C-u. Pregled mogućnosti Vanessa Behavior
   venue: ha1s
-  place: Хабаровск
+  place: khabarovsk
   format: offline
   slides: https://docs.google.com/presentation/d/1OnFiIf_OrYPHbv2VycvpjWEBsMatjlm-/
 
 - id: infostart-2018-git
   date: 2018-10
   title: "Git для 1С-ника и другие технологии групповой разработки"
+  title_translation:
+    en: Git for the 1C developer and other team development technologies
+    sr: Git za 1C programera i druge tehnologije timskog razvoja
   venue: Infostart Event
-  place: Санкт-Петербург
+  place: saint-petersburg
   format: offline
   featured: true
   video: https://youtu.be/dWAQn4dy-8o
@@ -92,8 +129,11 @@
 - id: ux-cost
   date: 2019-05
   title: "UX/UI в 1С. Сколько стоит юзабилити-дизайн?"
+  title_translation:
+    en: "UX/UI in 1C: what does usability design cost?"
+    sr: UX/UI u 1C-u. Koliko košta dizajn upotrebljivosti?
   venue: ha1s
-  place: Хабаровск
+  place: khabarovsk
   format: offline
   video: https://youtu.be/KjUXcwBKk2M
   slides: https://docs.google.com/presentation/d/1zh97RCLqfos6phvoX4-YRf9shJUG1cGW/
@@ -101,8 +141,11 @@
 - id: interaction-design
   date: 2019-10
   title: "Дизайн взаимодействия как часть процесса разработки"
+  title_translation:
+    en: Interaction design as part of the development process
+    sr: Dizajn interakcije kao deo procesa razvoja
   venue: ha1s
-  place: Хабаровск
+  place: khabarovsk
   format: offline
   video: https://youtu.be/0dZhrJENrN4
   slides: https://docs.google.com/presentation/d/14Mi6ViKvVyMB_eXGGK-gpPCLdTALZJCI/
@@ -110,8 +153,14 @@
 - id: why-design-interfaces
   date: 2020-07
   title: "Зачем дизайнить интерфейсы в 1С?"
-  venue: Жёлтый клуб
-  place: онлайн
+  title_translation:
+    en: Why design interfaces in 1C?
+    sr: Zašto dizajnirati interfejse u 1C-u?
+  venue:
+    ru: Жёлтый клуб
+    en: Yellow Club
+    sr: Žuti klub
+  place: online
   format: online
   featured: true
   video: https://youtu.be/UoQfiqoBdfE
@@ -120,8 +169,11 @@
 - id: infostart-cicd
   date: 2021-02
   title: "ИТ-лаборатория Инфостарта изнутри. Как мы внедряем CI/CD"
+  title_translation:
+    en: "Inside the Infostart IT lab: how we introduce CI/CD"
+    sr: IT laboratorija Infostarta iznutra. Kako uvodimo CI/CD
   venue: Infostart
-  place: онлайн
+  place: online
   format: online
   featured: true
   video: https://youtu.be/lwHtGzwAvG0
@@ -130,16 +182,25 @@
 - id: ux-hacks
   date: 2021-05
   title: "UX-хаки, вернисаж"
+  title_translation:
+    en: "UX hacks: a gallery"
+    sr: UX trikovi, vernisaž
   venue: Infostart
-  place: Санкт-Петербург
+  place: saint-petersburg
   format: offline
   slides: https://drive.google.com/drive/folders/1-q_p9phHIGhA8dwtxSowrAz69ulF8z7e
 
 - id: goal-setting
   date: 2022-03
   title: "Мои 7 слагаемых успешного целеполагания"
-  venue: Автомакон
-  place: онлайн
+  title_translation:
+    en: My 7 ingredients of successful goal setting
+    sr: Mojih 7 sastojaka uspešnog postavljanja ciljeva
+  venue:
+    ru: Автомакон
+    en: Automacon
+    sr: Automacon
+  place: online
   format: online
   video: https://youtu.be/N4KlBoJnXsY
   slides: https://docs.google.com/presentation/d/1LVhJN5pVR9QPel7Bmkx6eppzkMcAwO7U/
@@ -147,8 +208,14 @@
 - id: ai-codegen-1c
   date: 2025-10-18
   title: "ИИ-инструменты в 1С. Кодогенерация 1С-кода с помощью ИИ"
-  venue: "ИИ-конференция Олега Филиппова"
-  place: онлайн
+  title_translation:
+    en: "AI tools in 1C: generating 1C code with AI"
+    sr: AI alati u 1C-u. Generisanje 1C koda pomoću AI
+  venue:
+    ru: ИИ-конференция Олега Филиппова
+    en: Oleg Filippov's AI conference
+    sr: AI konferencija Olega Filipova
+  place: online
   format: online
   featured: true
   slides: https://docs.google.com/presentation/d/1eWcD4sP1Y3QwDn0EEa5yYfpRrRy5yHhD/
@@ -156,8 +223,14 @@
 - id: kontur
   date: 2026-09-19
   title: "От кода до коммерческого предложения: как построить AI-конвейер для любого бизнес-процесса"
-  venue: "Европейский митап «Новые возможности AI и Open Source»"
-  place: Белград
+  title_translation:
+    en: "From Code to Commercial Proposal: How to Build an AI Pipeline for Any Business Process"
+    sr: "Od koda do komercijalne ponude: kako izgraditi AI pipeline za bilo koji poslovni proces"
+  venue:
+    ru: Европейский митап «Новые возможности AI и Open Source»
+    en: European meetup “New Opportunities in AI and Open Source”
+    sr: Evropski meetup „Nove mogućnosti AI i Open Source“
+  place: belgrade
   format: offline
   featured: true
   slides: https://docs.google.com/presentation/d/1s9gRATgsEFiM3hnMjlpM1LIZ-19Zf2dQ/

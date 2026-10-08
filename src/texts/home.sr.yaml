@@ -1,0 +1,146 @@
+# Тексты главной на сербском (латиница, экавица). Перевод с мастер-версии home.ru.yaml, термины по work/glossary.md.
+# Коды в комментариях (H2, N1) совпадают с кодами абзацев в мастер-текстах.
+#
+# {graduates}, {talks} и другие имена в фигурных скобках подставляются из src/data/facts.yaml.
+# {talks|predavanje|predavanja|predavanja} ставит число и слово в нужной форме.
+# {n} подставляет сам компонент.
+# Звёздочки выделяют слова: *AI pipeline* показывается курсивом с акцентом.
+# Формы числа в сербском: one для 1, 21; few для 2–4, 22–24; other для остальных.
+
+meta:
+  title: "Stas Ganiev: 1C programer, autor kurseva, predavač" # M1
+  description: "Stas Ganiev, Senior 1C Developer u kompaniji SOFTSWISS. U 1C-u od {sinceYear}. godine. Autor kurseva o Git-u i AI za programere, {talks|predavanje|predavanja|predavanja}, {articles|članak|članka|članaka}." # M2
+
+hero:
+  name: "Stas Ganiev" # H1
+  photo_alt: "Stas Ganiev"
+  title: "U 1C-u od {sinceYear}. godine. Gradim *AI pipeline* za razvoj i tome učim druge." # H2
+  lead: "Senior 1C Developer u kompaniji SOFTSWISS, autor dva kursa za programere." # H3
+  stats: # H4
+    years: { one: "godina u 1C-u", few: "godine u 1C-u", other: "godina u 1C-u" }
+    graduates: { one: "polaznik kurseva", few: "polaznika kurseva", other: "polaznika kurseva" }
+    talks: { one: "predavanje", few: "predavanja", other: "predavanja" }
+    articles: { one: "članak", few: "članka", other: "članaka" }
+  primary: "Javite se" # H5
+  secondary: "Čime se bavim"
+  xray: # H6
+    label: "1C forma i njen programski kod"
+    inside: "Iznutra"
+    outside: "Spolja"
+    range: "Pomerite formu da vidite kod"
+    hint: "Pomerite klizač: ispod forme je njen kod"
+
+now:
+  work: # N1
+    title: "Razvoj"
+    text: "Radim kao Senior 1C Developer u međunarodnoj produktnoj kompaniji SOFTSWISS. Odgovoran sam za integraciju 1C-a sa BI platformom i za razmenu podataka između sistema. Uvodim AI u radne procese."
+    link: "Iskustvo"
+  teaching: # N2
+    title: "Obuka"
+    text: "Vodim dva autorska kursa za 1C programere: o Git-u i o radu sa AI. Završilo ih je {graduates|polaznik|polaznika|polaznika}."
+    link: "Kursevi"
+  ai: # N3
+    title: "AI praksa"
+    text: "Radim sa AI agentima na celom putu 1C zadatka i u bilo kom poslovnom procesu. O tome govori moje predavanje „Od koda do komercijalne ponude“."
+    link: "Predavanja"
+
+courses:
+  lead: "Dva autorska kursa za 1C programere u školi CORS. Svaka lekcija se završava praksom. Kursevi se drže na ruskom jeziku." # C1
+  modules: { one: "modul", few: "modula", other: "modula" }
+  lessons: { one: "lekcija", few: "lekcije", other: "lekcija" }
+  format: "Format:"
+  button: "Program i prijava"
+  testimonials_title: "Šta kažu polaznici" # C4
+  cohort: "grupa {n}"
+
+companies:
+  lead: "Učim 1C timove da rade sa AI i Git-om. Format biram prema zadatku tima." # B1
+  language_note: "Radionice, analize i predavanja držim na ruskom jeziku."
+  formats:
+    - title: "Radionica za tim" # B2
+      text: "Praktičan rad na primerima bliskim vašim zadacima: postavljanje zadataka za AI, code review, testovi, dokumentacija."
+    - title: "Analiza procesa razvoja" # B3
+      text: "Prolazim kroz vaš proces razvoja korak po korak. Pokazujem koje faze vredi prepustiti AI, a gde je kontrola čoveka obavezna."
+    - title: "Predavanje za tim" # B4
+      text: "30–40 minuta o primeni AI u 1C razvoju, sa primerima iz prakse. Pogodno za internu konferenciju."
+  button: "Razgovarajmo" # B5
+
+open_source:
+  # Ключи совпадают с id репозиториев в src/data/links.yaml.
+  repos:
+    onestemplates: "Šabloni fragmenata koda za 1C Konfigurator (1C:Preduzeće 8.3). Projekat na GitHub-u ima {onestemplatesStars|zvezdu|zvezde|zvezda} i {onestemplatesForks|fork|forka|forkova}." # O1
+    vibecoding-agents: "Sistem punog ciklusa 1C razvoja sa AI agentima: analiza zadatka, specifikacija, razvoj, code review." # O2
+    ut11-aiarsenal: "Demo konfiguracija na bazi 1C:Trade Management 11.5 za kurs AI arsenal." # O3
+  all: "Svi repozitorijumi na GitHub-u" # O4
+
+talks:
+  lead: "{talks|predavanje|predavanja|predavanja} i {articles|članak|članka|članaka} o 1C razvoju: timski rad sa Git-om, projektovanje interfejsa, kvalitet koda, AI." # T1
+  about: "Dva puta sam govorio na Infostart Event-u (2016. i 2018). Suosnivač sam IT zajednice DevDV na ruskom Dalekom istoku. Članak o Git-u i 1C-u nominovan je za „Članak godine 2019“ na Infostartu." # T2
+  featured_talks: "Izabrana predavanja" # T3
+  featured_articles: "Izabrani članci" # T4
+  all_talks: "Sva predavanja" # T5
+  all_articles: "Svi članci"
+  invite: "Pozovite me da govorim"
+  photo_alt: "Stas Ganiev drži predavanje, iza njega je slajd prezentacije" # T6
+  photo_caption: "Meetup u Beogradu, septembar 2026." # T7
+  video: "Snimak" # T8
+  slides: "Prezentacija"
+  article: "Članak"
+  part_2: "Deo 2"
+
+experience:
+  lead: "U 1C razvoju od {sinceYear}. godine: franšizni partneri, maloprodaja, produktne kompanije u Rusiji i Evropi." # E1
+  now: "danas"
+  all: "Celo iskustvo" # E8
+  # Места работы лежат в src/data/experience.yaml.
+
+about:
+  portrait_alt: "Stas Ganiev, portret"
+  story:
+    - "U desetom razredu pisao sam algoritme olovkom u svesci: u školi nije bilo računara. Kod kuće je stajao ZX Spectrum povezan na televizor sa lampama. Moj prvi program crtao je zvezdicu koja se kretala po sinusoidi." # A1
+    - "Prvi izveštaj u 1C 7.7 napisao sam {firstReportDayMonth} {sinceYear}. godine. Od tada sam radio kao programer, tester, analitičar, rukovodilac projekata, arhitekta i rukovodilac tima." # A2
+    - "Godine {movedToSerbiaYear}. sam se sa suprugom i decom preselio iz Habarovska u Srbiju. Živim u Novom Sadu, radim u međunarodnom timu i pišem kod na engleskom." # A3
+    - "Volim da objašnjavam složene stvari tako da postanu jasne. Otuda kursevi, predavanja i članci." # A4
+  # A5. Поле photo: train, bachata, avacha, contest, plane, twins. Без alt фото считается оформлением.
+  facts:
+    - photo: train
+      text: "Za prvi računar zaradio sam kao pratilac vagona u vozu Habarovsk–Moskva."
+    - photo: bachata
+      alt: "Stas sa suprugom pre masovnog plesa bačate"
+      text: "Učestvovao sam u Ginisovom rekordu: najmasovniji ples bačate u parovima, 2014. godine."
+    - photo: avacha
+      alt: "Stas na vulkanu Avačinski, iza njega je snežni vrh"
+      text: "Popeo sam se na vulkan Avačinski na Kamčatki."
+    - photo: contest
+      alt: "Fotografija kojom je Stas pobedio na konkursu časopisa Digital Photo"
+      text: "Pobedio sam na čitalačkom foto-konkursu časopisa Digital Photo. Ova fotografija je objavljena u broju."
+    - photo: plane
+      text: "Leteo sam kao kopilot na ultralakom avionu."
+    - photo: twins
+      text: "Otac blizanaca."
+
+contact:
+  lead: "Pišite mi na Telegram, mejlom ili preko forme." # F1
+  form: # F3
+    name: "Ime"
+    email: "Email"
+    company: "Kompanija"
+    optional: "nije obavezno"
+    topic: "Tema"
+    topic_placeholder: "Izaberite temu"
+    topics: # F4
+      team-training: "Obuka tima"
+      speaking: "Poziv za predavanje"
+      collaboration: "Saradnja"
+      question: "Pitanje"
+      other: "Drugo"
+    message: "Poruka"
+    submit: "Pošalji"
+    errors: # F5
+      name: "Unesite ime"
+      email: "Unesite email"
+      email_format: "Proverite adresu: u njoj je greška"
+      topic: "Izaberite temu"
+      message: "Napišite poruku"
+    success: "Poruka je poslata. Odgovoriću na navedenu adresu." # F6
+    failure: "Slanje nije uspelo. Pišite mi na Telegram ili mejlom." # F7
