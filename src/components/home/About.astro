@@ -1,0 +1,77 @@
+---
+// «Обо мне»: большой портрет, короткая история и шесть фактов с фото.
+// Где кадра пока нет, стоит заглушка placeholder.jpg.
+import { Picture } from 'astro:assets';
+
+import avacha from '../../assets/photos/avacha.jpg';
+import bachata from '../../assets/photos/bachata.jpg';
+import contest from '../../assets/photos/photo-contest.jpg';
+import placeholder from '../../assets/photos/placeholder.jpg';
+import portrait from '../../assets/photos/portrait.jpg';
+import type { Locale } from '../../i18n';
+import type { HomeTexts } from '../../texts';
+import Section from './Section.astro';
+
+interface Props {
+  lang: Locale;
+  texts: HomeTexts['about'];
+}
+
+const { lang, texts } = Astro.props;
+
+// Ключи фото совпадают с полем photo в текстах секции.
+const photos = {
+  train: placeholder,
+  bachata,
+  avacha,
+  contest,
+  plane: placeholder,
+  twins: placeholder,
+};
+
+// Кадр не растягивается больше своего размера.
+const widthsFor = (image: ImageMetadata, wanted: number[]) => {
+  const fitting = wanted.filter((width) => width <= image.width);
+  return fitting.length > 0 ? fitting : [image.width];
+};
+---
+
+<Section lang={lang} id="about">
+  <div class="about-grid">
+    <figure class="frame">
+      <Picture
+        src={portrait}
+        formats={['avif', 'webp']}
+        widths={[440, 880]}
+        sizes="(max-width: 1040px) min(420px, calc(100vw - 44px)), 440px"
+        alt={texts.portrait_alt}
+        loading="lazy"
+      />
+    </figure>
+    <div class="prose">
+      {texts.story.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </div>
+
+  <div class="facts">
+    {
+      texts.facts.map((fact) => (
+        <figure class="fact">
+          <Picture
+            src={photos[fact.photo]}
+            formats={['avif', 'webp']}
+            widths={widthsFor(photos[fact.photo], [400, 800])}
+            sizes="(max-width: 720px) 50vw, (max-width: 1240px) 33vw, 384px"
+            width={1200}
+            height={800}
+            alt={fact.alt ?? ''}
+            loading="lazy"
+          />
+          <figcaption>
+            <p>{fact.text}</p>
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+</Section>

@@ -1,17 +1,17 @@
 ---
 // Главная на трёх языках: / (EN), /ru/, /sr/.
-// Этап 5: секции собираются по очереди. Несобранные стоят заготовками
-// с заголовком и якорем.
+// Порядок секций совпадает со списком в src/lib/sections.ts.
+import About from '../../components/home/About.astro';
 import Companies from '../../components/home/Companies.astro';
+import Contact from '../../components/home/Contact.astro';
 import Courses from '../../components/home/Courses.astro';
+import Experience from '../../components/home/Experience.astro';
 import Hero from '../../components/home/Hero.astro';
 import Now from '../../components/home/Now.astro';
 import OpenSource from '../../components/home/OpenSource.astro';
-import Section from '../../components/home/Section.astro';
 import Talks from '../../components/home/Talks.astro';
 import { defaultLocale, locales, type Locale } from '../../i18n';
 import Base from '../../layouts/Base.astro';
-import { sections } from '../../lib/sections';
 import { homeTexts } from '../../texts';
 
 export function getStaticPaths() {
@@ -27,9 +27,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const { texts, locale: textsLocale, translated } = homeTexts(lang);
-
-const ready = ['now', 'courses', 'companies', 'open-source', 'talks'];
-const stubs = sections.filter((section) => !ready.includes(section.id));
 ---
 
 <Base lang={lang} title={texts.meta.title} description={texts.meta.description} translated={translated}>
@@ -39,14 +36,7 @@ const stubs = sections.filter((section) => !ready.includes(section.id));
   <Companies lang={lang} texts={texts.companies} />
   <OpenSource lang={lang} texts={texts.open_source} />
   <Talks lang={lang} texts={texts.talks} />
-
-  {stubs.map((section) => <Section lang={lang} id={section.id} class="section-stub" />)}
+  <Experience lang={lang} texts={texts.experience} textsLocale={textsLocale} />
+  <About lang={lang} texts={texts.about} />
+  <Contact lang={lang} texts={texts.contact} />
 </Base>
-
-<style is:global>
-  /* Временная высота пустых секций: чтобы меню и переключатель языков было на чём проверить.
-     Убирается вместе с последней заготовкой. */
-  .section-stub {
-    min-height: 60vh;
-  }
-</style>

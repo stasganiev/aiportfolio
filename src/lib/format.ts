@@ -18,24 +18,39 @@ function pickForm(locale: Locale, n: number, forms: string[]): string {
   return forms[Math.min(index, forms.length - 1)]!;
 }
 
+/** Число для текста. Разряды отделяются с пяти знаков: «10 000», но «2001». */
+function formatNumber(locale: Locale, n: number): string {
+  return Math.abs(n) >= 10000 ? new Intl.NumberFormat(htmlLang[locale]).format(n) : String(n);
+}
+
+interface FillOptions {
+  /** Где стоит текст: попадает в сообщение об ошибке. */
+  where?: string;
+  /** Обёртка для подставленных чисел, например тег для крупных цифр. Получает и имя значения. */
+  markNumber?: (formatted: string, key: string) => string;
+}
+
 /**
  * Заменяет {имя} значением. Неизвестное имя останавливает сборку.
  * {имя|форма|форма|форма} ставит число и слово в нужной форме: «18 докладов», «21 доклад».
  * {n} не трогается, если значения n нет: это число, которое компонент подставит сам.
  */
-export function fill(text: string, values: Values, locale: Locale, where = ''): string {
+export function fill(text: string, values: Values, locale: Locale, options: FillOptions = {}): string {
+  const mark = options.markNumber ?? ((formatted: string) => formatted);
   return text.replace(/\{(\w+)((?:\|[^|{}]+)*)\}/g, (match, key: string, tail: string) => {
     if (key === 'n' && !('n' in values)) return match;
     if (!(key in values)) {
-      const place = where ? ` (${where})` : '';
+      const place = options.where ? ` (${options.where})` : '';
       throw new Error(`В тексте стоит {${key}}, а такого значения нет${place}: «${text}»`);
     }
     const value = values[key]!;
-    if (!tail) return String(value);
     if (typeof value !== 'number') {
-      throw new Error(`Формы слова заданы для {${key}}, а это не число: «${text}»`);
+      if (tail) throw new Error(`Формы слова заданы для {${key}}, а это не число: «${text}»`);
+      return value;
     }
-    return `${value} ${pickForm(locale, value, tail.slice(1).split('|'))}`;
+    const number = mark(formatNumber(locale, value), key);
+    // Неразрывный пробел: число не отрывается от своего слова при переносе строки.
+    return tail ? `${number}\u00a0${pickForm(locale, value, tail.slice(1).split('|'))}` : number;
   });
 }
 
@@ -51,8 +66,12 @@ export function plural(locale: Locale, n: number, forms: PluralForms): string {
   return form;
 }
 
+/** Экранирует текст для вывода как HTML. */
+export function escapeHtml(text: string): string {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 /** Готовит текст для вывода как HTML: *слово* становится <em>слово</em>. */
 export function emphasis(text: string): string {
-  const escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  return escaped.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  return escapeHtml(text).replace(/\*(.+?)\*/g, '<em>$1</em>');
 }

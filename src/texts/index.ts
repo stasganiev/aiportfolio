@@ -5,7 +5,7 @@
 import { z } from 'astro/zod';
 
 import { facts } from '../data';
-import type { Locale } from '../i18n';
+import { htmlLang, type Locale } from '../i18n';
 import { fill } from '../lib/format';
 import { loadYaml } from '../lib/yaml';
 
@@ -71,12 +71,62 @@ const homeSchema = z.strictObject({
     article: text,
     part_2: text,
   }),
+  experience: z.strictObject({ lead: text, all: text }),
+  about: z.strictObject({
+    portrait_alt: text,
+    story: z.array(text).min(1),
+    facts: z
+      .array(
+        z.strictObject({
+          photo: z.enum(['train', 'bachata', 'avacha', 'contest', 'plane', 'twins']),
+          alt: text.optional(),
+          text,
+        }),
+      )
+      .min(1),
+  }),
+  contact: z.strictObject({
+    lead: text,
+    form: z.strictObject({
+      name: text,
+      email: text,
+      company: text,
+      optional: text,
+      topic: text,
+      topic_placeholder: text,
+      topics: z.record(z.string(), text),
+      message: text,
+      submit: text,
+      errors: z.strictObject({ name: text, email: text, email_format: text, topic: text, message: text }),
+      success: text,
+      failure: text,
+    }),
+  }),
 });
 export type HomeTexts = z.infer<typeof homeSchema>;
 
+/** Значения для подстановки в тексты: цифры из facts.yaml и дата первого отчёта словами. */
+function textValues(locale: Locale): Record<string, string | number> {
+  const dayMonth = new Intl.DateTimeFormat(htmlLang[locale], {
+    day: 'numeric',
+    month: 'long',
+    timeZone: 'UTC',
+  }).format(new Date(facts.firstReportDate));
+  return { ...facts, firstReportDayMonth: dayMonth };
+}
+
+/** Подставляет цифры в один текст. Нужна там, где текст лежит не в файле текстов, а в данных. */
+export function fillFacts(
+  value: string,
+  locale: Locale,
+  options: Parameters<typeof fill>[3] = {},
+): string {
+  return fill(value, textValues(locale), locale, options);
+}
+
 /** Подставляет цифры из facts.yaml во все строки файла. */
 function fillAll<T>(value: T, locale: Locale, file: string): T {
-  if (typeof value === 'string') return fill(value, facts, locale, file) as T;
+  if (typeof value === 'string') return fillFacts(value, locale, { where: file }) as T;
   if (Array.isArray(value)) return value.map((item) => fillAll(item, locale, file)) as T;
   if (value && typeof value === 'object') {
     return Object.fromEntries(

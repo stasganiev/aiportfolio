@@ -205,6 +205,23 @@
 }
 .row p { max-width: 40em; color: var(--color-text-muted); }
 
+/* ---------- Опыт ---------- */
+.xp-list { border-bottom: var(--border-thin) solid var(--color-line); }
+.xp {
+  display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr); gap: var(--space-3) var(--space-8);
+  padding: var(--space-6) 0; border-top: var(--border-thin) solid var(--color-line);
+}
+.xp-period { margin-bottom: var(--space-2); font: 500 var(--text-xs) / 1.4 var(--font-mono); letter-spacing: 0.04em; color: var(--color-accent-text); }
+.xp-about { margin-top: var(--space-1); font-size: 0.9375rem; color: var(--color-text-muted); }
+.xp-role { margin-bottom: var(--space-2); font-weight: 600; }
+.xp .dash-list { gap: var(--space-1); margin: var(--space-3) 0 0; font-size: 0.9375rem; color: var(--color-text-muted); }
+.more .xp-list { margin-top: var(--space-5); }
+/* Цифра в тексте: крупнее строки, тем же шрифтом, что цифры первого экрана. */
+.num {
+  font: 500 1.35em / 1 var(--font-display); font-variant-numeric: lining-nums;
+  color: var(--color-text); white-space: nowrap;
+}
+
 /* ---------- Репозитории ---------- */
 .repo-name { margin-bottom: var(--space-1); font: 500 1.0625rem / 1.3 var(--font-mono); letter-spacing: 0; }
 .repo-name a {
@@ -306,6 +323,27 @@ a.entry-title:hover { text-decoration-color: var(--color-text); }
 }
 .fact p { margin-top: var(--space-3); font-size: 0.9375rem; }
 
+/* ---------- Контакты ---------- */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: var(--space-8); align-items: start; }
+.contact-list { border-bottom: var(--border-thin) solid var(--color-line); }
+.contact-list li { border-top: var(--border-thin) solid var(--color-line); }
+.contact-list a {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 var(--space-4);
+  min-height: 52px; padding: var(--space-3) 0; text-decoration: none;
+}
+.contact-label { font-weight: 600; }
+.contact-handle { font: 500 var(--text-xs) / 1.5 var(--font-mono); color: var(--color-text-muted); overflow-wrap: anywhere; }
+.contact-list a:hover .contact-label { text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+.contact-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
+/* Поля в одном ряду не растягиваются, когда у соседа появилась строка ошибки. */
+.contact-form .field { align-content: start; }
+.field-wide { grid-column: 1 / -1; }
+.form-actions { display: grid; gap: var(--space-4); justify-items: start; }
+.form-actions .button { margin-top: 0; }
+.form-actions .form-note { width: 100%; }
+[hidden] { display: none !important; }
+
 /* ---------- Поля формы ---------- */
 .field { display: grid; gap: var(--space-2); }
 .field label { font-weight: 600; font-size: 0.9375rem; }
@@ -333,7 +371,10 @@ a.entry-title:hover { text-decoration-color: var(--color-text); }
 
 /* ---------- Подвал ---------- */
 .site-footer { margin-top: var(--space-10); border-top: var(--border-thin) solid var(--color-line); }
-.footer-row { display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); min-height: 76px; font-size: var(--text-sm); color: var(--color-text-muted); }
+.footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-2) var(--space-6); min-height: 76px; padding-block: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); }
+.footer-nav { display: flex; flex-wrap: wrap; gap: 0 var(--space-5); }
+.footer-nav a { display: inline-flex; align-items: center; min-height: var(--touch-min); text-decoration: none; }
+.footer-nav a:hover { color: var(--color-text); text-decoration: underline; }
 .footer-links { display: flex; gap: var(--space-5); }
 .footer-links a { display: inline-flex; align-items: center; min-height: var(--touch-min); }
 
@@ -357,7 +398,7 @@ a.entry-title:hover { text-decoration-color: var(--color-text); }
   /* Зоны нажатия для пальца: не меньше 44×44. */
   .brand { min-width: var(--touch-min); min-height: var(--touch-min); }
   .langs a { min-width: var(--touch-min); justify-content: center; }
-  .hero-grid, .about-grid, .talks-grid { grid-template-columns: 1fr; gap: var(--space-7); }
+  .hero-grid, .about-grid, .talks-grid, .contact-grid { grid-template-columns: 1fr; gap: var(--space-7); }
   .about-grid .frame { max-width: 420px; }
   .trio { grid-template-columns: 1fr; gap: 0; }
   .trio > * + * { margin-top: var(--space-5); padding-top: var(--space-5); border-top: var(--border-thin) solid var(--color-line); }
@@ -375,7 +416,9 @@ a.entry-title:hover { text-decoration-color: var(--color-text); }
   .stats > div:nth-child(3) { padding-left: 0; border-left: 0; }
   .stats > div:nth-child(n+3) { border-top: var(--border-thin) solid var(--color-line); }
   .section { padding-top: var(--space-9); }
-  .duo, .quotes, .row { grid-template-columns: 1fr; }
+  .duo, .quotes, .row, .xp, .contact-form { grid-template-columns: 1fr; }
+  .xp { padding: var(--space-5) 0; }
+  .footer-row { flex-direction: column; align-items: flex-start; }
   .subhead { margin-top: var(--space-7); }
   .facts { grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
 }

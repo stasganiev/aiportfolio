@@ -1,0 +1,190 @@
+---
+// «Контакты»: список контактов из links.yaml и форма обратной связи.
+// Форма отправляет письмо через EmailJS запросом из браузера. Получатель задан в шаблоне EmailJS.
+import { links } from '../../data';
+import type { Locale } from '../../i18n';
+import { emailjs } from '../../lib/emailjs';
+import type { HomeTexts } from '../../texts';
+import Section from './Section.astro';
+
+interface Props {
+  lang: Locale;
+  texts: HomeTexts['contact'];
+}
+
+const { lang, texts } = Astro.props;
+const form = texts.form;
+const contacts = links.contacts.filter((item) => item.show !== false);
+---
+
+<Section lang={lang} id="contact">
+  <p class="section-lead">{texts.lead}</p>
+
+  <div class="contact-grid">
+    <ul class="contact-list">
+      {
+        contacts.map((item) => (
+          <li>
+            <a href={item.url}>
+              <span class="contact-label">{item.label}</span>
+              {item.handle && <span class="contact-handle">{item.handle}</span>}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <form
+      class="contact-form card"
+      novalidate
+      data-endpoint={emailjs.endpoint}
+      data-service={emailjs.serviceId}
+      data-template={emailjs.templateId}
+      data-key={emailjs.publicKey}
+    >
+      <div class="field">
+        <label for="cf-name">{form.name}</label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" required aria-describedby="cf-name-error" data-error-empty={form.errors.name} />
+        <span class="field-error" id="cf-name-error" role="alert" hidden></span>
+      </div>
+      <div class="field">
+        <label for="cf-email">{form.email}</label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" required aria-describedby="cf-email-error" data-error-empty={form.errors.email} data-error-format={form.errors.email_format} />
+        <span class="field-error" id="cf-email-error" role="alert" hidden></span>
+      </div>
+      <div class="field">
+        <label for="cf-company">{form.company} <span class="optional">({form.optional})</span></label>
+        <input id="cf-company" name="company" type="text" autocomplete="organization" />
+      </div>
+      <div class="field">
+        <label for="cf-topic">{form.topic}</label>
+        <select id="cf-topic" name="topic" required aria-describedby="cf-topic-error" data-error-empty={form.errors.topic}>
+          <option value="">{form.topic_placeholder}</option>
+          {Object.values(form.topics).map((topic) => <option value={topic}>{topic}</option>)}
+        </select>
+        <span class="field-error" id="cf-topic-error" role="alert" hidden></span>
+      </div>
+      <div class="field field-wide">
+        <label for="cf-message">{form.message}</label>
+        <textarea id="cf-message" name="message" required aria-describedby="cf-message-error" data-error-empty={form.errors.message}></textarea>
+        <span class="field-error" id="cf-message-error" role="alert" hidden></span>
+      </div>
+
+      {/* Ловушка для роботов: человек это поле не видит и не заполняет. */}
+      <div class="visually-hidden" aria-hidden="true">
+        <label for="cf-website">Website</label>
+        <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="field-wide form-actions">
+        <button class="button button-primary" type="submit">{form.submit}</button>
+        <p class="form-note" role="status" data-note="success" hidden>{form.success}</p>
+        <p class="form-note form-note-error" role="alert" data-note="failure" hidden>{form.failure}</p>
+      </div>
+    </form>
+  </div>
+</Section>
+
+<script>
+  type Field = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+  const form = document.querySelector<HTMLFormElement>('.contact-form');
+  if (form) {
+    const button = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const notes = {
+      success: form.querySelector<HTMLElement>('[data-note=success]')!,
+      failure: form.querySelector<HTMLElement>('[data-note=failure]')!,
+    };
+    const checked = [...form.querySelectorAll<Field>('[data-error-empty]')];
+    const failureText = notes.failure.textContent ?? '';
+
+    const errorOf = (field: Field) => form.querySelector<HTMLElement>(`#${field.id}-error`)!;
+
+    function problem(field: Field): string {
+      const value = field.value.trim();
+      if (value === '') return field.dataset.errorEmpty ?? '';
+      if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        return field.dataset.errorFormat ?? '';
+      }
+      return '';
+    }
+
+    function show(field: Field, message: string): void {
+      const error = errorOf(field);
+      error.textContent = message;
+      error.hidden = message === '';
+      if (message) field.setAttribute('aria-invalid', 'true');
+      else field.removeAttribute('aria-invalid');
+    }
+
+    function showNote(kind: 'success' | 'failure' | null): void {
+      notes.success.hidden = kind !== 'success';
+      notes.failure.hidden = kind !== 'failure';
+    }
+
+    // Ошибка у поля снимается, как только человек его исправил.
+    for (const field of checked) {
+      field.addEventListener('input', () => {
+        if (field.hasAttribute('aria-invalid')) show(field, problem(field));
+      });
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      showNote(null);
+
+      const invalid = checked.filter((field) => {
+        const message = problem(field);
+        show(field, message);
+        return message !== '';
+      });
+      if (invalid.length > 0) {
+        invalid[0]!.focus();
+        return;
+      }
+
+      const data = new FormData(form);
+      const value = (name: string) => String(data.get(name) ?? '').trim();
+
+      // Заполненная ловушка: робот. Письмо не шлём, ошибку не показываем.
+      if (value('website') !== '') {
+        form.reset();
+        showNote('success');
+        return;
+      }
+
+      button.disabled = true;
+      try {
+        const response = await fetch(form.dataset.endpoint!, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            service_id: form.dataset.service,
+            template_id: form.dataset.template,
+            user_id: form.dataset.key,
+            template_params: {
+              from_name: value('name'),
+              from_email: value('email'),
+              company: value('company') || '-',
+              subject: value('topic'),
+              message: value('message'),
+              page: location.href,
+            },
+          }),
+        });
+        if (!response.ok) throw new Error(`${response.status} ${await response.text()}`);
+        form.reset();
+        showNote('success');
+      } catch (error) {
+        // Введённый текст остаётся в полях: его можно скопировать и отправить иначе.
+        const reason = error instanceof Error ? error.message : String(error);
+        console.error('[форма] письмо не отправлено:', reason);
+        // При локальном просмотре (npm run dev) причина видна прямо в форме: так проще чинить настройки EmailJS.
+        notes.failure.textContent = import.meta.env.DEV ? `${failureText} Причина: ${reason}` : failureText;
+        showNote('failure');
+      } finally {
+        button.disabled = false;
+      }
+    });
+  }
+</script>

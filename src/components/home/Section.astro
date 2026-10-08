@@ -7,10 +7,9 @@ import { sections } from '../../lib/sections';
 interface Props {
   lang: Locale;
   id: string;
-  class?: string;
 }
 
-const { lang, id, class: extraClass } = Astro.props;
+const { lang, id } = Astro.props;
 const t = useTranslations(lang);
 
 const position = sections.findIndex((section) => section.id === id);
@@ -18,7 +17,7 @@ if (position === -1) throw new Error(`Секции «${id}» нет в src/lib/s
 const section = sections[position]!;
 ---
 
-<section class:list={['section', extraClass]} id={id}>
+<section class="section" id={id}>
   <div class="wrap">
     <header class="section-head">
       <span class="section-index" aria-hidden="true">{String(position + 1).padStart(2, '0')}</span>
