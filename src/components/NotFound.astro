@@ -1,0 +1,57 @@
+---
+// Страница 404 на языке страницы. Тексты лежат в словарях интерфейса.
+import { defaultLocale, locales, localePath, useTranslations, type Locale } from '../i18n';
+import Base from '../layouts/Base.astro';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Начало адреса у каждого языка: по нему скрипт ниже строит ссылки переключателя.
+const prefixes = Object.fromEntries(locales.map((locale) => [locale, localePath(locale)]));
+---
+
+<Base lang={lang} title={t('notFound.title')} noindex pagePath="">
+  <slot name="head" slot="head" />
+  <section class="hero not-found">
+    <div class="wrap">
+      <p class="label">404</p>
+      <h1><span class="hero-title">{t('notFound.heading')}</span></h1>
+      <p class="hero-lead">{t('notFound.text')}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href={localePath(lang)}>{t('notFound.home')}</a>
+      </div>
+    </div>
+  </section>
+
+  {/* Переключатель языков на 404 ведёт на тот же несуществующий адрес на другом языке:
+      человек остаётся на странице 404, меняется только язык. Без скриптов ссылки ведут на главные. */}
+  <script is:inline define:vars={{ prefixes, defaultLocale }}>
+    (function () {
+      var path = location.pathname;
+      var rest = path.slice(prefixes[defaultLocale].length);
+      for (var locale in prefixes) {
+        if (locale === defaultLocale) continue;
+        var prefix = prefixes[locale];
+        if (path === prefix.slice(0, -1)) rest = '';
+        else if (path.indexOf(prefix) === 0) rest = path.slice(prefix.length);
+      }
+      var links = document.querySelectorAll('.langs a[data-locale]');
+      for (var i = 0; i < links.length; i++) {
+        links[i].href = prefixes[links[i].dataset.locale] + rest + location.search;
+      }
+    })();
+  </script>
+</Base>
+
+<style>
+  .not-found {
+    min-height: 46vh;
+  }
+  .not-found .label {
+    margin-bottom: var(--space-4);
+  }
+</style>

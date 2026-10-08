@@ -1,0 +1,21 @@
+---
+// Секция страницы: якорь, порядковый номер и заголовок. Общая для главной и страницы спикера.
+interface Props {
+  id: string;
+  /** Порядковый номер секции на странице, с единицы. */
+  index: number;
+  title: string;
+}
+
+const { id, index, title } = Astro.props;
+---
+
+<section class="section" id={id}>
+  <div class="wrap">
+    <header class="section-head">
+      <span class="section-index" aria-hidden="true">{String(index).padStart(2, '0')}</span>
+      <h2>{title}</h2>
+    </header>
+    <slot />
+  </div>
+</section>

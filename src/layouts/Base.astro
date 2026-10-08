@@ -24,13 +24,17 @@ interface Props {
   description?: string;
   /** false: перевода страницы нет, показан русский текст со служебной плашкой. */
   translated?: boolean;
+  /** Страница не для поисковиков (404): без canonical и hreflang. */
+  noindex?: boolean;
+  /** Куда ведёт переключатель языков, если не на эту же страницу. Пустая строка: на главную. */
+  pagePath?: string;
 }
 
-const { lang, title, description, translated = true } = Astro.props;
+const { lang, title, description, translated = true, noindex = false } = Astro.props;
 const t = useTranslations(lang);
 
 // Та же страница на других языках: для переключателя и для hreflang.
-const pagePath = pathWithoutLocale(Astro.url.pathname);
+const pagePath = Astro.props.pagePath ?? pathWithoutLocale(Astro.url.pathname);
 const absolute = (locale: Locale) => new URL(localePath(locale, pagePath), Astro.site).href;
 ---
 
@@ -42,9 +46,19 @@ const absolute = (locale: Locale) => new URL(localePath(locale, pagePath), Astro
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
 
-    <link rel="canonical" href={absolute(lang)} />
-    {locales.map((locale) => <link rel="alternate" hreflang={htmlLang[locale]} href={absolute(locale)} />)}
-    <link rel="alternate" hreflang="x-default" href={absolute(defaultLocale)} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex" />
+      ) : (
+        <>
+          <link rel="canonical" href={absolute(lang)} />
+          {locales.map((locale) => (
+            <link rel="alternate" hreflang={htmlLang[locale]} href={absolute(locale)} />
+          ))}
+          <link rel="alternate" hreflang="x-default" href={absolute(defaultLocale)} />
+        </>
+      )
+    }
 
     <link rel="icon" href={publicPath('favicon.ico')} sizes="48x48" />
     <link rel="icon" href={publicPath('favicon.svg')} type="image/svg+xml" />
@@ -63,6 +77,7 @@ const absolute = (locale: Locale) => new URL(localePath(locale, pagePath), Astro
         document.documentElement.dataset.theme = saved === 'dark' || saved === 'light' ? saved : system;
       })();
     </script>
+    <slot name="head" />
   </head>
   <body>
     <a class="skip-link" href="#main">{t('skip')}</a>

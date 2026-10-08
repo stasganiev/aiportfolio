@@ -1,0 +1,20 @@
+---
+// Страница 404 на русском и сербском: /ru/404/ и /sr/404/.
+// Её содержимое подставляет корневая 404.astro, когда несуществующий адрес начинается с /ru/ или /sr/.
+import NotFound from '../../components/NotFound.astro';
+import { defaultLocale, locales, type Locale } from '../../i18n';
+
+export function getStaticPaths() {
+  return locales
+    .filter((lang) => lang !== defaultLocale)
+    .map((lang) => ({ params: { lang }, props: { lang } }));
+}
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+---
+
+<NotFound lang={lang} />

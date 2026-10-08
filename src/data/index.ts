@@ -200,6 +200,9 @@ export const facts = {
   articles: factsFile.public.articles.value,
   conferencesCorporate: factsFile.public.conferences_organized_corporate.value,
   conferencesOpen: factsFile.public.conferences_organized_open.value,
+  conferencesTotal:
+    factsFile.public.conferences_organized_corporate.value +
+    factsFile.public.conferences_organized_open.value,
   onestemplatesStars: onestemplates?.stars ?? factsFile.open_source.onestemplates_stars.value,
   onestemplatesForks: onestemplates?.forks ?? factsFile.open_source.onestemplates_forks.value,
   payrollEmployees: factsFile.projects.payroll_employees.value,

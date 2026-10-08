@@ -4,6 +4,9 @@
 Результат пишется в src/assets/photos/: одинаковые пропорции, общий тон,
 размер под вёрстку. Форматы AVIF и WebP делает сборка сайта.
 
+Фото для организаторов (страница спикера) пишутся в src/assets/speaker/:
+исходный кадр целиком, без обрезки и тонировки, без служебных данных камеры.
+
 Запуск из корня репозитория: python scripts/process_photos.py
 """
 
@@ -14,6 +17,7 @@ from PIL import Image, ImageEnhance
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "work" / "photos_original"
 OUT = ROOT / "src" / "assets" / "photos"
+KIT = ROOT / "src" / "assets" / "speaker"
 
 # имя результата: (исходник, рамка обрезки (left, top, right, bottom), итоговый размер)
 JOBS = {
@@ -23,6 +27,13 @@ JOBS = {
     "avacha.jpg": ("avacha-3.jpg", (0, 0, 1280, 853), (1200, 800)),
     "bachata.jpg": ("bachata-2014.jpg", (0, 40, 1280, 893), (1200, 800)),
     "photo-contest.jpg": ("photo-contest.jpg", (0, 0, 1280, 853), (1200, 800)),
+}
+
+# Фото для скачивания: имя файла, которое получит организатор, и исходник.
+DOWNLOADS = {
+    "stas-ganiev-portrait.jpg": "portrait-studio.jpg",
+    "stas-ganiev-portrait-cafe.jpg": "portrait-cafe.jpg",
+    "stas-ganiev-stage.jpg": "stage-belgrade-2026.jpg",
 }
 
 WARM = (245, 233, 208)  # тёплый оттенок бумаги
@@ -50,6 +61,13 @@ def main() -> None:
     placeholder = SRC / "placeholder.jpg"
     (OUT / "placeholder.jpg").write_bytes(placeholder.read_bytes())
     print("placeholder.jpg: скопирован")
+
+    # Пересохранение убирает из файла данные камеры (EXIF).
+    KIT.mkdir(parents=True, exist_ok=True)
+    for name, source in DOWNLOADS.items():
+        image = Image.open(SRC / source).convert("RGB")
+        image.save(KIT / name, quality=95, optimize=True, progressive=True)
+        print(f"speaker/{name}: {image.width}x{image.height}")
 
 
 if __name__ == "__main__":

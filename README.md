@@ -42,12 +42,12 @@ public/               favicons and the web manifest, copied to the site as is
 scripts/              helper scripts (photo processing)
 src/
   assets/             brand mark and photos
-  components/         Header, Footer, home page sections in home/
+  components/         Header, Footer, shared blocks, home page sections in home/
   data/               site content in YAML, index.ts loads and checks it
   i18n/               interface dictionaries and language helpers
   layouts/            Base.astro: <head>, header, footer
   lib/                shared code: section list, YAML loader, text helpers
-  pages/[...lang]/    pages, one file serves all three languages
+  pages/              home and speaker pages (one file serves all three languages), 404
   styles/             fonts.css, tokens.css, base.css, components.css
   texts/              section texts by language, index.ts loads and checks them
 ```

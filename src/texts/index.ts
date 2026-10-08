@@ -10,6 +10,7 @@ import { fill } from '../lib/format';
 import { loadYaml } from '../lib/yaml';
 
 import homeRuRaw from './home.ru.yaml?raw';
+import speakerRuRaw from './speaker.ru.yaml?raw';
 
 const text = z.string().min(1);
 
@@ -105,6 +106,33 @@ const homeSchema = z.strictObject({
 });
 export type HomeTexts = z.infer<typeof homeSchema>;
 
+const speakerSchema = z.strictObject({
+  meta: z.strictObject({ title: text, description: text }),
+  head: z.strictObject({ title: text, lead: text, invite: text, video: text }),
+  bio: z.strictObject({
+    title: text,
+    copy: text,
+    copied: text,
+    variants: z.array(z.strictObject({ label: text, text: z.array(text).min(1) })).min(1),
+  }),
+  topics: z.strictObject({
+    title: text,
+    items: z.array(z.strictObject({ title: text, text })).min(1),
+    format: text,
+  }),
+  photos: z.strictObject({
+    title: text,
+    download: text,
+    items: z.strictObject({
+      portrait: z.strictObject({ caption: text, alt: text }),
+      cafe: z.strictObject({ caption: text, alt: text }),
+      stage: z.strictObject({ caption: text, alt: text }),
+    }),
+  }),
+  talks: z.strictObject({ title: text }),
+});
+export type SpeakerTexts = z.infer<typeof speakerSchema>;
+
 /** Значения для подстановки в тексты: цифры из facts.yaml и дата первого отчёта словами. */
 function textValues(locale: Locale): Record<string, string | number> {
   const dayMonth = new Intl.DateTimeFormat(htmlLang[locale], {
@@ -136,14 +164,17 @@ function fillAll<T>(value: T, locale: Locale, file: string): T {
   return value;
 }
 
-function loadHome(locale: Locale, raw: string): HomeTexts {
-  const file = `src/texts/home.${locale}.yaml`;
-  return fillAll(loadYaml(file, raw, homeSchema), locale, file);
+function loadTexts<T extends z.ZodType>(page: string, locale: Locale, raw: string, schema: T): z.infer<T> {
+  const file = `src/texts/${page}.${locale}.yaml`;
+  return fillAll(loadYaml(file, raw, schema), locale, file);
 }
 
 const masterLocale = 'ru' satisfies Locale;
 const home: Partial<Record<Locale, HomeTexts>> & { ru: HomeTexts } = {
-  ru: loadHome('ru', homeRuRaw),
+  ru: loadTexts('home', 'ru', homeRuRaw, homeSchema),
+};
+const speaker: Partial<Record<Locale, SpeakerTexts>> & { ru: SpeakerTexts } = {
+  ru: loadTexts('speaker', 'ru', speakerRuRaw, speakerSchema),
 };
 
 interface PageTexts<T> {
@@ -154,9 +185,13 @@ interface PageTexts<T> {
   translated: boolean;
 }
 
-export function homeTexts(locale: Locale): PageTexts<HomeTexts> {
-  const own = home[locale];
+/** Текст на языке страницы. Если перевода нет, возвращается русский с пометкой. */
+function pick<T>(pages: Partial<Record<Locale, T>> & { ru: T }, locale: Locale): PageTexts<T> {
+  const own = pages[locale];
   return own
     ? { texts: own, locale, translated: true }
-    : { texts: home[masterLocale], locale: masterLocale, translated: false };
+    : { texts: pages[masterLocale], locale: masterLocale, translated: false };
 }
+
+export const homeTexts = (locale: Locale) => pick(home, locale);
+export const speakerTexts = (locale: Locale) => pick(speaker, locale);

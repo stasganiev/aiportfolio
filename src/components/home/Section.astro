@@ -1,8 +1,8 @@
 ---
-// Обёртка секции главной: якорь, порядковый номер и заголовок.
-// Номер берётся из порядка секций в src/lib/sections.ts, заголовок из словаря.
+// Секция главной. Номер берётся из порядка секций в src/lib/sections.ts, заголовок из словаря.
 import { useTranslations, type Locale } from '../../i18n';
 import { sections } from '../../lib/sections';
+import SectionBlock from '../SectionBlock.astro';
 
 interface Props {
   lang: Locale;
@@ -17,12 +17,6 @@ if (position === -1) throw new Error(`Секции «${id}» нет в src/lib/s
 const section = sections[position]!;
 ---
 
-<section class="section" id={id}>
-  <div class="wrap">
-    <header class="section-head">
-      <span class="section-index" aria-hidden="true">{String(position + 1).padStart(2, '0')}</span>
-      <h2>{t(section.title)}</h2>
-    </header>
-    <slot />
-  </div>
-</section>
+<SectionBlock id={id} index={position + 1} title={t(section.title)}>
+  <slot />
+</SectionBlock>

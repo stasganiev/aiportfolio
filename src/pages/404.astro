@@ -1,0 +1,43 @@
+---
+// Страница 404. Хостинг отдаёт один файл 404.html на любой несуществующий адрес,
+// поэтому язык определяется по началу адреса: /ru/... показывает русскую страницу,
+// /sr/... сербскую, остальное английскую. Адрес в строке браузера не меняется.
+import NotFound from '../components/NotFound.astro';
+import { defaultLocale, locales, localePath } from '../i18n';
+
+// Адреса готовых страниц 404 на остальных языках.
+const localized = Object.fromEntries(
+  locales
+    .filter((locale) => locale !== defaultLocale)
+    .map((locale) => [locale, { prefix: localePath(locale), page: localePath(locale, '404/') }]),
+);
+---
+
+<NotFound lang={defaultLocale}>
+  <script is:inline slot="head" define:vars={{ localized }}>
+    (function () {
+      for (var locale in localized) {
+        var target = localized[locale];
+        var inLocale = location.pathname === target.prefix.slice(0, -1) || location.pathname.indexOf(target.prefix) === 0;
+        if (!inLocale || location.pathname === target.page) continue;
+
+        // Пока грузится страница нужного языка, английская не показывается.
+        document.documentElement.style.visibility = 'hidden';
+        fetch(target.page)
+          .then(function (response) {
+            if (!response.ok) throw new Error(String(response.status));
+            return response.text();
+          })
+          .then(function (html) {
+            document.open();
+            document.write(html);
+            document.close();
+          })
+          .catch(function () {
+            document.documentElement.style.visibility = '';
+          });
+        return;
+      }
+    })();
+  </script>
+</NotFound>

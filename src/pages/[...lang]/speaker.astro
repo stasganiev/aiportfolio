@@ -1,0 +1,176 @@
+---
+// Страница спикера на трёх языках: /speaker/, /ru/speaker/, /sr/speaker/.
+// Кит для организатора: био в трёх длинах, темы, фото для анонса, все выступления.
+import { Picture } from 'astro:assets';
+
+import cafe from '../../assets/speaker/stas-ganiev-portrait-cafe.jpg';
+import portrait from '../../assets/speaker/stas-ganiev-portrait.jpg';
+import stage from '../../assets/speaker/stas-ganiev-stage.jpg';
+import Entry from '../../components/Entry.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+import { links } from '../../data';
+import { defaultLocale, locales, localePath, type Locale } from '../../i18n';
+import Base from '../../layouts/Base.astro';
+import { talkEntries } from '../../lib/talks';
+import { homeTexts, speakerTexts } from '../../texts';
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({
+    params: { lang: lang === defaultLocale ? undefined : lang },
+    props: { lang },
+  }));
+}
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const { texts, translated } = speakerTexts(lang);
+const home = localePath(lang);
+
+// Фото отдаются организатору исходным файлом. Имя файла при скачивании задаёт атрибут download.
+const photos = [
+  { ...texts.photos.items.portrait, image: portrait, file: 'stas-ganiev-portrait.jpg' },
+  { ...texts.photos.items.cafe, image: cafe, file: 'stas-ganiev-portrait-cafe.jpg' },
+  { ...texts.photos.items.stage, image: stage, file: 'stas-ganiev-stage.jpg' },
+];
+
+const talks = talkEntries(homeTexts(lang).texts.talks);
+---
+
+<Base lang={lang} title={texts.meta.title} description={texts.meta.description} translated={translated}>
+  <section class="hero">
+    <div class="wrap">
+      <h1><span class="hero-title">{texts.head.title}</span></h1>
+      <p class="hero-lead">{texts.head.lead}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href={`${home}#contact`}>{texts.head.invite}</a>
+        <a class="link-more" href={links.speaker_kit.intro_video}>
+          {texts.head.video} <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <SectionBlock id="bio" index={1} title={texts.bio.title}>
+    <div class="rows">
+      {
+        texts.bio.variants.map((variant, index) => (
+          <article class="row">
+            <div class="bio-head">
+              <h3>{variant.label}</h3>
+              <button
+                class="button button-ghost"
+                type="button"
+                data-copy={`bio-${index}`}
+                data-label-copied={texts.bio.copied}
+              >
+                {texts.bio.copy}
+              </button>
+            </div>
+            <div class="prose" id={`bio-${index}`}>
+              {variant.text.map((paragraph) => <p>{paragraph}</p>)}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    <p class="visually-hidden" role="status" data-copy-status></p>
+  </SectionBlock>
+
+  <SectionBlock id="topics" index={2} title={texts.topics.title}>
+    <div class="duo">
+      {
+        texts.topics.items.map((topic) => (
+          <article class="card">
+            <h3>{topic.title}</h3>
+            <p class="card-for">{topic.text}</p>
+          </article>
+        ))
+      }
+    </div>
+    <p class="section-note">{texts.topics.format}</p>
+  </SectionBlock>
+
+  <SectionBlock id="photos" index={3} title={texts.photos.title}>
+    <div class="kit-photos">
+      {
+        photos.map((photo) => (
+          <figure class="frame">
+            <Picture
+              src={photo.image}
+              formats={['avif', 'webp']}
+              widths={[320, 640]}
+              sizes="(max-width: 720px) calc(100vw - 44px), (max-width: 1100px) 30vw, 320px"
+              alt={photo.alt}
+              loading="lazy"
+            />
+            <figcaption>
+              <span>
+                {photo.caption} · JPG, {photo.image.width}×{photo.image.height}
+              </span>
+              <a class="button button-ghost" href={photo.image.src} download={photo.file}>
+                {texts.photos.download}
+                <span class="visually-hidden">: {photo.caption}</span>
+              </a>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </SectionBlock>
+
+  <SectionBlock id="talks" index={4} title={texts.talks.title}>
+    <ul class="entries entries-columns">
+      {talks.map((item) => <Entry title={item.title} meta={item.meta} links={item.links} />)}
+    </ul>
+    <div class="section-actions">
+      <a class="button button-primary" href={`${home}#contact`}>{texts.head.invite}</a>
+    </div>
+  </SectionBlock>
+</Base>
+
+<script>
+  // Кнопка «Скопировать» кладёт текст био в буфер обмена и на две секунды меняет подпись.
+  const status = document.querySelector<HTMLElement>('[data-copy-status]');
+
+  async function copyText(text: string): Promise<void> {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+    // Запасной путь для адресов без HTTPS.
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.append(area);
+    area.select();
+    document.execCommand('copy');
+    area.remove();
+  }
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
+    const label = button.textContent ?? '';
+    button.addEventListener('click', async () => {
+      const source = document.getElementById(button.dataset.copy ?? '');
+      if (!source) return;
+      // Абзацы разделяются пустой строкой, неразрывные пробелы становятся обычными.
+      const text = [...source.querySelectorAll('p')]
+        .map((paragraph) => (paragraph.textContent ?? '').replace(/ /g, ' ').trim())
+        .join('\n\n');
+      try {
+        await copyText(text);
+        button.textContent = button.dataset.labelCopied ?? label;
+        if (status) status.textContent = button.dataset.labelCopied ?? '';
+        setTimeout(() => {
+          button.textContent = label;
+          if (status) status.textContent = '';
+        }, 2000);
+      } catch {
+        // Буфер недоступен: текст остаётся на странице, его можно выделить вручную.
+      }
+    });
+  }
+</script>

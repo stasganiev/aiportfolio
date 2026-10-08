@@ -32,6 +32,7 @@ const home = localePath(lang);
               href={localePath(locale, pagePath)}
               lang={htmlLang[locale]}
               hreflang={htmlLang[locale]}
+              data-locale={locale}
               aria-current={locale === lang ? 'true' : undefined}
             >
               {localeLabel[locale]}

@@ -4,10 +4,10 @@
 import { Picture } from 'astro:assets';
 
 import stage from '../../assets/photos/stage.jpg';
-import { articles, talks } from '../../data';
+import Entry from '../Entry.astro';
 import { localePath, type Locale } from '../../i18n';
+import { articleEntries, talkEntries } from '../../lib/talks';
 import type { HomeTexts } from '../../texts';
-import Entry from './Entry.astro';
 import Section from './Section.astro';
 
 interface Props {
@@ -16,30 +16,9 @@ interface Props {
 }
 
 const { lang, texts } = Astro.props;
-const home = localePath(lang);
 
-const newestFirst = <T extends { date: string }>(items: T[]) =>
-  [...items].sort((a, b) => b.date.localeCompare(a.date));
-const year = (date: string) => date.slice(0, 4);
-
-const talkEntries = newestFirst(talks).map((talk) => ({
-  featured: talk.featured === true,
-  title: talk.title,
-  meta: [talk.venue, talk.place, year(talk.date)],
-  links: [
-    { label: texts.video, url: talk.video },
-    { label: texts.slides, url: talk.slides },
-    { label: texts.article, url: talk.article },
-  ].flatMap((link) => (link.url ? [{ label: link.label, url: link.url }] : [])),
-}));
-
-const articleEntries = newestFirst(articles).map((article) => ({
-  featured: article.featured === true,
-  title: article.title,
-  href: article.url,
-  meta: [article.publisher, year(article.date), article.award].filter((part) => part !== undefined),
-  links: article.url_part_2 ? [{ label: texts.part_2, url: article.url_part_2 }] : [],
-}));
+const talkList = talkEntries(texts);
+const articleList = articleEntries(texts);
 ---
 
 <Section lang={lang} id="talks">
@@ -50,7 +29,7 @@ const articleEntries = newestFirst(articles).map((article) => ({
     <div class="talks-col">
       <h3 class="subhead">{texts.featured_talks}</h3>
       <ul class="entries">
-        {talkEntries.filter((item) => item.featured).map((item) => <Entry {...item} />)}
+        {talkList.filter((item) => item.featured).map((item) => <Entry title={item.title} meta={item.meta} links={item.links} />)}
       </ul>
       <details class="more">
         <summary class="button button-ghost">
@@ -58,13 +37,13 @@ const articleEntries = newestFirst(articles).map((article) => ({
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
         </summary>
         <ul class="entries">
-          {talkEntries.filter((item) => !item.featured).map((item) => <Entry {...item} />)}
+          {talkList.filter((item) => !item.featured).map((item) => <Entry title={item.title} meta={item.meta} links={item.links} />)}
         </ul>
       </details>
 
       <h3 class="subhead">{texts.featured_articles}</h3>
       <ul class="entries">
-        {articleEntries.filter((item) => item.featured).map((item) => <Entry {...item} />)}
+        {articleList.filter((item) => item.featured).map((item) => <Entry title={item.title} href={item.href} meta={item.meta} links={item.links} />)}
       </ul>
       <details class="more">
         <summary class="button button-ghost">
@@ -72,7 +51,7 @@ const articleEntries = newestFirst(articles).map((article) => ({
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
         </summary>
         <ul class="entries">
-          {articleEntries.filter((item) => !item.featured).map((item) => <Entry {...item} />)}
+          {articleList.filter((item) => !item.featured).map((item) => <Entry title={item.title} href={item.href} meta={item.meta} links={item.links} />)}
         </ul>
       </details>
     </div>
@@ -89,8 +68,7 @@ const articleEntries = newestFirst(articles).map((article) => ({
         />
         <figcaption>{texts.photo_caption}</figcaption>
       </figure>
-      {/* До этапа 6 страницы спикера нет, кнопка ведёт к контактам. */}
-      <a class="button button-ghost" href={`${home}#contact`}>{texts.invite}</a>
+      <a class="button button-ghost" href={localePath(lang, 'speaker/')}>{texts.invite}</a>
     </div>
   </div>
 </Section>
